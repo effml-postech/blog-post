@@ -163,12 +163,17 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 </details> 
 
 ### Training
-The final loss function used in MoLE is as follows:
+The training loss function used in MoLE is as follows:
 <p align="left">
     <img src=./training5.png width="200">
 </p>
+
+{{< katex display=true >}}
+$$L = L_D + \alpha L_{balance}$$
+{{< /katex >}}
+
+
 Alpha is a coefficient for weight balancing. 
-<br/>
 
 **Gating Balacing Loss**
 <p align="center">
