@@ -242,29 +242,27 @@ It demonstrates better performance compared to other models and shows outstandin
         
 When viewing the generated images, it is evident that all specified subjects are accurately represented and maintained.
         
-**On NLP Domain**
-<br/>
-- Setup)
-  <br/>
-  Base Model: Flan-T5 (Chung et al., 2022)
-  <br/>
-  LoRA: Several LoRAs based on FLAN datasets
-  <br/>
-  learning rate: 1e-5
-  <br/>
-  Train 800 iterations for each required composition with batch size 12 and α as 0.5.
-  <br/>
-- Compared Baselines)
-  <br/>
-  -  LoRAhub
-  -  PEMs
-- Results)
+### On NLP Domain
+
+**Setup**
+* Base Model: Flan-T5 (Chung et al., 2022)
+* LoRA: Several LoRAs based on FLAN datasets
+* learning rate: 1e-5
+* Train 800 iterations for each required composition with batch size 12 and α as 0.5.
+  
+**Compared Baselines**
+* LoRAhub
+* PEMs
+
+**Results**
+
 <p align="center">
     <img src=./result7.png align="center" width="48%">
     <img src=./result8.png align="center" width="48%">
     <figcaption align="center">
 </p>
-  It can be observed that MoLE demonstrates better performance in most tasks.
+        
+It can be observed that MoLE demonstrates better performance in most tasks.
   
 ## Analyisis 
 
