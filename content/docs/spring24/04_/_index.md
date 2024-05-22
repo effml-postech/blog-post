@@ -87,6 +87,10 @@ Multi-token prediction assigns weights to training tokens based on their correla
 
 Next token prediction loss involves $H(X) = H(X | Y) + I(X; Y)$, while multi-token prediction loss involves $H(X) + H(Y) = H(X | Y) + 2I(X; Y) + H(Y | X)$. This indicates that multi-token prediction places twice the emphasis on the mutual information term compared to next token prediction. Essentially, 2-token prediction encourages models to precompute features useful for predicting the next token \( Y \), thereby increasing the importance of the mutual information term in the loss calculation.
 
+### Compare with similar works
+- 
+- Stern et al. (2018) and Cai et al. (2024) propose model finetunings with multi-token prediction for faster inference but do not study the effects of such a loss during pretraining.
+
 # Conclusion
 
 # Discussion
