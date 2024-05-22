@@ -187,8 +187,8 @@ Both tasks utilize data scales ranging from {{< katex >}}10^3{{< /katex >}} (bGP
 #### Results and Analysis
 
 <p float="center">
-  <img src="dataconversion.JPG" alt="Image 1" width="250" />
-  <img src="cpumodeling.JPG" alt="Image 2" width="250" /> 
+  <img src="dataconversion.JPG" alt="Image 1" width="300" />
+  <img src="cpumodeling.JPG" alt="Image 2" width="300" /> 
 </p>
 
 - **Data Conversion Performance**: bGPT performed the conversion between MIDI and ABC notation with high accuracy. Notably, it also showed high accuracy in converting MIDI back to ABC notation, indicating that bGPT successfully learned the inherent structures and patterns of the data.
