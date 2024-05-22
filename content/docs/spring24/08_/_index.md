@@ -124,7 +124,7 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 ### Method
 
 <p align="center">
-    <img src=./Method1.png align="center" width="80%">
+    <img src=./Untitled.png align="center" width="80%">
     <br>
     <em>Illustration of proposed MOLE. MOLE employs a learnable gating function that utilizes the outputs of multiple LoRAs at each layer to determine composition weights.</em>
 </p>
@@ -170,7 +170,7 @@ Alpha is a coefficient for weight balancing.
 
 **Gating Balacing Loss**
 <p align="center">
-    <img src=./training1.png width="80%">
+    <img src=./Untitled1.png width="80%">
 </p>
 As shown in Figure 5 (a), the average entropy of the distribution probabilities from the gating functions gradually decreases as training progresses. In Figure 5 (b), we can see a gating probability of 64% for LoRA β among the three LoRAs, indicating that the gating function tends to converge to a state where it assigns large weights to well-performing LoRAs in the early stages. This can result in a significantly larger impact from a few specific LoRAs compared to others, potentially leading to biased outcomes. <br/>
 <br/>
