@@ -34,7 +34,7 @@ Speculative decoding is an approach to accelerate LLM inference.
 **Verifier or target model**: Original LLM.
 
 <p align="center">
-    <img src='./speculative decoding.png' width="700">
+    <img src='./speculative decoding.png' width="650">
 </p>
 <p align="center">
     Fig. 1. Contrast between autoregressive decoding and speculative decoding.
