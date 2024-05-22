@@ -29,13 +29,13 @@ Let's dive in!
 These days, most language models are based on Transformers, and we stack these blocks to make big models. When given an input sequence, tokens pass through these blocks to predict the next token. The problem is that the models spread computations uniformly across input sequences. Transformers use the same amount of computation for essential tokens as for non-essential ones. For instance, predicting a token within a sentence is cheaper than predicting the first token of the next sentence. Researchers want to address this issue by making Transformers focus on important tokens by allocating unimportant tokens with fewer computing resources.
 
 ## **Conditional computation for Transformers**
-- Early exiting
+- **Early exiting**
   <p align="center">
     <img src=./Early_Exiting.png> 
   </p>
   Instead of passing through all layers, the model can stop early if it is confident enough about its prediction. This saves computation time and resources. Large pre-trained models like BERT can use early exiting to maintain performance while reducing computing resources.
   
-- CoLT5
+- **CoLT5**
   <p align="center">
     <img src=./colt1.png width = "50%" height = "50%">
   </p>
@@ -44,7 +44,7 @@ These days, most language models are based on Transformers, and we stack these b
     <img src=./colt2.png width = "40%" height = "40%">
   </p>
   The figure above is the attention map in CoLT5. Light-colored ones indicate light attention(local attention) and bold ones indicate heavy attention. The model chooses 1/16 of query tokens and 1/8 of key tokens for heavy attention calculation.
-- Mixture of Experts (MoE)
+- **Mixture of Experts (MoE)**
   <p align="center">
     <img src=./moe1.png>
   </p>
