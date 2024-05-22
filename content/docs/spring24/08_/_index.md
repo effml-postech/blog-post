@@ -166,11 +166,6 @@ The training loss function used in MoLE is as follows:
     <img src=./training5.png>
 </p>
 
-{{< katex display=true >}}
-$$\mathcal{L} = \mathcal{L}_{D} + \alpha \mathcal{L}_{balance}$$
-{{< /katex >}}
-
-
 Alpha is a coefficient for weight balancing. 
 
 **Gating Balacing Loss**
