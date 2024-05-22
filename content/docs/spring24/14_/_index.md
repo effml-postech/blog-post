@@ -19,7 +19,7 @@ weight: 1
 </p>
 Diffusion models learn how to remove gaussian noise added to original image. 
 Equation below shows how forward process proceeds. During the forward process, Gaussian noise is gradually added to original image for {{< katex >}}T{{< /katex >}} times. Strength of the noise is controlled by the term {{< katex >}}\beta{{< /katex >}}. {{< katex >}}x_t{{< /katex >}} denotes corrupted image at time step {{< katex >}}t{{< /katex >}}.  
-In the reverse process, diffusion model tries to restore original image by estimating conditional distribution {{< katex >}}q(x_{t} | x_{t-1}){{< /katex >}} with {{< katex >}}p_\theta(x_{t-1} | x_{t}){{< /katex >}}. Reparameterization trick is used to estimate mean and variance of gaussian the distribution  
+In the reverse process, diffusion model tries to restore original image by estimating conditional distribution {{< katex >}}q(x_{t} | x_{t-1}){{< /katex >}} with {{< katex >}}p_\theta(x_{t-1} | x_{t}){{< /katex >}}.
 <p align="center">
   {{< katex >}}
     q(x_{t} | x_{t-1}) = \mathcal{N}(x_t;\sqrt{1-\beta_t}x_{t-1}, \beta_{t}I) \\p_\theta(x_{t-1} | x_{t}) = \mathcal{N}(x_{t-1}; \tilde{\mu}_\theta(x_t, t) , \tilde{\beta}_{t}I )
@@ -35,7 +35,7 @@ In the reverse process, diffusion model tries to restore original image by estim
 </p>
 Quantization is an optimization technique which restricts data(weights, activations) in low precision. Not only does it reduce the memory footprint, but it also enables accelerated computations given hardware support to low-precision arithmetic.  
 
-Values are represented as follows when linear symmetric quantization is applied:
+The quantized values are represented as follows when linear symmetric quantization is applied:
 <p align="center">
   {{< katex >}}
     q(x) = clamp(\lfloor \frac{x}{\Delta},-2^{b-1}, 2^{b-1}-1) \rceil,\ \ \Delta = \frac{\alpha}{2^{b-1}-1} 
@@ -45,11 +45,11 @@ x is value to be quantized and {{< katex >}}\alpha{{< /katex >}} denotes truncta
 Binarization is extreme case of quantization, which only utilizes 1 bit ({{< katex >}}b = 1{{< /katex >}}).
 
 ## **Motivation** 
-While diffusion models achieved great success in generation tasks, its iterative nature act as a bottleneck to real-world application. Data must processed through heavy diffusion models for multiple steps and requires huge latency and memory footprint.
+While diffusion models achieved great success in generation tasks, its iterative nature act and huge compuation costs act as a bottleneck to real-world application.
 
 Quantization is one reasonable choice for the optimization of diffusion models. Especially when binarization is applied to weight, floating point operations can be substituted with cheap addition and memory footprint of the model can be reduced greatly. 
 
-However binary models are hard to binarize in two aspects. One arises from perspective of representation, as binarization is extreme case of quantization which only uses 1bit to represent data. Naive binarization introduces severe degredation in quality of output. Another aspect arises from perspective of optimization. Training becomes unstable with binarized representation and hinders convergence of the model.
+However, models are hard to binarize in two aspects. One arises from perspective of representation, as binarization is extreme case of quantization which only uses 1bit to represent data. Naive binarization introduces severe degredation in quality of output. Another aspect arises from perspective of optimization. Training becomes unstable with binarized representation and hinders convergence of the model.
 
 This work tackles binarization of diffusion models by handling aformentioned two aspects. By introducing *Learnable Multi-basis Binarizer(LMB)* and *Low-rank representation mimicking(LRM)*, BinaryDM is able to achieve **16.0× and 27.1× reductions on FLOPs and size**.  
 
@@ -81,7 +81,6 @@ Gradient of learnable scalar values can be computed as follows:
 </p>  
 
 During the inference, computation for each bases are indepedent to each other and can be parallely computed. Thus, diffusion model can be fully accelerated with LMB.  
-
 
 It is important to note that LMB is applied at only crucial parts of difusion model. Only modules where features cale is greater than or equal to {{< katex >}}\frac{1} {2}{{< /katex >}} input scale. In other words, some of the first consecutive layers and last consecutive layers are binarized with LMB. The binarized modules close to input or output play important role, as they extract patterns from original data or directly influence the final result.  Figure below shows result of naive binarization and LMB applied to weights.  
 <p align="center">
