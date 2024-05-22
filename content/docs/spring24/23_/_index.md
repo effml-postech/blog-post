@@ -177,6 +177,13 @@ bGPT's performance was evaluated in the following two key areas:
 - **Data Conversion**: This experiment evaluates whether bGPT can learn the process of converting ABC music notation into MIDI format. The task tests how bGPT models complex algorithms and their ability to convert actual music files.
 - **CPU State Modeling**: CPU state modeling assesses how bGPT predicts and updates the state of a CPU based on a given set of machine instructions. This is particularly useful for understanding and predicting hardware operations. -->
 
+#### Experimental Setup
+
+- **Data Conversion**: Convering between ABC notation and MIDI format
+- **CPU State Modeling**: Predicting the state of CPUs after executing a sequence of machine instructions
+
+Both tasks utilize data scales ranging from {{< katex >}}10^3{{< /katex >}} (bGPT3), {{< katex >}}10^4{{< /katex >}} (bGPT4), {{< katex >}}10^5{{< /katex >}} (bGPT5), to {{< katex >}}10^6{{< /katex >}} (bGPT6).
+
 #### Results and Analysis
 
 <p float="center">
@@ -187,7 +194,7 @@ bGPT's performance was evaluated in the following two key areas:
 - **Data Conversion Performance**: bGPT performed the conversion between MIDI and ABC notation with high accuracy. Notably, it also showed high accuracy in converting MIDI back to ABC notation, indicating that bGPT successfully learned the inherent structures and patterns of the data.
 - **CPU State Modeling Performance**: bGPT accurately predicted the resulting state of CPUs from an initial state across a variety of CPU instructions. It achieved over 99% accuracy even with complex instruction sequences, demonstrating bGPT's detailed understanding of the internal workings of hardware.
 
-***
+For both tasks, bGPT's performance is significantly influenced by data volume. As the data scale increases, bGPT's performance improves, indicating its scalability and ability to model complex algorithms and hardware operations.
 
 ## Conclusion and Future Work
 
