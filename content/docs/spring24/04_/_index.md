@@ -50,7 +50,7 @@ For speed up in inference time, authors utilize self-speculative decoding (Stern
 
 ### Learning global patterns with multi-byte prediction
 
-To show using multi-token prediction loss helps to capture global pattern than using next-token prediction loss, they include experiment using extreme case of byte-levle tokenization. Notably, as shown in the table 1, multi-token prediction (8-byte prediction) models significantly solve more problem in the case of trained on small number of data.
+To show using multi-token prediction loss helps to capture global pattern than using next-token prediction loss, they include experiment using extreme case of byte-level tokenization. Notably, as shown in the table 1, multi-token prediction (8-byte prediction) models significantly solve more problem in the case of trained on small number of data.
 
 <p align="center">
     <img src='./global_pattern_table.png' width="800">
@@ -92,10 +92,11 @@ Next token prediction loss involves $H(X) = H(X | Y) + I(X; Y)$, while multi-tok
 - Stern et al. (2018) and Cai et al. (2024) propose model finetunings with multi-token prediction for faster inference but do not study the effects of such a loss during pretraining.
 
 # Conclusion
-Author propose to use the multi-token prediction loss rather than a next token prediction loss for pretraining language model. Such pretraining scheme demonstrate helpful for various task, notable in code task. 
+Author propose using multi-token prediction loss instead of next-token prediction loss for pretraining language models. This pretraining scheme has shown improvements across various tasks, notably in code tasks.
 
 # Discussion
-- I would like to see more global capturing ability on other experiment setting 
+- For each task and dataset, the optimal number of heads \( n \) varies. I would like to see more correlations between dataset characteristics and the optimal \( n \).
+- I would like to see more evidence of the global capturing ability of multi-token prediction loss in other experimental settings.
 - Authors demonstrates cases including \( (n=4, n'=1) \), \( (n=4, n'=1) \), and \( (n=1, n'=1) \) on the code task. However, I would like to see the \( n=1, n'=4 \) setting result on the code task. Conducting this experiment would help determine if the \( n=4 \) case still outperforms the \( n=1, n'=4 \) setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
 
 # Reference
