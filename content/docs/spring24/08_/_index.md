@@ -184,7 +184,7 @@ As shown in Figure 5 (a), the average entropy of the distribution probabilities 
 To avoid this, the author created a gating balancing loss.<br/>
 The gating balancing loss helps prevent bias by ensuring that the loss value decreases as the model becomes less biased. <br/>
 <br/>
-<p align="left">
+<p align="centor">
     <img src=./training2.png width="200">
 </p>
 <details>
@@ -197,12 +197,12 @@ The gating balancing loss helps prevent bias by ensuring that the loss value dec
 **Domain-specific Loss**
 <br/>
 In V&L, Using a loss in CLIP(Radford et al,20221b) <br/>
-<p align="left">
+<p align="centor">
     <img src=./training3.png width="300">
 </p>
 
 In NLP, Using a loss in FLAN-T5(Chung et al,2022)
-<p align="left">
+<p align="centor">
     <img src=./training4.png width="200">
 </p>
 
@@ -282,7 +282,6 @@ In NLP, Using a loss in FLAN-T5(Chung et al,2022)
 Gating balancing loss function mitigates the reduction in entropy rates within gating functions, and enhance the performance.
 
 <p align="center">
-    <img src=./anal1.png> 
     <img src=./anal1-2.png> 
     <br>
     <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
