@@ -27,13 +27,14 @@ K = XW_K, V = XW_V \ \text{and} \ Q = XW_Q,
   {{< /katex >}} 
 </p>
 
-where $W_K ∈ \mathbb R^{d_{model} ×d_{key }}$, $W_V ∈ \mathbb R^{d_{model} ×d_{value}}$ and $W_Q ∈ \mathbb R^{d_{model} ×d_{key}}$ are trainable projection matrices. Then, we can get the attention state as
+where {{< katex >}}W_K ∈ \mathbb R^{d_{model} ×d_{key }}{{< /katex >}}, {{< katex >}}W_V ∈ \mathbb R^{d_{model} ×d_{value}}{{< /katex >}} and {{< katex >}}W_Q ∈ \mathbb R^{d_{model} ×d_{key}}{{< /katex >}} are trainable projection matrices. Then, we can get the attention state as
 
-$$
+<p align="center">
+    {{< katex >}}
 A_{dot} = \text{softmax} \Bigl(  \dfrac {QK^\top}  {\sqrt {d_{model}}}  \Bigr) V.
-$$
-
-We could calculate the MHA By parallely computing $H$ number of attention states over an input sequence and then concatenating them.
+  {{< /katex >}} 
+</p>
+We could calculate the MHA By parallely computing {{< katex >}}H{{< /katex >}} number of attention states over an input sequence and then concatenating them.
 
 ## Infini-attention
 
@@ -41,10 +42,10 @@ We could calculate the MHA By parallely computing $H$ number of attention states
     <img src=./Untitled.png>
 </p>
 <p align="left" style="color:gray">
-Figure 1: Infini-attention has an additional compressive memory with linear attention for processing infinitely long contexts. $\{KV\}_{s−1}$ and $\{KV\}_s$ are attention key and values for current and previous input segments, respectively and $Q_s$ the attention queries. PE denotes position embeddings. 
+Figure 1: Infini-attention has an additional compressive memory with linear attention for processing infinitely long contexts. {{< katex >}}\{KV\}_{s−1}{{< /katex >}} and {{< katex >}}\{KV\}_s{{< /katex >}} are attention key and values for current and previous input segments, respectively and {{< katex >}}Q_s{{< /katex >}} the attention queries. PE denotes position embeddings. 
 </p>
 
-As shown Figure 1, Infini-attention computes both **local** and **global context** states and **combine them** for its output. Similar to multi-head attention (MHA), it maintains $H$ number of parallel compressive memory per attention layer ($H$ is the number of attention heads) in addition to the dot-product attention.
+As shown Figure 1, Infini-attention computes both **local** and **global context** states and **combine them** for its output. Similar to multi-head attention (MHA), it maintains {{< katex >}}H{{< /katex >}} number of parallel compressive memory per attention layer ({{< katex >}}H{{< /katex >}} is the number of attention heads) in addition to the dot-product attention.
 
 ## Compressive Memory
 
@@ -52,47 +53,58 @@ The researchers suggest three implementation to properly maintain the compressiv
 
 ### Memory Retrieval
 
-To **fetch** information **from the memory**, **Infini-attetnion** simply **reuse the query** **($Q$)** **in current state** and **combine with the memory**. Specifically, the attention state from the memory $M_{s−1} ∈ \mathbb R^{d_{key} ×d_{value }}$, $A_{mem} ∈ \mathbb R^{N×d_{value}}$, is computed as follows with query $Q ∈ \mathbb R^{N×d_{key}}$:
+To **fetch** information **from the memory**, **Infini-attetnion** simply **reuse the query** **({{< katex >}}Q{{< /katex >}})** **in current state** and **combine with the memory**. Specifically, the attention state from the memory {{< katex >}}M_{s−1} ∈ \mathbb R^{d_{key} ×d_{value }}{{< /katex >}}, {{< katex >}}A_{mem} ∈ \mathbb R^{N×d_{value}}{{< /katex >}}, is computed as follows with query {{< katex >}}Q ∈ \mathbb R^{N×d_{key}}{{< /katex >}}:
 
-$$
+<p align="center">
+  {{< katex >}}
 A_{mem} = \dfrac {σ(Q)M_{s−1}}{σ(Q)z_{s−1}}.
-$$
+  {{< /katex >}} 
+</p>
 
-$\sigma$ is a nonlinear activation function, and $z_{s−1} ∈ \mathbb R^{d_{key}}$ is a normalization term. The researchers use element-wise ELU+1 and sum over all keys for each described before.
+{{< katex >}}\sigma{{< /katex >}} is a nonlinear activation function, and {{< katex >}}z_{s−1} ∈ \mathbb R^{d_{key}}{{< /katex >}} is a normalization term. The researchers use element-wise ELU+1 and sum over all keys for each described before.
 
 ### Memory Update
 
 After the retrieval of the memory, we should **update the memory** and **normalization part** with **the current key** and **value** as follows: 
 
-$$
+<p align="center">
+  {{< katex >}}
 M_s ← M_{s−1} + σ(K)^\top V \ \text{and} \ z_s ← z_{s−1}  + \sum^N_{t=1}σ(K_t). 
-$$
+  {{< /katex >}} 
+</p>
 
-After the update, the **next input segment $S+1$** uses the **updated memory** $M_s$ and **normalization term** $z_s$ recursively. Also, $σ(K)^\top V$ is refered to associative binding operator [3].
+After the update, the **next input segment {{< katex >}}S+1{{< /katex >}}** uses the **updated memory** {{< katex >}}M_s{{< /katex >}} and **normalization term** {{< katex >}}z_s{{< /katex >}} recursively. Also, {{< katex >}}σ(K)^\top V{{< /katex >}} is refered to associative binding operator [3].
 
-Also, the authors combines the delta rule [2] into Infini-attention. The delta rule takes the difference between the value of new segment ($V$) and the stored value in memory as the associative binding terms instead of simply using $V$ (which is similar as the *advantage function* in reinforcement learning).
+Also, the authors combines the delta rule [2] into Infini-attention. The delta rule takes the difference between the value of new segment ({{< katex >}}V{{< /katex >}}) and the stored value in memory as the associative binding terms instead of simply using {{< katex >}}V{{< /katex >}} (which is similar as the *advantage function* in reinforcement learning).
 
-$$
+<p align="center">
+  {{< katex >}}
 M_s ← M_{s−1} + σ(K)^\top (V − \dfrac {σ(K)M_{s−1}} {σ(K)z_{s−1}}). 
-$$
+  {{< /katex >}} 
+</p>
 
-The authors call this method as $Linear+Delta$ and the former method as $Linear$.
+
+The authors call this method as {{< katex >}}Linear+Delta{{< /katex >}} and the former method as {{< katex >}}Linear{{< /katex >}}.
 
 ### Long-term Context Injection
 
-It is important to have **a balance** in **the local attention $A_{dot}$** and **the global context** $A_{mem}$. The researchers add a scalar $\beta$ which is the gating component of the weighted sum over the above attention states:
+It is important to have **a balance** in **the local attention {{< katex >}}A_{dot}{{< /katex >}}** and **the global context** {{< katex >}}A_{mem}{{< /katex >}}. The researchers add a scalar {{< katex >}}\beta{{< /katex >}} which is the gating component of the weighted sum over the above attention states:
 
-$$
+<p align="center">
+  {{< katex >}}
 A = sigmoid(β) ⊙ A_{mem} + (1 − sigmoid(β)) ⊙ A_{dot}. 
-$$
+  {{< /katex >}} 
+</p>
 
-Finally, to get the MHA output of an attention layer $O ∈ \mathbb R^{N×d_{model }}$, we concatenate the $H$ parallel attention state and then project them to the output dimension:
+Finally, to get the MHA output of an attention layer {{< katex >}}O ∈ \mathbb R^{N×d_{model }}{{< /katex >}}, we concatenate the {{< katex >}}H{{< /katex >}} parallel attention state and then project them to the output dimension:
 
-$$
+<p align="center">
+  {{< katex >}}
 O = [A^1; . . . A^H ]W_O
-$$
+  {{< /katex >}} 
+</p>
 
-where $W_O ∈ \mathbb R^{H×d_{value} ×d_{model}}$ is the projection weights.
+where {{< katex >}}W_O ∈ \mathbb R^{H×d_{value} ×d_{model}}{{< /katex >}} is the projection weights.
 
 ## Comparsion with Other Transformers with Context Memory
 
@@ -101,12 +113,12 @@ where $W_O ∈ \mathbb R^{H×d_{value} ×d_{model}}$ is the projection weights.
 </p>
 
 <p align="left" style="color:gray">
-Table 1: Transformer models with segment-level memory are compared. For each model, the memory size and effective context length are defined in terms of their model parameters ($N$: input segment length, $S$: the number of segments, $l$: the number of layers, $H$: the number of attention heads, $c$: Compressive Transformer memory size, $r$: compression ratio, $p$: the number of soft-prompt summary vectors and $m$: summary vector accumulation steps).
+Table 1: Transformer models with segment-level memory are compared. For each model, the memory size and effective context length are defined in terms of their model parameters ({{< katex >}}N{{< /katex >}}: input segment length, {{< katex >}}S{{< /katex >}}: the number of segments, {{< katex >}}l{{< /katex >}}: the number of layers, {{< katex >}}H{{< /katex >}}: the number of attention heads, {{< katex >}}c{{< /katex >}}: Compressive Transformer memory size, {{< katex >}}r{{< /katex >}}: compression ratio, {{< katex >}}p{{< /katex >}}: the number of soft-prompt summary vectors and {{< katex >}}m{{< /katex >}}: summary vector accumulation steps).
 </p>
 
 Table 1 shows the analysis of transformer models combining with segment-level memory. 
 
-- **Transformer-XL** [4] **uses KV components from the privious segment** with **current components** over each layer. Thus the context window of Transformer-XL is enlarged from $N$ to $N \times L$, and it requires  $(d_{key} + d_{value}) × H × N × l$ memory foot prints.
+- **Transformer-XL** [4] **uses KV components from the privious segment** with **current components** over each layer. Thus the context window of Transformer-XL is enlarged from {{< katex >}}N{{< /katex >}} to {{< katex >}}N \times L{{< /katex >}}, and it requires  {{< katex >}}(d_{key} + d_{value}) × H × N × l{{< /katex >}} memory foot prints.
 <p align="center">
 <img src=./Untitled%202.png>
 </p>
@@ -115,7 +127,7 @@ Table 1 shows the analysis of transformer models combining with segment-level me
 Figure from Transformer-XL [4]. Illustration of the vanilla model with a segment length 4.
 </p>
 
-- **Compressive Transformer** [5] append **additional cache** to Transformer-XL that **saves the past activations**. It broaden the Transformer-XL’s context window by $c × r × l$. It keeps a fine-grained memory of past activations, which are then compressed into coarser compressed memories. The below model has three layers, a  sequence length $n_s = 3$, memory size $n_m = 6$, compressed memory size $n_{cm} = 6$. The highlighted memories are compacted, with a compression function $f_c$ per layer, to a single compressed memory — instead of being discarded at the next sequence. In this example, the rate of compression $c = 3$.
+- **Compressive Transformer** [5] append **additional cache** to Transformer-XL that **saves the past activations**. It broaden the Transformer-XL’s context window by {{< katex >}}c × r × l{{< /katex >}}. It keeps a fine-grained memory of past activations, which are then compressed into coarser compressed memories. The below model has three layers, a  sequence length {{< katex >}}n_s = 3{{< /katex >}}, memory size {{< katex >}}n_m = 6{{< /katex >}}, compressed memory size {{< katex >}}n_{cm} = 6{{< /katex >}}. The highlighted memories are compacted, with a compression function {{< katex >}}f_c{{< /katex >}} per layer, to a single compressed memory — instead of being discarded at the next sequence. In this example, the rate of compression {{< katex >}}c = 3{{< /katex >}}.
 <p align="center">
 <img src=./Untitled%203.png>
 </p>   
@@ -125,7 +137,7 @@ Figure from Compressive Transformer [5].
 </p>
 
     
-- **Memorizing Transformers** [6] trys to **gather the every KV components** as the global context for the input segment. To reduce the overhead of storing every KV compoents, Memorizing Transformers adapts the context-weaving only on the last layer. The context window could explore entire input sequence $N \times S$ using KNN retriever.
+- **Memorizing Transformers** [6] trys to **gather the every KV components** as the global context for the input segment. To reduce the overhead of storing every KV compoents, Memorizing Transformers adapts the context-weaving only on the last layer. The context window could explore entire input sequence {{< katex >}}N \times S{{< /katex >}} using KNN retriever.
 <p align="center">
 <img src=./Untitled%204.png>
 </p>
@@ -160,7 +172,7 @@ Figure from AutoCompressors [8]. AutoCompressors process long documents by recur
 Figure 2.  Infini-Transformer (top) has an entire context history whereas Transformer-XL (bottom) discards old contexts since it caches the KV states for the last segment only.
 </p>
 
-Compare to the above context-based transformer models, **Infini-Transformer** could **catch the entire context** $N\times S$ with **the fixed memory size** $d_{key} × d_{value} + d_{key}$ that only stores $M_s$ and $z_s$ over the every attention heads and layers.
+Compare to the above context-based transformer models, **Infini-Transformer** could **catch the entire context** {{< katex >}}N\times S{{< /katex >}} with **the fixed memory size** {{< katex >}}d_{key} × d_{value} + d_{key}{{< /katex >}} that only stores {{< katex >}}M_s{{< /katex >}} and {{< katex >}}z_s{{< /katex >}} over the every attention heads and layers.
 
 # Experiments
 
@@ -187,7 +199,7 @@ The authors trained and evaluated small Infini-Transformer models on **PG19** [5
 Figure 3. Gating score visualization.
 </p>
 
-Figure 3 illlustrates the gating value ($sigmoid(\beta)$) of each heads and layers of the pretrained Infini-Transformer. The speciallized head means that the gating scores are close to 0 or 1 which only pass the local attention outputs or context attention output from the memory. The mixer head, of which the gating scores is near 0.5, combines the both information.
+Figure 3 illlustrates the gating value ({{< katex >}}sigmoid(\beta){{< /katex >}}) of each heads and layers of the pretrained Infini-Transformer. The speciallized head means that the gating scores are close to 0 or 1 which only pass the local attention outputs or context attention output from the memory. The mixer head, of which the gating scores is near 0.5, combines the both information.
 
 ### 1M passkey retrieval benchmark
 
