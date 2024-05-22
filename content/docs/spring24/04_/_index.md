@@ -97,8 +97,12 @@ Author propose using multi-token prediction loss instead of next-token predictio
 # Discussion
 - For each task and dataset, the optimal number of heads $n$ varies. I would like to see more correlations between dataset characteristics and the optimal $n$.
 - I would like to see more evidence of the global capturing ability of multi-token prediction loss in other experimental settings.
-- Authors demonstrates cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
-
+- Authors demonstrates cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task, where $n$ and $n'$ denote number of pretraining head and that of finetuning head. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
+- I would like to study more about multi-token prediction head experiments on multi-token prediction loss with stride=2 (This paper shows only with stride=1 setting, predicting consecutive tokens) or extremely large number of multi-token prediction head setting.
+  
 # Reference
+Mitchell Stern, Noam Shazeer, and Jakob Uszkoreit. Block- wise parallel decoding for deep autoregressive models, 2018.
 
+Weizhen Qi, Yu Yan, Yeyun Gong, Dayiheng Liu, Nan Duan, Jiusheng Chen, Ruofei Zhang, and Ming Zhou. Prophetnet: Predicting future n-gram for sequence-to- sequence pre-training, 2020.
 
+Tianle Cai, Yuhong Li, Zhengyang Geng, Hongwu Peng, Jason D. Lee, Deming Chen, and Tri Dao. Medusa: Sim- ple llm inference acceleration framework with multiple decoding heads, 2024.
