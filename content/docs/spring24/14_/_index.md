@@ -64,17 +64,17 @@ Typical binarization of the weight can be described as follows:
 \end{matrix}\right.
   {{< /katex >}} 
 </p>
-In this work, authors propose a learnable multi-basis binarizer(LMB) to maintain quality of representations. Instead of using single base, multiple bases are utilized for the binarization. {{< katex >}}\sigma_{\MakeUppercase{\romannumeral1}}{{< /katex >}} and {{< katex >}}\sigma_{\MakeUppercase{\romannumeral2}}{{< /katex >}} denote learnable scalar values and initialized as {{< katex >}}\sigma_{\MakeUppercase{\romannumeral1}}^0 = \frac{\left \| w  \right \|}{n}{{< /katex >}} and {{< katex >}}\sigma_{\MakeUppercase{\romannumeral2}}^0 = \frac{\left \| w - \sigma_{\MakeUppercase{\romannumeral1}}sign(w)  \right \|}{n}{{< /katex >}} 
+In this work, authors propose a learnable multi-basis binarizer(LMB) to maintain quality of representations. Instead of using single base, multiple bases are utilized for the binarization. {{< katex >}}\sigma_{1}{{< /katex >}} and {{< katex >}}\sigma_{2}{{< /katex >}} denote learnable scalar values and initialized as {{< katex >}}\sigma_{1}^0 = \frac{\left \| w  \right \|}{n}{{< /katex >}} and {{< katex >}}\sigma_{2}^0 = \frac{\left \| w - \sigma_{1}sign(w)  \right \|}{n}{{< /katex >}} 
 <p align="center">
   {{< katex >}}
-    w_{LMB}^{bi} = \sigma_{\MakeUppercase{\romannumeral1}} sign(w) + \sigma_{\MakeUppercase{\romannumeral2}} sign(w - \sigma_{\MakeUppercase{\romannumeral1}} sign(w) 
+    w_{LMB}^{bi} = \sigma_{1} sign(w) + \sigma_{2} sign(w - \sigma_{1} sign(w) 
   {{< /katex >}} 
 </p>  
 Gradient of learnable scalar values can be computed as follows:  
 <p align="center">
   {{< katex >}}
-    \frac{\partial w_{LMB}^{bi}}{\partial \sigma_{\MakeUppercase{\romannumeral1}}} = \left\{\begin{matrix}
- sign(w)(1-\sigma_{\MakeUppercase{\romannumeral2}} sign(w))), & if \ \sigma_{\MakeUppercase{\romannumeral1}}sign(w) \in (w-1, w+1)  \\ 
+    \frac{\partial w_{LMB}^{bi}}{\partial \sigma_{1}} = \left\{\begin{matrix}
+ sign(w)(1-\sigma_{2} sign(w))), & if \ \sigma_{1}sign(w) \in (w-1, w+1)  \\ 
  sign(w), & otherwise 
 \end{matrix}\right. 
   {{< /katex >}} 
