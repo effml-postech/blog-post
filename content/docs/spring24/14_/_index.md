@@ -82,6 +82,7 @@ Gradient of learnable scalar values can be computed as follows:
 <p align="center">
   {{< katex >}}
     \frac{\partial w_{LMB}^{bi}}{\partial \sigma_{2}} = sign(w - \sigma_{1} sign(w))
+  {{< /katex >}} 
 </p> 
 
 During the inference, computation for each bases are indepedent to each other and can be parallely computed. Thus, diffusion model can be fully accelerated with LMB.  
