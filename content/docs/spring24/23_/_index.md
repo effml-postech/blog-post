@@ -11,14 +11,14 @@ weight: 1
 
 *Posted by Dohun Kim and Yeongwoo Kim*
 
-## bGPT: from Language Models to Byte Models
+## Introduction
 
-Byte models extend traditional language models to the byte level, treating all digital data and operations as fundamentally byte-based. These models process data from different modalities (such as text, image, and audio) uniformly as bytes, making them versatile in a wide digital environment. However, recent research on byte models has been limited, with a focus on narrow tasks. These studies often overlook the broader potential of byte models in the digital world simulation.
+Byte models take traditional language models to the byte level, treating all digital data and operations as fundamentally byte-based. These models process data from different modalities (such as text, images, and audio) uniformly as bytes, making them versatile in a wide digital environment. However, recent research on byte models has been limited, primarily focusing on narrow tasks and overlooking their broader potential in simulating the digital world.
 
 ![bgpt_framework](framework.JPG) <br>
 *[Figure 1](https://byte-gpt.github.io/): The bGPT framework simulates digital systems using native binary data. It integrates diverse data types into a single model by treating everything as a byte sequence.*
 
-To address this issue, the authors proposed bGPT, which is designed for modeling digital data at byte-level. It performs comparably to specialized models across various well-studied modalities, and opens up new possibilities for simulating algorithm and hardware operations. By learning to predict next byte, bGPT provides a deeper understanding of the intricate patterns in the digital world.
+To address this issues, the authors propose bGPT, which operates at the byte level and efficiently processes byte sequences. Through comprehensive evaluations across various modalities, bGPT demonstrates performance comparable to specialized models. Moreover, bGPT opens up new possibilities for simulating algorithms and hardware operations. By learning to predict the next byte, bGPT provides a deeper understanding of the intricate patterns in the digital world.
 
 The main contributions of this paper are as follows:
 
@@ -27,30 +27,26 @@ The main contributions of this paper are as follows:
 - **In-depth analysis** of bGPT's performance on text, audio, and image data is provided.
 - **Novel benchmarks** are introduced to show bGPT's capabilities for digital world simulation.
 
-## Proposed bGPT Framework
+## bGPT Framework
 
-### Architecture
+### Model Architecture
+
+Learning patterns in digital systems at the byte level offers a unified approach for integrating various data types. However, the high granularity of bytes leads to long sequences, which significantly increase computational costs due to the quadratic scaling of self-attention. This limits the efficiency and scalability of processing binary data.
 
 <p align="center">
-  <img src=architecture.JPG width="600">
+  <img src=architecture.JPG width="500">
 </p>
 
-*[Figure 2](https://byte-gpt.github.io/): The hierachical Transformer architecture of bGPT. It segments sequence of bytes into a sequence of patches, to balance the need for long sequences and computational efficiency.*
+*[Figure 2](https://byte-gpt.github.io/): The hierachical Transformer architecture of bGPT. It segments byte sequences into patches, to balance the need for long sequences and computational efficiency.*
 
-Learning patterns in digital systems at the byte level provides a unified approach to integrating various data types, but the high resolution of bytes results in long sequences that significantly increase computational costs. This issue is especially pronounced in transformer-based models, limiting the efficiency and scalability of processing binary data.
-bGPT is equipped with a hierarchical structure designed to efficiently handle entire byte sequences. This structure segments a sequence of byte 
-{{< katex >}}B = \{b_1, b_2, \ldots, b_T\}{{< /katex >}} of length {{< katex >}}T{{< /katex >}} into a sequence of patches {{< katex >}}\mathcal{P}{{< /katex >}}, where each patch contains exactly {{< katex >}}S{{< /katex >}} bytes:
-{{< katex >}}\mathcal{P} = [P_1, P_2, \ldots, P_N]{{< /katex >}} where {{< katex >}}N = \left\lceil \frac{T}{S} \right\rceil{{< /katex >}} is the number of patches,
+To address this issue, the authors adapted a hierarchical structure for bGPT, enabling efficient handling of long byte sequences. This structure segments a sequence of byte {{< katex >}}B{{< /katex >}} of length {{< katex >}}T{{< /katex >}} into a sequence of patches {{< katex >}}\mathcal{P}{{< /katex >}}, where each patch contains exactly {{< katex >}}S{{< /katex >}} bytes, i.e., {{< katex >}}\mathcal{P}{{< /katex >}} includes {{< katex >}}N = \left\lceil \frac{T}{S} \right\rceil{{< /katex >}} patches. If {{< katex >}}T \mod S \neq 0{{< /katex >}}, the last patch is padded with `<eop>` (end-of-patch) token.
 
-{{< katex >}}P_i = [b_{(i-1)S+1}, \ldots, b_{(i)S}]{{< /katex >}} for {{< katex >}}( 1 \leq i \leq N){{< /katex >}}, if {{< katex >}}T \mod S \neq 0{{< /katex >}}, the last patch defined as {{< katex >}}P_N = [b_{(N-1)S+1}, \ldots, b_T, \underbrace{e, \ldots, e}_{S - (T \mod S)}]{{< /katex >}} where {{< katex >}}e{{< /katex >}} represents the `<eop>` (end-of-patch).
+#### Components of bGPT
 
-***Components***
-
-
-- **Linear Projection Layer**: Each byte patch is mapped to a high-dimensional feature space through a linear projection layer. During this process, each byte is encoded into a 257-dimensional vector, which includes the 256 possible byte values and a special `<eop>` (end-of-patch) token.
-- **Patch-Level Decoder**: The embedded patches are processed by a patch-level decoder. This decoder plays a role in predicting the features of the next patch from the embedding of each patch, thereby learning the structural patterns of the entire dataset.
-- **Byte-Level Decoder**: Based on the predicted patch features, the byte sequence within each patch is reconstructed. The byte-level decoder uses the features of each patch to predict the next byte within that patch, processing the detailed information of the entire byte sequence.
-
+- **Byte encoding**: Each byte is one-hot encoded into a 257-dimensional vector, including all possible byte values and `<eop>` token. Thus, each patch is viewed as a matrix of size {{< katex >}}S \times 257{{< /katex >}}.
+- **Linear Projection Layer** maps the flattened patch into a dense vector of hidden size {{< katex >}}H{{< /katex >}}, enabling more efficient processing of byte sequence.
+- **Patch-Level Decoder** autoregressively predicts the features of the next patch, thereby learning the structural patterns of the entire dataset.
+- **Byte-Level Decoder** takes the predicted patch features and autoregressively reconstruct the bytes within each patch. This process is repeated for all patches to generate the output byte sequence.
 
 ### Training Objectives
 
