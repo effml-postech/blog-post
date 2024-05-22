@@ -164,6 +164,9 @@ Figure from Recurrent Memory Transformer [7]. Memory is added as tokens to the i
 Figure from AutoCompressors [8]. AutoCompressors process long documents by recursively generating summary vectors which are passed as soft prompts to all subsequent segments.
 </p>
     
+
+Compare to the above context-based transformer models, **Infini-Transformer** could **catch the entire context** {{< katex >}}N\times S{{< /katex >}} with **the fixed memory size** {{< katex >}}d_{key} × d_{value} + d_{key}{{< /katex >}} that only stores {{< katex >}}M_s{{< /katex >}} and {{< katex >}}z_s{{< /katex >}} over the every attention heads and layers.
+
 <p align="center">
     <img src=./Untitled%207.png height=80% width=80%>
 </p>
@@ -172,7 +175,6 @@ Figure from AutoCompressors [8]. AutoCompressors process long documents by recur
 Figure 2.  Infini-Transformer (top) has an entire context history whereas Transformer-XL (bottom) discards old contexts since it caches the KV states for the last segment only.
 </p>
 
-Compare to the above context-based transformer models, **Infini-Transformer** could **catch the entire context** {{< katex >}}N\times S{{< /katex >}} with **the fixed memory size** {{< katex >}}d_{key} × d_{value} + d_{key}{{< /katex >}} that only stores {{< katex >}}M_s{{< /katex >}} and {{< katex >}}z_s{{< /katex >}} over the every attention heads and layers.
 
 ## Experiments
 
