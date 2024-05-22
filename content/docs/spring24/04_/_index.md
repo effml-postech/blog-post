@@ -78,7 +78,7 @@ Pretrained model with multi-token prediction loss maintains an edge on that with
 ### Lookahead reinforces choice points 
 
 <p align="center">
-    <img src='./Lookahead.png' width="800">
+    <img src='./Lookahead.png' width="400">
 </p>
 
 ### Information-Theoretic View
