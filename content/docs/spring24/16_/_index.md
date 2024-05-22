@@ -85,7 +85,7 @@ For the following reasons, the authors decided to use expert-choice routing and 
 - **Clear criteria**
   Top-k strategy can guarantee that the most important token is calculated since the top-{{< katex >}}k{{< /katex >}} tokens are independent of the magnitude of router weights. Since tokens are divided into two sets, one passing through self-attention and MLP, and the other passing through residual connections, a strategy is needed to partition tokens into these two sets.
 
-## **Routing Method**
+## **Routing**
 - {{< katex >}}l{{< /katex >}} is a given layer.
 - {{< katex >}}S{{< /katex >}} is a sequence length.
 - {{< katex >}}\beta=1-C/S{{< /katex >}} is an user-defined capacity per batch element.
