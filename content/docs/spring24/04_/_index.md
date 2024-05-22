@@ -73,7 +73,13 @@ Pretrained model with multi-token prediction loss maintains an edge on that with
     <img src='./Natural Language Task.png' width="800">
 </p>
 
-# Why does it work?
+# Why does it work, Athors' Speculations?
+
+### 
+
+### Information-Theoretic View
+
+Next token prediction loss concerns $H(X) = H(X | Y) + I(X; Y)$, while multi-token prediction loss concerns $H(X) + H(Y) = H(X | Y) + 2I(X; Y) + H(Y | X)$. This means that multi-token prediction loss care about a mutual information term with weight two while next token prediction concerns with weight one. We can interpret this 2-token prediction incentivizes models to precompute features which will become useful for predicting Y in the next step and increases the weight of the relative mutual information term in the loss.
 
 # Conclusion
 
