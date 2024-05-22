@@ -110,8 +110,8 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 
 2. Each layer of the trained LoRA represented a unique characteristic, which cumulatively defined the overall properties of the LoRA.
 <p align="center">
-    <img src=./motiv2_1.png align="center" width="40%">
-    <img src=./motiv2_2.png align="center" width="53%">
+    <img src=./motiv2_1.png align="center" height=150>
+    <img src=./motiv2_2.png align="center" height=150">
     <figcaption align="center">
     <br>
     <em>(Right) Observed that different layers of LoRA encode distinct features, such as dog coat color and facial features.,<br/>
