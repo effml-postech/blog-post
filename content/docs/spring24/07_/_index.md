@@ -35,22 +35,22 @@ Since only the differences to the original model are tracked in training, origin
 Let the pre-trained weight matrix be $W_o \in \mathbb{R}^{d \times k}$.
 
 The modified weight matrix is given by:
-
+{{< katex display=true >}}
 $W_o + \Delta W = W_o + BA$
 where $B \in \mathbb{R}^{d \times r}$, $A \in \mathbb{R}^{r \times k}$, $\text{rank } r \ll \min(d, k)\$, and $\\Delta W = BA$.
-
+{{< katex>}}
 The original forward pass is:
-
+{{< katex display=true >}}
 $h = W_o x$
-
+{{< katex>}}
 The modified forward pass is:
-
+{{< katex display=true >}}
 $h = W_o x + \Delta W x = W_o x + B A x$
-
+{{< katex>}}
 This can be shown in the following diagram.
 (Insert Diagram of LoRA here)
 
-In LoRA, $W_o$ matrix usually corresponds to $W_Q$, $W_K$, $W_V$, or $W_O$, query, key, value, and output projection matrices of attention as opposed to Feed Forward Networks (FFN) matrices as hidden size of FFNs tend to be much larger then projection matrices of attentions. The most common practice seems to be injecting LoRA into query and value though exact implementation can vary widely.
+In LoRA, $W_o$ matrix usually corresponds to {{< katex display=true >}} $W_Q$, $W_K$, $W_V$ {{< katex>}}, or  {{< katex display=true >}} $W_O$ {{< katex>}}, query, key, value, and output projection matrices of attention as opposed to Feed Forward Networks (FFN) matrices as hidden size of FFNs tend to be much larger then projection matrices of attentions. The most common practice seems to be injecting LoRA into query and value though exact implementation can vary widely.
 
 During training $B$ can be initialized as 0 so that $\Delta W = B A$ is also 0 when training starts.
 
