@@ -50,11 +50,11 @@ $h = W_o x + \Delta W x = W_o x + B A x$
 This can be shown in the following diagram.
 (Insert Diagram of LoRA here)
 
-In LoRA, $W_o$ matrix usually corresponds to {{< katex display=true >}} $W_Q$, $W_K$, $W_V$ {{< katex>}}, or  {{< katex display=true >}} $W_O$ {{< katex>}}, query, key, value, and output projection matrices of attention as opposed to Feed Forward Networks (FFN) matrices as hidden size of FFNs tend to be much larger then projection matrices of attentions. The most common practice seems to be injecting LoRA into query and value though exact implementation can vary widely.
+In LoRA,{{< katex display=true >}} $W_o$ {{< katex>}} matrix usually corresponds to {{< katex display=true >}} $W_Q$, $W_K$, $W_V$ {{< katex>}}, or  {{< katex display=true >}} $W_O$ {{< katex>}}, query, key, value, and output projection matrices of attention as opposed to Feed Forward Networks (FFN) matrices as hidden size of FFNs tend to be much larger then projection matrices of attentions. The most common practice seems to be injecting LoRA into query and value though exact implementation can vary widely.
 
-During training $B$ can be initialized as 0 so that $\Delta W = B A$ is also 0 when training starts.
+During training {{< katex display=true >}} $B$ {{< katex>}} can be initialized as 0 so that {{< katex display=true >}}$\Delta W = B A$ {{< katex>}} is also 0 when training starts.
 
-When LoRA weights are deployed the original weights and the LoRA weights can be merged, $W = W_o + B A $, before inference proceeds as usual. The original weights can be obtained by subtracting the LoRA weights ($B A$).
+When LoRA weights are deployed the original weights and the LoRA weights can be merged,{{< katex display=true >}} $W = W_o + B A $ {{< katex>}}, before inference proceeds as usual. The original weights can be obtained by subtracting the LoRA weights ({{< katex display=true >}}$B A${{< katex>}}).
 
 Unlike other PEFT methods such as adapter layer insertion, LoRA adds no additional latency after the weights are merged as the forward inference operation is exactly the same and no additional operation needs to be performed. This contributed to the popularity of LoRA as no changes to the inference code needs to be made and only weight merging operations before inference are needed which is relatively quick and easy to perform.
 
@@ -67,51 +67,52 @@ VeRA tries to take advanatage of random matrices and projection to reduce the nu
 This table taken from [[1]](#ref1) shows the relative storage efficiency of VeRA compared to LoRA, when only applied to the query and key projection layers.
 | Model | Rank | LoRA - # Trainable Parameters | LoRA - Required Bytes | VeRA - # Trainable Parameters | VeRA - Required Bytes |
 |-------|------|-------------------------------|----------------------|-------------------------------|-----------------------|
-| $\{RoBERTa}_{\text{base}}$  | 1    | 36.8K                         | 144KB                | 18.4K                         | 72KB                  |
-| $\{RoBERTa}_{\text{base}}$  | 16   | 589.8K                        | 2MB                  | 18.8K                         | 74KB                  |
-| $\{RoBERTa}_{\text{base}}$  | 256  | 9437.1K                       | 36MB                 | 24.5K                         | 96KB                  |
-| $\{RoBERTa}_{\text{large}}$ | 1    | 98.3K                         | 384KB                | 49.2K                         | 192KB                 |
-| $\{RoBERTa}_{\text{large}}$ | 16   | 1572.8K                       | 6MB                  | 49.5K                         | 195KB                 |
-| $\{RoBERTa}_{\text{large}}$ | 256  | 25165.8K                      | 96MB                 | 61.4K                         | 240KB                 |
+| {{< katex display=true >}}$\{RoBERTa}_{\text{base}}${{< katex>}}  | 1    | 36.8K                         | 144KB                | 18.4K                         | 72KB                  |
+| {{< katex display=true >}}$\{RoBERTa}_{\text{base}}${{< katex>}}  | 16   | 589.8K                        | 2MB                  | 18.8K                         | 74KB                  |
+| {{< katex display=true >}}$\{RoBERTa}_{\text{base}}${{< katex>}}  | 256  | 9437.1K                       | 36MB                 | 24.5K                         | 96KB                  |
+| {{< katex display=true >}}$\{RoBERTa}_{\text{large}}${{< katex>}} | 1    | 98.3K                         | 384KB                | 49.2K                         | 192KB                 |
+| {{< katex display=true >}}$\{RoBERTa}_{\text{large}}${{< katex>}} | 16   | 1572.8K                       | 6MB                  | 49.5K                         | 195KB                 |
+| {{< katex display=true >}}$\{RoBERTa}_{\text{large}}${{< katex>}} | 256  | 25165.8K                      | 96MB                 | 61.4K                         | 240KB                 |
 | GPT-3 | 1    | 4.7M                          | 18MB                 | 2.4M                          | 9.1MB                 |
 | GPT-3 | 16   | 75.5M                         | 288MB                | 2.8M                          | 10.5MB                |
 | GPT-3 | 256  | 1207.9M                       | 4.6GB                | 8.7M                          | 33MB                  |
 
-Let the pre-trained weight matrix be $W_o \in \mathbb{R}^{d \times k}$.
+Let the pre-trained weight matrix be {{< katex display=true >}}$W_o \in \mathbb{R}^{d \times k}${{< katex>}}.
 
 (The parameters updated during training are underlined.)
 
 The original LoRA formulation is the following:
 
+{{< katex display=true >}}
 $W_o + \Delta W = W_o + \underline{B A}$
 where $B \in \mathbb{R}^{d \times r}$, $A \in \mathbb{R}^{r \times k}$, $\text{rank } r \ll \min(d, k)\$, and $\\Delta W = BA$.
-
+{{< katex>}}
 The original forward pass is:
-
+{{< katex display=true >}}
 $h = W_o x$
-
+{{< katex>}}
 The LoRA forward pass is:
-
+{{< katex display=true >}}
 $h = W_o x + \Delta W x = W_o x + \underline{B A} x$
-
-In the case of LoRA low-rank matrices $A$ and $B$ are updated.
+{{< katex>}}
+In the case of LoRA low-rank matrices {{< katex display=true >}}$A${{< katex>}} and {{< katex display=true >}}$B${{< katex>}} are updated.
 
 For VeRA the following formulation can be used:
 
-$W_o + \Delta W = W_o + BA = W_o + \underline{\Lambda_b} B \underline{\Lambda_d} A $
+{{< katex display=true >}}$W_o + \Delta W = W_o + BA = W_o + \underline{\Lambda_b} B \underline{\Lambda_d} A ${{< katex>}}
 
 The VeRA forward pass being:
 
-$h = W_o x + \Delta W x = W_o + \underline{\Lambda_b} B \underline{\Lambda_d} A x$
+{{< katex display=true >}}$h = W_o x + \Delta W x = W_o + \underline{\Lambda_b} B \underline{\Lambda_d} A x${{< katex>}}
 
-In the case of VeRA $B$ and $A$ matrices are frozen and randomly initialized. Scaling vectors $b \in \mathbb{R}^{1 \times d}$ and $d \in \mathbb{R}^{1 \times r}$ are trainable, and is denoted as diagonal matrices $\Lambda_d \in \mathbb{R}^{d \times d}$ and $\Lambda_d \in \mathbb{R}^{r \times r}$ in the equations.
+In the case of VeRA {{< katex display=true >}}$B${{< katex>}} and {{< katex display=true >}}$A${{< katex>}} matrices are frozen and randomly initialized. Scaling vectors {{< katex display=true >}}$b \in \mathbb{R}^{1 \times d}${{< katex>}} and {{< katex display=true >}}$d \in \mathbb{R}^{1 \times r}${{< katex>}} are trainable, and is denoted as diagonal matrices {{< katex display=true >}}$\Lambda_d \in \mathbb{R}^{d \times d}${{< katex>}} and {{< katex display=true >}}$\Lambda_d \in \mathbb{R}^{r \times r}${{< katex>}} in the equations.
 
-Unlike in LoRA, the B and A matrices do not need to be low-rank as their values does not need to be stored, they can always be reproduced with a fixed random seed. Only the small $b$ and $d$ vectors need to be updated.
-During training vector $b$ is set as 0 to keep $\Delta W$ as 0 while vector $d$ is initialized using Kaiming initialization.
+Unlike in LoRA, the B and A matrices do not need to be low-rank as their values does not need to be stored, they can always be reproduced with a fixed random seed. Only the small {{< katex display=true >}}$b${{< katex>}} and {{< katex display=true >}}$d${{< katex>}}vectors need to be updated.
+During training vector {{< katex display=true >}}$b${{< katex>}} is set as 0 to keep {{< katex display=true >}}$\Delta W${{< katex>}} as 0 while vector {{< katex display=true >}}$d${{< katex>}} is initialized using Kaiming initialization.
 
-More precisely the number of trainable parameters with VeRA scales as $L_\text{tuned} \times (d_\text{model} + r)$, whereas LoRA scales as $2 \times L_\text{tuned} \times d_\text{model} \times r$. 
+More precisely the number of trainable parameters with VeRA scales as {{< katex display=true >}}$L_\text{tuned} \times (d_\text{model} + r)${{< katex>}}, whereas LoRA scales as {{< katex display=true >}}$2 \times L_\text{tuned} \times d_\text{model} \times r${{< katex>}}. 
 
-($L_\text{tuned}$ denote the number of finetuned layers and $d_\text{model}$ represents the dimension of the layers.)
+({{< katex display=true >}}$L_\text{tuned}$ denote the number of finetuned layers and {{< katex display=true >}}$d_\text{model}${{< katex>}} represents the dimension of the layers.)
 
 This means that LoRA memory size dramatically with the increase of rank, VeRA can increase the rank without incurring much memory footprint.
 
@@ -219,7 +220,7 @@ Research could attempt to isolate such basis matrices through statistical analys
 
 One stumbling block of applying VeRA to this hypothesis is that the hypothesis largely discusses representation while VeRA is about modifying the model weights. However, LoReFT (low-rank linear subspace ReFT) [[10]](#ref10) defines a methodology of finetuning a model by modifying its representations/activations, denoted as h. Using the formula:
 
-$\text{LoREFT}(h) = h + R^{T} (W h + b - R h)$, where $R \in \mathbb{R}^{r \times d}$ and $W \in \mathbb{R}^{r \times d}$ are low rank matrices.
+{{< katex display=true >}}$\text{LoREFT}(h) = h + R^{T} (W h + b - R h)${{< katex>}}, where {{< katex display=true >}}$R \in \mathbb{R}^{r \times d}${{< katex>}} and {{< katex display=true >}}$W \in \mathbb{R}^{r \times d}${{< katex>}} are low rank matrices.
 
 Considering that LoReFT also uses a low-rank matrix to represent trainable changes, VeRA's methodology of using a randomly generated matrices with small vectors seems applicable. This expands the possibility that the hypothesis could be applicable for a LoREFT + VeRA hybrid as well.
 
