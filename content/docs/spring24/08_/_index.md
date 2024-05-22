@@ -320,13 +320,13 @@ MoLE not only achieves effective LoRA composition but also retains the character
 <p align="center">
     <img src=./anal5.png> 
     <br>
-    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+    <em>Qualitative result for retaining ability experiment.</em>
 </p>
 
 ### 6. Hierarchical control analysis
 MOLE adaptively assigns weights to different LoRA experts across various layers, resulting in finer-grained weight combinations that yield superior results.
 
-<p align="center"
+<p align="center">
     <img src=./anal6.png> 
     <br>
     <em>Visualization of the weights (%) predicted by each gating function (horizontal axis) for LoRA experts (vertical axis) during inference. The top row corresponds to experiments in the NLP domain, while the bottom row pertains to experiments in the V&L domain.</em>
