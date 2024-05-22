@@ -95,9 +95,9 @@ Next token prediction loss involves $H(X) = H(X | Y) + I(X; Y)$, while multi-tok
 Author propose using multi-token prediction loss instead of next-token prediction loss for pretraining language models. This pretraining scheme has shown improvements across various tasks, notably in code tasks.
 
 # Discussion
-- For each task and dataset, the optimal number of heads \( n \) varies. I would like to see more correlations between dataset characteristics and the optimal \( n \).
+- For each task and dataset, the optimal number of heads $n$ varies. I would like to see more correlations between dataset characteristics and the optimal $n$.
 - I would like to see more evidence of the global capturing ability of multi-token prediction loss in other experimental settings.
-- Authors demonstrates cases including \( (n=4, n'=1) \), \( (n=4, n'=1) \), and \( (n=1, n'=1) \) on the code task. However, I would like to see the \( n=1, n'=4 \) setting result on the code task. Conducting this experiment would help determine if the \( n=4 \) case still outperforms the \( n=1, n'=4 \) setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
+- Authors demonstrates cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
 
 # Reference
 
