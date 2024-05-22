@@ -65,6 +65,14 @@ Pretrained model with multi-token prediction loss maintains an edge on that with
     <img src='./CodeContests.png' width="800">
 </p>
 
+### Natural Language Benchmarks
+- Choice Tasks : Multiple token training with 7B models doesn’t improve performance on choice tasks
+- Summarization : Multi-token prediction models with both n = 2 and n = 4 improve over the next-token baseline in ROUGE-L F1 scores for both training dataset sizes, with the performance gap shrinking with larger dataset size.
+- Mathematical Reasoning : After 200B tokens, the 2-token prediction model has a clear advantage over the next-token baseline but the order reverses after 500B tokens. The 4-token prediction model is worse throughout.
+<p align="center">
+    <img src='./Natural Language Task.png' width="800">
+</p>
+
 # Why does it work?
 
 # Conclusion
