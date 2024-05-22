@@ -289,7 +289,7 @@ MOLE adaptively assigns weights to different LoRA experts across various layers,
 
 1. 
 2. Parameter <br/>
-   The learnable parameter 𝑒 used in MoLE has dimensions of $N^2 \times L \times D$ As the number of LoRAs increases, the number of parameters grows quadratically, resulting in a substantial increase. Additionally, since e exists for each transformer block, the number of parameters added by 𝑒 is considerable. This can be seen as a significant drawback of MoLE.
+   The learnable parameter 𝑒 used in MoLE has dimensions of $N^2 \times L \times D$. As the number of LoRAs increases, the number of parameters grows quadratically, resulting in a substantial increase. Additionally, since e exists for each transformer block, the number of parameters added by 𝑒 is considerable. This can be seen as a significant drawback of MoLE.
 
 
 
