@@ -164,12 +164,12 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 
 ### Training
 The training loss function used in MoLE is as follows:
-<p align="left">
+<p align="centor">
     <img src=./training5.png width="200">
 </p>
 
 {{< katex display=true >}}
-$$L = L_D + \alpha L_{balance}$$
+$$\mathcal{L} = \mathcal{L}_D + \alpha \mathcal{L}_{balance}$$
 {{< /katex >}}
 
 
