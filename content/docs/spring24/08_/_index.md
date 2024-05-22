@@ -91,7 +91,7 @@ O = h + \sum_{i=0}^{N} \alpha(E_i) \cdot E_i(h)
 
 ## Mixture of LoRA experts
 
-### Motivations
+### Observations
 1. Direct linear arithmetic composition reduced the generative power of the model, while normalized linear arithmetic composition retained the generative power of the model but lost its LORA character.
 <p align="center">
     <img src=./motiv1_1.png align="center" height=300">
