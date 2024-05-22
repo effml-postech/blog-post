@@ -162,8 +162,8 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 
 ### Training
 The training loss function used in MoLE is as follows:
-<p align="centor">
-    <img src=./training5.png">
+<p align="center">
+    <img src=./training5.png>
 </p>
 
 {{< katex display=true >}}
@@ -182,7 +182,7 @@ As shown in Figure 5 (a), the average entropy of the distribution probabilities 
 To avoid this, the author created a gating balancing loss.<br/>
 The gating balancing loss helps prevent bias by ensuring that the loss value decreases as the model becomes less biased. <br/>
 <br/>
-<p align="centor">
+<p align="center">
     <img src=./training2.png>
 </p>
 <details>
@@ -195,12 +195,12 @@ The gating balancing loss helps prevent bias by ensuring that the loss value dec
 **Domain-specific Loss**
 <br/>
 In V&L, Using a loss in CLIP(Radford et al,20221b) <br/>
-<p align="centor">
+<p align="center">
     <img src=./training3.png>
 </p>
 
 In NLP, Using a loss in FLAN-T5(Chung et al,2022)
-<p align="centor">
+<p align="center">
     <img src=./training4.png>
 </p>
 
