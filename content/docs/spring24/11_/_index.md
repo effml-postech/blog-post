@@ -6,7 +6,7 @@ weight: 1
 
 # Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention
 
-*Team: Younghyun Cho, Sangjun Lee
+Posted by Younghyun Cho, Sangjun Lee
 
 ## Large Language Models with Inifinite Input Sequence
 
