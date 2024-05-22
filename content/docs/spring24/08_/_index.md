@@ -311,7 +311,7 @@ Among  matrix-wise, layer-wise, block-wise, and network-wise MoLEs, intermediate
 <p align="center">
     <img src=./anal4.png> 
     <br>
-    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+    <em>Coarse-to-fine gating comparison</em>
 </p>
 
 ### 5. Flexibility of MoLE.
@@ -329,7 +329,7 @@ MOLE adaptively assigns weights to different LoRA experts across various layers,
 <p align="center"
     <img src=./anal6.png> 
     <br>
-    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+    <em>Visualization of the weights (%) predicted by each gating function (horizontal axis) for LoRA experts (vertical axis) during inference. The top row corresponds to experiments in the NLP domain, while the bottom row pertains to experiments in the V&L domain.</em>
 </p>
    
 ## Discussion and Limitations
