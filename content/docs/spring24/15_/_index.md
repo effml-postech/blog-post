@@ -1,3 +1,9 @@
+---
+type: docs
+bookToc: True
+weight: 1
+---
+
 # Training LLMs over Neurally Compressed Text
 
 ## **TL;DR**
