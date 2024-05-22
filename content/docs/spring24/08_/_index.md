@@ -284,7 +284,7 @@ Gating balancing loss function mitigates the reduction in entropy rates within g
 <p align="center">
     <img src=./anal1-2.png> 
     <br>
-    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+    <em>Experimental results on gating balance of MOLE. NLA denotes normalized linear arithmetic composition</em>
 </p>
 
 ### 2. MoLE is even better than SOTA multi-concept generation methods.
@@ -293,7 +293,7 @@ MoLE outperforms two multi-concept generation algorithms (Custom, Textual Invers
 <p align="center">
     <img src=./anal2.png> 
     <br>
-    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+    <em>Text-alignment and image-alignment results for multiple LoRA experts composition in CLIP feature space. SOTA full-parameter training methods are highlighted by pink boxes</em>
 </p>
 
 ### 3. Scale to a larger number of LoRAs.
@@ -302,7 +302,7 @@ MOLE demonstrated optimal performance across varying numbers of LoRA, notably su
 <p align="center">
     <img src=./anal3.png> 
     <br>
-    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+    <em>NLP domain experimental results on the impact of exploring expand expert numbers on model performance. The result is the average EM on the Big-Bench Hard (BBH) dataset.</em>
 </p>
 
 ### 4. Coarse gating vs. fine gating
