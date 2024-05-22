@@ -266,11 +266,13 @@ In NLP, Using a loss in FLAN-T5(Chung et al,2022)
   
 ## Analyisis 
 
-1. Gating balancing loss works!
-2. MoLE is even better than SOTA multi-concept generation methods.
-3. Scale to a larger number of LoRAs.
-4. Coarse gating vs. fine gating
-5. Flexibility of MoLE.
+### 1. Gating balancing loss works!
+Gating balancing loss function mitigates the reduction in entropy rates within gating functions, and enhance the performance.
+
+3. MoLE is even better than SOTA multi-concept generation methods.
+4. Scale to a larger number of LoRAs.
+5. Coarse gating vs. fine gating
+6. Flexibility of MoLE.
 
    
 ## Discussion and Limitations
