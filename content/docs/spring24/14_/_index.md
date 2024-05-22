@@ -43,7 +43,6 @@ The quantized values are represented as follows when linear symmetric quantizati
   {{< /katex >}} 
 </p>
 x is value to be quantized and {{< katex >}}\alpha{{< /katex >}} denotes trunctaion range. {{< katex >}}b{{< /katex >}} denotes bit-width. {{< katex >}}\Delta{{< /katex >}} is step-size, interval between quantization levels.
-Binarization is extreme case of quantization, which only utilizes 1 bit ({{< katex >}}b = 1{{< /katex >}}).
 
 ## **Motivation** 
 While diffusion models achieved great success in generation tasks, its iterative nature act and huge compuation costs act as a bottleneck to real-world application.
