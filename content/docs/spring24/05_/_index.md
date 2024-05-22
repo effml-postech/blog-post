@@ -88,7 +88,7 @@ Fig. 3 illustrates the framework of Kangaroo.
 
 ### Evaluation Metrics
 
-Speculative decoding is often evaluated using two primary metrics: walltime speedup ratio and compression rate. Given a speculative decoding algorithm, we assume that {{< katex >}}N{{< \katex >}} tokens should be generated via the drafting model. As the drafting model predicts multiple tokens in each decoding step and multiple tokens can be accepted by the large model in a step, we record the number of accepted tokens per step as a list {{< katex >}} S = \[s_1, s_2, \dots, s_{|S|}\] {{< \katex >}}, where {{< katex >}} \sum_k s_k = N {{< \katex >}} and {{< katex >}} |S| {{< \katex >}} denotes the number of steps. Then, the compression rate (CR) is defined as:
+Speculative decoding is often evaluated using two primary metrics: walltime speedup ratio and compression rate. Given a speculative decoding algorithm, we assume that {{< katex >}}N{{< \katex >}} tokens should be generated via the drafting model. As the drafting model predicts multiple tokens in each decoding step and multiple tokens can be accepted by the large model in a step, we record the number of accepted tokens per step as a list {{< katex >}} S = [s_1, s_2, \dots, s_{|S|}] {{< \katex >}}, where {{< katex >}} \sum_k s_k = N {{< \katex >}} and {{< katex >}} |S| {{< \katex >}} denotes the number of steps. Then, the compression rate (CR) is defined as:
 {{< katex display = true >}}
 \text{CR} = \frac{1}{|S|} \sum_k s_k.
 {{< \katex >}}
