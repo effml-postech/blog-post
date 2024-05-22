@@ -105,13 +105,13 @@ By lowering the capacity of the computations, a smaller compute budget can be ut
 ### **Autoregressively sampling**
 We're looking to implement expert-choice routing, but there is one distinct problem: top-k operations rely on future tokens! Our goal is for each token to determine if it belongs to the top-k using routers. To do this, every token needs access to the router weights of future tokens. Unfortunately, we cannot predict the future router weights and cannot employ autoregressive sampling. To solve this problem, the authors propose two methods.
 
-- Simple auxiliary loss
+- **Simple auxiliary loss**
   <p align="center">
     <img src=./Routing_Analysis.png width = "30%" height = "30%"> 
   </p>
   Designing an additional binary cross-entropy loss function at the router's output can resolve this issue. By incorporating this, the value of tokens in the top-k is guided to be greater than 0.5, while the value of tokens not in the top-k is guided to be less than 0.5. As token passes through the router, they are categorized into top-k set if their value exceeds 0.5. Then it passes through self-attention and subsequent MLP. Conversely, tokens with values below 0.5 pass through the residual connection. Integrating such a function impacts the primary language modeling objective by approximately 0.2-0.3%. We believe this likely refers to the extent to which performance and inference time are affected.
     
-- Small auxiliary MLP predictor
+- **Small auxiliary MLP predictor**
   
   The second method does not affect the primary language modeling objective at all. The authors design a new MLP layer that functions as a binary classifier to determine whether a token is in top-k during the training process. This classifier is trained to make these determinations, and it is used in real time during the autoregressive sampling process.
 
@@ -193,9 +193,14 @@ The paper mentions that the former is computationally efficient as it can skip s
 
 ## **Conclusion and discussion**
 
-This paper insists that using MoD with a capacity 12.5% is better than the baseline transformer model. However this paper only provides the loss value comparison. We insist that using loss value only leads to whether the parameters converge to the train dataset, not the performance of the model. We think that other evaluation methods like perplexity(WikiText-2, lambada) and certain tasks(BoolQ, Hellaswag, etc) must be provided to ensure that MoD is better than the baseline model. Furthermore, additional experiments should be provided. In the paper, they just compare loss value between 12.5% capacity and 50% capacity. Results about varying capacity ratios should be provided. In the results section, they applied MoD in one of two layers, but there are no comments on why applying this method. Further studies about using one of three or four should be done.  
+This paper insists that using MoD with a capacity 12.5% is better than the baseline transformer model.
 
-In short, Further studies should provide validation of MoD method by differentiating evaluation methods or comparing other methods like COLT5 or MoE and proof of optimized hyperparameters. (e.g. Capacity ratio)
+However, there are some unresolved limitations not discussed in the paper.
+- **Only loss values**: We believe this approach only indicates if parameters converge to the training dataset, not the model's performance. To ensure MoD's superiority over the baseline model, additional evaluation methods such as perplexity (WikiText-2, Lambada) and specific tasks (BoolQ, Hellaswag, etc.) should be included.
+
+- **More experiments are needed**: The paper only compares loss values for 12.5% and 50% capacity. They also applied MoD in one of two layers, but there are no comments on why applying this method. Further studies about using one of three or four should be done.  
+
+- **More baselines are needed**: Further studies should provide validation of MoD method by comparing other methods like COLT5 or MoE and proof of optimal hyperparameters.
 
 ## **References**
 Arian et.al.,"<U><a href="https://arxiv.org/abs/2105.09121" target="_blank"> Single-Layer Vision Transformers for More Accurate Early Exits with Less Overhead </a></U>," arXiv, 2021  
