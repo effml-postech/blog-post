@@ -171,7 +171,7 @@ In this figure, the training FLOPs budget is limited to 6e18, 2e19, and 1e20 com
 The top-left graph shows the performance degradation in autoregressive evaluation using predictions using the MLP layer not the top-k routing mechanism, which is non-causal and can’t be used in this case. The authors argue that the reason for this performance drop in autoregressive case is that the prediction performance through the MLP layer is only about 97%, as shown in the top-right graph, but they stress that only minimal degradation occurs.
 
 
-## **Mixture-of-Depths-and-Experts (MoDE)**
+### **Mixture-of-Depths-and-Experts (MoDE)**
 <p align="center">
     <img src=./result4.png>
 </p>
