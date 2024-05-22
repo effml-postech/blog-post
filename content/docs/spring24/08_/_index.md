@@ -273,8 +273,7 @@ Gating balancing loss function mitigates the reduction in entropy rates within g
 MoLE outperforms two multi-concept generation algorithms (Custom, Textual Inversion), both of which emphasize full-parameter training for enhanced results.
 
 ### 3. Scale to a larger number of LoRAs.
-MOLE demonstrated optimal performance across varying numbers of LoRA, notably surpassing LoRAHub with larger LoRA counts of 48 and 128. However, all methods, including MOLE, showed performance declines
-with an extremely large number of LoRA 
+MOLE demonstrated optimal performance across varying numbers of LoRA, notably surpassing LoRAHub with larger LoRA counts of 48 and 128. However, all methods, including MOLE, showed performance declines with an extremely large number of LoRA 
 
 5. Coarse gating vs. fine gating
 6. Flexibility of MoLE.
