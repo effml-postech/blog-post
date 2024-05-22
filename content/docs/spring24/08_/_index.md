@@ -59,7 +59,7 @@ The common solution to further improve the performance of LoRA across various ta
 
 
 <p align="center">
-    <img src=./lora_comp.png> 
+    <img src=./lora_comp.png width="40%"> 
     <br>
     <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
 </p>
@@ -70,7 +70,7 @@ The common solution to further improve the performance of LoRA across various ta
 MoE is an effective method that allows scaling up the number of parameters while maintaining the computational cost of the model.
 
 <p align="center">
-    <img src=./moe.png> 
+    <img src=./moe.png width="40%"> 
     <br>
     <em>Illustration of a Swith Transformer block.</em>
 </p>
@@ -96,8 +96,8 @@ O = h + \sum_{i=0}^{N} \alpha(E_i) \cdot E_i(h)
 
 
 <p align="center">
-    <img src=./motiv1_1.png align="center" height="150">
-    <img src=./motiv1_2.png align="center" height="150">
+    <img src=./motiv1_1.png align="center" width="40%">
+    <img src=./motiv1_2.png align="center" width="40%">
     <br>
     <em>(Left) Result of linear arithmetic composision and, (Right) nomalized linear arithmetic composision.</em>
 </p>
@@ -113,8 +113,8 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 2. Each layer of the trained LoRA represented a unique characteristic, which cumulatively defined the overall properties of the LoRA.
 
 <p align="center">
-    <img src=./motiv2_1.png align="center" height=150>
-    <img src=./motiv2_2.png align="center" height=150">
+    <img src=./motiv2_1.png align="center" width="40%">
+    <img src=./motiv2_2.png align="center" width="40%">
     <br>
     <em>(Right) Observed that different layers of LoRA encode distinct features, such as dog coat color and facial features. (Left) When evaluated on a subset of datasets, there were significant differences in performance across the different layers of LoRA.) </em>
 </p>
@@ -124,7 +124,7 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 ### Method
 
 <p align="center">
-    <img src=./Method1.png align="center" width="70%">
+    <img src=./Method1.png align="center" width="40%">
     <br>
     <em>Illustration of proposed MOLE. MOLE employs a learnable gating function that utilizes the outputs of multiple LoRAs at each layer to determine composition weights.</em>
 </p>
@@ -163,7 +163,7 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 ### Training
 The training loss function used in MoLE is as follows:
 <p align="centor">
-    <img src=./training5.png width="200">
+    <img src=./training5.png width="40%">
 </p>
 
 {{< katex display=true >}}
@@ -175,7 +175,7 @@ Alpha is a coefficient for weight balancing.
 
 **Gating Balacing Loss**
 <p align="center">
-    <img src=./training1.png width="400">
+    <img src=./training1.png width="40%">
 </p>
 As shown in Figure 5 (a), the average entropy of the distribution probabilities from the gating functions gradually decreases as training progresses. In Figure 5 (b), we can see a gating probability of 64% for LoRA β among the three LoRAs, indicating that the gating function tends to converge to a state where it assigns large weights to well-performing LoRAs in the early stages. This can result in a significantly larger impact from a few specific LoRAs compared to others, potentially leading to biased outcomes. <br/>
 <br/>
@@ -183,7 +183,7 @@ To avoid this, the author created a gating balancing loss.<br/>
 The gating balancing loss helps prevent bias by ensuring that the loss value decreases as the model becomes less biased. <br/>
 <br/>
 <p align="centor">
-    <img src=./training2.png width="200">
+    <img src=./training2.png width="40%">
 </p>
 <details>
     <summary>See related Symbols</summary>
@@ -196,12 +196,12 @@ The gating balancing loss helps prevent bias by ensuring that the loss value dec
 <br/>
 In V&L, Using a loss in CLIP(Radford et al,20221b) <br/>
 <p align="centor">
-    <img src=./training3.png width="300">
+    <img src=./training3.png width="40%">
 </p>
 
 In NLP, Using a loss in FLAN-T5(Chung et al,2022)
 <p align="centor">
-    <img src=./training4.png width="200">
+    <img src=./training4.png width="40%">
 </p>
 
 ## Results
@@ -227,7 +227,7 @@ In NLP, Using a loss in FLAN-T5(Chung et al,2022)
 
 **Results**
 <p align="center">
-    <img src=./result1.png width="500">
+    <img src=./result1.png width="40%">
 </p>
 
 It demonstrates better performance compared to other models and shows outstanding results in other tasks as well.
@@ -256,8 +256,8 @@ When viewing the generated images, it is evident that all specified subjects are
 **Results**
 
 <p align="center">
-    <img src=./result7.png align="center" width="48%">
-    <img src=./result8.png align="center" width="48%">
+    <img src=./result7.png align="center" width="40%">
+    <img src=./result8.png align="center" width="40%">
     <figcaption align="center">
 </p>
         
