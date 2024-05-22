@@ -32,9 +32,11 @@ Before diving into the main contributions of our work, it's essential to grasp t
 At the core of MEGA lies the moving average with damping, which can be expressed by the following equations:
 
 {{< katex >}}
+\begin{align*}
 u_t^{(j)} &= \beta_j x_{t,j} \\
 h_t^{(j)} &= \alpha_j \odot u_t^{(j)} + (1 - \alpha_j \odot \delta_j) \odot h_{t-1}^{(j)} \\
 y_{t,j} &= \eta_j^T h_t^{(j)}
+\end{align*}
 {{< /katex >}}
 
 This exponential moving average (EMA) serves as the foundation for the subsequent attention mechanism.
@@ -44,16 +46,20 @@ This exponential moving average (EMA) serves as the foundation for the subsequen
 The EMA is then fed into the attention mechanism to generate the Query and Key matrices after applying the SiLU activation function. First, we calculate the shared representation {{< katex >}}Z{{< /katex >}} using the EMA of the input {{< katex >}}X{{< /katex >}}:
 
 {{< katex >}}
+\begin{align*}
 X' &= EMA(X) \in \mathbb{R}^{n \times d} \\
 Z &= \phi_{silu}(X'W_z + b_z) \in \mathbb{R}^{n \times z}
+\end{align*}
 {{< /katex >}}
 
 Using the shared representation {{< katex >}}Z{{< /katex >}}, we can now compute the queries and keys. It's important to note that the original input {{< katex >}}X{{< /katex >}} is used to calculate the values:
 
 {{< katex >}}
+\begin{align*}
 Q &= \kappa_q \odot Z + \mu_q \in \mathbb{R}^{n \times z}\\
 K &= \kappa_k \odot Z + \mu_k \in \mathbb{R}^{n \times z}\\
 V &= \phi_{silu}(XW_v + b_v) \in \mathbb{R}^{n \times v}
+\end{align*}
 {{< /katex >}}
 
 ### 2.c Attention Output Calculation
@@ -71,10 +77,12 @@ Here, {{< katex >}}f{{< /katex >}} is typically the softmax function, and {{< ka
 MEGA employs gating mechanisms, similar to the Gated Linear Unit (GLU), to generate the final output {{< katex >}}Y{{< /katex >}} and the internal activation {{< katex >}}\hat{H}{{< /katex >}}. This is achieved through the following equations:
 
 {{< katex >}}
+\begin{align*}
 \gamma &= \phi_{silu}(X'W_\gamma + b_\gamma) \in \mathbb{R}^{n \times v} \\
 \varphi &= \phi_{sigmoid}(X'W_\varphi + b_\varphi) \in \mathbb{R}^{n \times d} \\ 
 \hat{H} &= \phi_{silu}(X'W_h + (\gamma \odot O)U_h + b_h) \in \mathbb{R}^{n \times d} \\
 Y &= \varphi \odot \hat{H} + (1 - \varphi) \odot X \in \mathbb{R}^{n \times d}
+\end{align*}
 {{< /katex >}}
 
 ### 2.e Chunk-wise Attention for Linear Time Complexity
@@ -104,8 +112,10 @@ Now, this paper, Megalodon, proposes four different methods that makes a network
 To improve EMA (Exponential Moving Average) capability when working over the complex number system, the authors propose CEMA (Complex Exponential Moving Average), which extends the idea of EMA to the complex plane. The key equations for CEMA are:
 
 {{< katex >}}
+\begin{align*}
 h_t^{(j)} &= \alpha_j(\cos \theta_j + i \sin \theta_j) \odot u_t^{(j)} + (1 - \alpha_j \odot \delta_j)(\cos \theta_j + i \sin \theta_j) \odot h_{t-1}^{(j)} \\
 y_{t,j} &= \mathcal{Re}(\eta_j^T h_t^{(j)})
+\end{align*}
 {{< /katex >}}
 
 Here, {{< katex >}}\alpha{{< /katex >}} and {{< katex >}}\delta{{< /katex >}} are real-valued parameters, just like in the original EMA. However, {{< katex >}}\eta{{< /katex >}} is a complex-valued parameter in CEMA. The {{< katex >}}\theta_j{{< /katex >}} values are learnable parameters that are used to uniformly distribute the {{< katex >}}h{{< /katex >}} arguments over the period of {{< katex >}}2\pi{{< /katex >}}. This is achieved by parameterizing {{< katex >}}\theta_j{{< /katex >}} as:
@@ -131,11 +141,13 @@ To overcome this obstacle, the authors introduce Timestep Normalization, a super
 During the calculation of attentions, the results can have a hugh instability along the temporal domain because the value of CEMA keeps changing. Therfore, the authors propose to use normalizaion on {{< katex >}}Z{{< /katex >}} before calculating the queries and keys. In this case, we do not have to scale the {{< katex >}}QK^{T}{{< /katex >}} since the values are already normalized while improving the stability of the attention mechanism.
 
 {{< katex >}}
+\begin{align*}
 X' &= \mathcal{CEMA}(X) && \in \mathbb{R}^{n \times d} \\
 Z &= X'W_z + b_z, \quad Z' = \frac{Z}{|Z|} && \in \mathbb{R}^{n \times z} \\
 Q &= \kappa_q \odot Z' + \mu_q && \in \mathbb{R}^{n \times z} \\
 K &= \kappa_k \odot Z' + \mu_k && \in \mathbb{R}^{n \times z} \\
 O &= f_{\text{softmax}}\left(QK^T\right)V && \in \mathbb{R}^{n \times v}
+\end{align*}
 {{< /katex >}}
 
 ### 3.d 2-hop Residual Connection
