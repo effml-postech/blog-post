@@ -184,6 +184,7 @@ Kangaroo's performance surpasses other speculative decoding methods, such as Med
     - Currently, confidence is measured only on the top-1 prediction. Future work could explore alternative metrics such as entropy or other measures to provide a more robust assessment of token validity.
 - **Alternative Networks for Adapting**: 
     - The use of an adapter network in Kangaroo shows promising results. However, experimenting with different network architectures could yield even better performance. Future research could investigate various types of networks to replace the adapter, potentially improving both the efficiency and accuracy of the speculative decoding process.
+    - Adapter network can also be compressed using quantization.
 - **Adaptive Early-Exit Mechanisms**: 
     - The current implementation of early exits in Kangaroo could be refined by dynamically adjusting the confidence thresholds based on the context or specific tasks. This adaptation could further reduce unnecessary computations and improve the overall efficiency of the model.
 
