@@ -18,7 +18,7 @@ The growing demand for rapid and efficient inference in large language models (L
 To address this issue, speculative decoding has been introduced as a promising approach to accelerate LLM inference without altering the output quality. This method leverages two key observations about LLM inference: 
 * Many tokens can be predicted with minimal computational overhead. 
 * LLM inference is predominantly constrained by memory bandwidth rather than arithmetic computations.
-`Speculative decoding` reduces the need for frequent memory operations on their parameters by focusing computational efforts on validating pre-drafted tokens, thus enhancing inference efficiency.
+*Speculative decoding* reduces the need for frequent memory operations on their parameters by focusing computational efforts on validating pre-drafted tokens, thus enhancing inference efficiency.
 
 However, existing speculative decoding such as **Medusa** and **Lookahead** still face limitations, such as high inference latency and suboptimal token acceptance rates. 
 The paper proposes Kangaroo to address this challenge.
