@@ -315,8 +315,8 @@ MoLE not only achieves effective LoRA composition but also retains the character
 ### 6. Hierarchical control analysis
 MOLE adaptively assigns weights to different LoRA experts across various layers, resulting in finer-grained weight combinations that yield superior results.
 
-<p align="center"6
-    <img src=./anal2.png> 
+<p align="center"
+    <img src=./anal6.png> 
     <br>
     <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
 </p>
