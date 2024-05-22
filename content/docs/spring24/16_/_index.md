@@ -147,14 +147,6 @@ The code operates in the following steps:
 5. Application to Hugging Face Models
    
    **apply_mod_to_hf** function applies the MoD mechanism to an existing Hugging Face model.
-
-'''bibtex
-@article{MoD2024,
-  title={Unofficial implementation for the paper "Mixture-of-Depths"},
-  author={AstraMind AI},
-  journal={https://github.com/astramind-ai/Mixture-of-depths},
-  year={2024}
-}
 </details>
 
 ## **Results**
