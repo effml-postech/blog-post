@@ -276,10 +276,13 @@ MoLE outperforms two multi-concept generation algorithms (Custom, Textual Invers
 MOLE demonstrated optimal performance across varying numbers of LoRA, notably surpassing LoRAHub with larger LoRA counts of 48 and 128. However, all methods, including MOLE, showed performance declines with an extremely large number of LoRA 
 
 ### 4. Coarse gating vs. fine gating
-Among  matrix-wise (MOLE), layer-wise (MOLE), block-wise (MOLE), and network-wise (MoLE), intermediate granularities, b-MOLE and l-MOLE, achieved the highest performance.
+Among  matrix-wise, layer-wise, block-wise, and network-wise MoLEs, intermediate granularities, b-MoLE and l-MoLE, achieved the highest performance.
 
 ### 5. Flexibility of MoLE.
-### 6. 
+MoLE not only achieves effective LoRA composition but also retains the characteristics of individual LoRA. It can generate images that closely resemble the original features of the LoRA experts
+
+### 6. Hierarchical control analysis
+MOLE adaptively assigns weights to different LoRA experts across various layers, resulting in finer-grained weight combinations that yield superior results.
    
 ## Discussion and Limitations
 
