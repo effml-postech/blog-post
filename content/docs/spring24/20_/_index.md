@@ -107,7 +107,7 @@ __Mergekit__ is a toolkit that provides various popular recipes for merging lang
 The goal of this paper is to develop a unified framework that can automatically generate a merged model from a set of foundation models, ensuring that the merged model outperforms an any single model in the collection. In this paper, an evolutionary algorithm was applied to reduce the complexity of the model merge process. The model merge was applied independently and also sequentially in both parameter space and the data flow space.
  
 ### Merging in the Parameter Space (PS)
-The model merge in the parameter space can be summarized as a weighted average of the model parameters. In this paper, the fitness of each foundation model for a specific task is determined using the task vector of each foundation model, and then merging configuration parameters for combining the parameters of the candidate models are estimated based on those fitness values. Specifically, this paper enhances TIES-Merging with DARE, allowing for more granular, layer-wise (input/output embedding layers or transformer blocks) merging. Fig. 3 of [Sakai.ai](https://sakana.ai/evolutionary-model-merge/) shows an overview of the PS merging.
+The model merge in the parameter space can be summarized as a weighted average of the model parameters. In this paper, the fitness of each foundation model for a specific task is determined using the task vector of each foundation model, and then merging configuration parameters for combining the parameters of the candidate models are estimated based on those fitness values. Specifically, this paper enhances TIES-Merging with DARE, allowing for more granular, layer-wise (input/output embedding layers or transformer blocks) merging. Fig. 3 of [Sakana.ai](https://sakana.ai/evolutionary-model-merge/) shows an overview of the PS merging.
 
 <p align="center">
   <img src="./figures/PS.gif" alt="." width="500" height="300"></br>
@@ -115,7 +115,7 @@ The model merge in the parameter space can be summarized as a weighted average o
 </p>
 
 ### Merging in the Data Flow Space (DFS)
-In DFS, the proposed framework discovers the best combinations of the layers of different models to form a new model, without changing the model parameters. In other words, the goal of merging in the DFS is to find the optimal inference path across the multiple models. For example, after the i-th layer in model A, a token may be directed to the j-th layer in model B. Fig. 4 of [Sakai.ai](https://sakana.ai/evolutionary-model-merge/) shows an overview of the DFS merging.
+In DFS, the proposed framework discovers the best combinations of the layers of different models to form a new model, without changing the model parameters. In other words, the goal of merging in the DFS is to find the optimal inference path across the multiple models. For example, after the i-th layer in model A, a token may be directed to the j-th layer in model B. Fig. 4 of [Sakana.ai](https://sakana.ai/evolutionary-model-merge/) shows an overview of the DFS merging.
 
 <p align="center">
   <img src="./figures/DFS.gif" alt="." width="500" height="300"></br>
@@ -127,7 +127,7 @@ To address this issue, this paper exploits the result of preliminary studies tha
 However, in the above setting, a layer may face an input whose distribution is different from what it is used to (from its original model), leading to unexpected outputs. They just apply scaling the input based on the scaling matrix $W \in \mathbb{R}^{M \times M}$, which is also optimized by the evolutionary search together with the indicator array $\mathcal{I}$.
 
 ### Merging in Both Spaces
-Model merging in the parameter space (PS) and data flow space (DFS) can be applied orthogonally to boost the performance of the merged model. Specifically, in this paper, model merging is first applied in the PS to generate several merged models, which are then put back to the collection of models. The expanded collection is subsequently used for merging in the DFS. Fig. 5 of [Sakai.ai](https://sakana.ai/evolutionary-model-merge/) shows an overview of the overall method.
+Model merging in the parameter space (PS) and data flow space (DFS) can be applied orthogonally to boost the performance of the merged model. Specifically, in this paper, model merging is first applied in the PS to generate several merged models, which are then put back to the collection of models. The expanded collection is subsequently used for merging in the DFS. Fig. 5 of [Sakana.ai](https://sakana.ai/evolutionary-model-merge/) shows an overview of the overall method.
 
 <p align="center">
   <img src="./figures/Overall.gif" alt="." width="500" height="300"></br>
@@ -246,6 +246,4 @@ Ha, David., [A Visual Guide to Evolution Strategies](https://blog.otoro.net/2017
 
 Zhengqi Xu, Ke Yuan, Huiqiong Wang, Yong Wang, Mingli Song, Jie Song., [Training-Free Pretrained Model Merging](https://arxiv.org/abs/2403.01753). CVPR., 2024.
 
-Sakai.ai., [Evolving New Foundation Models: Unleashing the Power of Automating Model Development](https://sakana.ai/evolutionary-model-merge/)., 2024.
-=======
-##Background
+Sakana.ai., [Evolving New Foundation Models: Unleashing the Power of Automating Model Development](https://sakana.ai/evolutionary-model-merge/)., 2024.
