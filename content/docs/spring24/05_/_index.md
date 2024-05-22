@@ -175,7 +175,7 @@ Several advantages:
 
 Compare with others:
 
-Kangaroo's performance surpasses other speculative decoding methods, such as Medusa and Lookahead, particularly in terms of end-to-end speedup and token acceptance rates (see Fig. 2 in the background). The double early-exit mechanism plays a crucial role in maintaining this balance by efficiently handling easier tokens and exiting early when confidence is lower than the predefined threshold, thus minimizing latency.
+Kangaroo's performance surpasses other speculative decoding methods, such as Medusa and Lookahead, particularly in terms of end-to-end speedup and token acceptance rates (see Fig. 2 in the backgrounds). The double early-exit mechanism plays a crucial role in maintaining this balance by efficiently handling easier tokens and exiting early when confidence is lower than the predefined threshold, thus minimizing latency.
 
 ### Limitations and future work:
 
