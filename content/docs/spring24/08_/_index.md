@@ -112,7 +112,6 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 
 2. Each layer of the trained LoRA represented a unique characteristic, which cumulatively defined the overall properties of the LoRA.
 
-
 <p align="center">
     <img src=./motiv2_1.png align="center" height=150>
     <img src=./motiv2_2.png align="center" height=150">
@@ -333,7 +332,7 @@ MOLE adaptively assigns weights to different LoRA experts across various layers,
 </p>
    
 ## Discussion and Limitations
-**Limitations**
+### **Limitations**
 1. LoRA scale <br/>
 
 When the number of LoRAs increases to a very large value (e.g., 128), the performance of all LoRA composition methods, including MOLE, tends to decrease despite MOLE's superior performance. This indicates that MOLE still faces challenges with large-scale LoRA composition and emphasizes the need for better approaches to handle it effectively. 
@@ -343,7 +342,7 @@ When the number of LoRAs increases to a very large value (e.g., 128), the perfor
 The learnable parameter 𝑒 used in MoLE has dimensions of $N^2 \times L \times D$. As the number of LoRAs increases, the number of parameters grows quadratically, resulting in a substantial increase. Additionally, since e exists for each transformer block, the number of parameters added by 𝑒 is considerable. This can be seen as a drawback of MoLE.
 <br/>
 
-**Discussion**
+### **Discussion**
 
 _How to address MoLE's limitations at LoRA scale?_
 
