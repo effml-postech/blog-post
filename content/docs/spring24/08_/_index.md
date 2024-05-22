@@ -269,20 +269,57 @@ In NLP, Using a loss in FLAN-T5(Chung et al,2022)
 ### 1. Gating balancing loss works!
 Gating balancing loss function mitigates the reduction in entropy rates within gating functions, and enhance the performance.
 
+<p align="center">
+    <img src=./anal1.png> 
+    <img src=./anal1-2.png> 
+    <br>
+    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+</p>
+
 ### 2. MoLE is even better than SOTA multi-concept generation methods.
 MoLE outperforms two multi-concept generation algorithms (Custom, Textual Inversion), both of which emphasize full-parameter training for enhanced results.
+
+<p align="center">
+    <img src=./anal2.png> 
+    <br>
+    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+</p>
 
 ### 3. Scale to a larger number of LoRAs.
 MOLE demonstrated optimal performance across varying numbers of LoRA, notably surpassing LoRAHub with larger LoRA counts of 48 and 128. However, all methods, including MOLE, showed performance declines with an extremely large number of LoRA 
 
+<p align="center">
+    <img src=./anal3.png> 
+    <br>
+    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+</p>
+
 ### 4. Coarse gating vs. fine gating
 Among  matrix-wise, layer-wise, block-wise, and network-wise MoLEs, intermediate granularities, b-MoLE and l-MoLE, achieved the highest performance.
+
+<p align="center">
+    <img src=./anal4.png> 
+    <br>
+    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+</p>
 
 ### 5. Flexibility of MoLE.
 MoLE not only achieves effective LoRA composition but also retains the characteristics of individual LoRA. It can generate images that closely resemble the original features of the LoRA experts
 
+<p align="center">
+    <img src=./anal5.png> 
+    <br>
+    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+</p>
+
 ### 6. Hierarchical control analysis
 MOLE adaptively assigns weights to different LoRA experts across various layers, resulting in finer-grained weight combinations that yield superior results.
+
+<p align="center"6
+    <img src=./anal2.png> 
+    <br>
+    <em>(Left) Linear arithmetic composition. (Right) Reference tuning-based composition</em>
+</p>
    
 ## Discussion and Limitations
 **Limitations**
