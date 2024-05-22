@@ -184,7 +184,7 @@ Infini attention was tested on three main benchmarks such as **long-context lang
     <img src=./Untitled%208.png>
 </p>
 
-<p align="center" style="color:gray">
+<p align="left" style="color:gray">
 Table 2: Long-context language modeling results are compared in terms of average token-level perplexity. Comp. dentoes compression ratio. Infini-Transformer outperforms memorizing transformers with memory length of 65K and achieves 114x compression ratio.
 </p>
 
@@ -223,7 +223,7 @@ While previous work [14] showed that the 8B LLaMA model can solve tasks up to 32
     <img src=./Untitled%2011.png>
 </p>
 
-<p align="center" style="color:gray">
+<p align="left" style="color:gray">
 Table 4: 500K length book summarization (BookSum) results. The BART, PRIMERA and Unlimiformer results are from Bertsch et al. (2024).
 </p>
 
@@ -231,7 +231,7 @@ Table 4: 500K length book summarization (BookSum) results. The BART, PRIMERA and
     <img src="./Untitled%2012.png">
 </p>
 
-<p align="center" style="color:gray">
+<p align="left" style="color:gray">
 Figure 4: Infini-Transformers obtain better Rouge overall scores with more book text probived as input.
 </p>
 
