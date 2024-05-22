@@ -169,7 +169,7 @@ The training loss function used in MoLE is as follows:
 </p>
 
 {{< katex display=true >}}
-$$\mathcal{L} = \mathcal{L}_D + \alpha \mathcal{L}_{balance}$$
+$$\mathcal{L} = \mathcal{L}_{D} + \alpha \mathcal{L}_{balance}$$
 {{< /katex >}}
 
 
