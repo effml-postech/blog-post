@@ -122,33 +122,6 @@ The following is an implementation of MoD that supports various LMs such as Mixt
 
 LINK: https://github.com/astramind-ai/Mixture-of-depths
 
-<details>
-<summary>Code Details</summary>
-
-The code operates in the following steps:
-1. Token Weight Calculation
-   
-   '''class TokenRouter(nn.Module):
-    def __init__(self, embed_dim):
-        super().__init__()
-        self.weight_predictor = nn.Linear(embed_dim, 1)
-
-    def forward(self, x):
-        weights = self.weight_predictor(x).squeeze(-1)  # [batch_size, seq_len]
-        return weights
-   '''
-   
-   The **TokenRouter** module calculates weights for each token based on its embedding. This is done using a linear layer applied to the embedding resulting in a weight value for each token.
-3. Selective Processing
-   
-   The processing occurs in the **MoD** module's forward pass
-   - First token weights are calculated using **TokenRouter**
-   - By a capacity parameter, the number of tokens is determined. They undergo self-attention and MLP computation.
-5. Application to Hugging Face Models
-   
-   **apply_mod_to_hf** function applies the MoD mechanism to an existing Hugging Face model.
-</details>
-
 ## **Results**
 ### **Hyperparameter tuning**
 <p align="center">
@@ -203,6 +176,7 @@ However, there are some unresolved limitations not discussed in the paper.
 - **More baselines are needed**: Further studies should provide validation of MoD method by comparing other methods like COLT5 or MoE and proof of optimal hyperparameters.
 
 ## **References**
-Arian et.al.,"<U><a href="https://arxiv.org/abs/2105.09121" target="_blank"> Single-Layer Vision Transformers for More Accurate Early Exits with Less Overhead </a></U>," arXiv, 2021  
-Joshua et.al.,"<U><a href="https://arxiv.org/abs/2303.09752" target="_blank"> COLT5: Faster Long-Range Transformers with Conditional Computation </a></U>," EMNLP, 2023   
-Noam et.al.,"<U><a href="https://arxiv.org/abs/1701.06538" target="_blank"> OUTRAGEOUSLY LARGE NEURAL NETWORKS: THE SPARSELY-GATED MIXTURE-OF-EXPERTS LAYER </a></U>," ICLR, 2017 
+Arian et.al.,<U><a href="https://arxiv.org/abs/2105.09121" target="_blank"> Single-Layer Vision Transformers for More Accurate Early Exits with Less Overhead </a></U>, arXiv, 2021.  
+Joshua et.al.,<U><a href="https://arxiv.org/abs/2303.09752" target="_blank"> COLT5: Faster Long-Range Transformers with Conditional Computation </a></U>, EMNLP, 2023.   
+Noam et.al.,<U><a href="https://arxiv.org/abs/1701.06538" target="_blank"> OUTRAGEOUSLY LARGE NEURAL NETWORKS: THE SPARSELY-GATED MIXTURE-OF-EXPERTS LAYER </a></U>, ICLR, 2017.
+AstraMind AI (2024). Unofficial implementation for the paper "Mixture-of-Depths". https://github.com/astramind-ai/Mixture-of-depths.
