@@ -1,4 +1,4 @@
----
+<img width="387" alt="image" src="https://github.com/effml-postech/blog-post/assets/68853236/a3bede18-7a2c-42b6-8d22-8280aa1577ab">---
 type: docs
 bookToc: True
 weight: 1
@@ -75,7 +75,11 @@ Pretrained model with multi-token prediction loss maintains an edge on that with
 
 # Why does it work, Athors' Speculations?
 
-### 
+### Lookahead reinforces choice points 
+
+<p align="center">
+    <img src='./Lookahead.png' width="800">
+</p>
 
 ### Information-Theoretic View
 
