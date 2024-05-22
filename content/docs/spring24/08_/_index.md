@@ -256,8 +256,8 @@ When viewing the generated images, it is evident that all specified subjects are
 **Results**
 
 <p align="center">
-    <img src=./result7.png align="center" width="45%">
-    <img src=./result8.png align="center" width="55%">
+    <img src=./result7.png align="center" width="40%">
+    <img src=./result8.png align="center" width="45%">
     <figcaption align="center">
 </p>
         
