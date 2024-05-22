@@ -68,17 +68,26 @@ bGPT is further fine-tuned for classification tasks by adding a classification h
 
 ## Applications
 
+![datasets](datasets.png) <br>
+*[Figure 3](https://arxiv.org/abs/2402.19155): Overview of datasets for bGPT evaluation, with computational costs benchmarked in NVIDIA V100 GPU hours.*
+
 ### Digital Media Processing
 
-bGPT is used for processing various types of digital media data such as text, audio, and images. This model performs learning targeted at media files through generative modeling, transforming the data into features and subsequently performing classification tasks based on these features.
+Having proficiency in processing diverse forms of digital media, including text, audio, and images, is a essential for human communication and interaction. bGPT is trained for generative modeling and classification tasks on text, images and speech dataset, demonstrating its ability to handle different modalities. The standardization for audio and image data was done as follows:
 
-For example, audio files are converted to and processed in WAV format, while images are processed at a low resolution in BMP format. By utilizing these standardized datasets, bGPT can develop a generalized understanding of various media types.
+| Modality | Format      | Specifications |
+|----------|-------------|----------------|
+| Audio    | WAV         | 8000 Hz sampling rate, mono channel, 8-bit depth, 1 second length |
+| Image    | BMP         | 32x32 resolution, RGB color, 24-bit depth |
 
 ### Algorithm and Hardware Simulation
 
-bGPT is particularly useful for tasks such as data conversion and CPU state modeling. This means bGPT can learn the digital conversion process and simulate the operation of CPUs to predict the state of the CPU after various commands are executed.
+Furthermore, to evaluate the model's ability to simulate algorithms and hardware operations, bGPT is trained on two underexplored tasks: data conversion and CPU state modeling. These tasks are crucial for understanding and predicting the behavior of digital systems.
 
-For example, in the task of converting the music data format from ABC notation to MIDI format, bGPT learns to transform text-based music scores in ABC notation into binary performance signals in MIDI. Additionally, this model is also capable of performing the reverse conversion from MIDI back to ABC notation.
+- **Data Conversion**: bGPT learns to convert music data from ABC notation to MIDI format and vice versa. This task involves understanding the structure of music data and the conversion process between different formats.
+
+- **CPU State Modeling**: bGPT predicts the state of a CPU after executing a sequence of machine instructions. This task requires understanding the internal operations of CPUs and predicting their states based on the given instructions.
+
 
 ## Experiments
 
