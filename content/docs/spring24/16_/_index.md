@@ -176,6 +176,8 @@ In this figure, the training FLOPs budget is limited to 6e18, 2e19, and 1e20 com
     <img src=./result3.png>
 </p>
 
+MoD variants were evaluated during auto-regressive sampling. Each model was tested on data comprising 256,000 sequences.
+
 - **Predictor accuracy**: Using predictor-based methods is cheaper than top-k but not more accurate. In the left graph, the performance of the predictor strategy is almost indistinguishable from the top-k strategy. Authors attribute this to the ease of learning this prediction problem.
 
 ### **Mixture-of-Depths-and-Experts (MoDE)**
