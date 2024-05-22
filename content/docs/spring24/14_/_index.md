@@ -87,7 +87,7 @@ It is important to note that LMB is applied at only crucial parts of difusion mo
   <img src="./lmb.png" alt="." width="500" height="300" > 
 </p>
 <p align="center">
-  Weight quantizatio result of naive binarization and LMB
+  Weight quantization result of naive binarization and LMB
 </p>
 
 ### **Low-rank representation mimicking**
