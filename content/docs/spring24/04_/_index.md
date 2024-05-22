@@ -77,13 +77,15 @@ Pretrained model with multi-token prediction loss maintains an edge on that with
 
 ### Lookahead reinforces choice points 
 
+Multi-token prediction assigns weights to training tokens based on their correlation with successors. Difficult-to-predict choice points receive higher weights compared to inconsequential transitions. The weighting system allocates n(n+1) points to correlated tokens and n points to inconsequential ones.
+
 <p align="center">
     <img src='./Lookahead.png' width="400">
 </p>
 
 ### Information-Theoretic View
 
-Next token prediction loss concerns $H(X) = H(X | Y) + I(X; Y)$, while multi-token prediction loss concerns $H(X) + H(Y) = H(X | Y) + 2I(X; Y) + H(Y | X)$. This means that multi-token prediction loss care about a mutual information term with weight two while next token prediction concerns with weight one. We can interpret this 2-token prediction incentivizes models to precompute features which will become useful for predicting Y in the next step and increases the weight of the relative mutual information term in the loss.
+Next token prediction loss involves $H(X) = H(X | Y) + I(X; Y)$, while multi-token prediction loss involves $H(X) + H(Y) = H(X | Y) + 2I(X; Y) + H(Y | X)$. This indicates that multi-token prediction places twice the emphasis on the mutual information term compared to next token prediction. Essentially, 2-token prediction encourages models to precompute features useful for predicting the next token \( Y \), thereby increasing the importance of the mutual information term in the loss calculation.
 
 # Conclusion
 
