@@ -233,9 +233,9 @@ In NLP, Using a loss in FLAN-T5(Chung et al,2022)
 It demonstrates better performance compared to other models and shows outstanding results in other tasks as well.
 
 <p align="center">
-    <img src=./result2.png align="center" width="32%">
-    <img src=./result3.png align="center" width="32%">
-    <img src=./result4.png align="center" width="32%">
+    <img src=./figure9.png align="center" width="32%">
+    <img src=./figure10.png align="center" width="32%">
+    <img src=./figure11.png align="center" width="32%">
     <figcaption align="center">
 </p>
         
