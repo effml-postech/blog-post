@@ -10,7 +10,7 @@ weight: 1
 - Institution : FAIR at Meta, CERMICS Ecole des Ponts ParisTech and LISN Universite Paris-Saclay
   
 # Motivation 
-Conventional LLM trained with a next-token prediction loss latches on local patterns and overlooks “hard” decisions. Author wants to alleiviate this issue with pre-training with multi-token prediction loss.
+Conventional LLM trained with a next-token prediction loss latches on local patterns and overlooks “hard” decisions. Author wants to alleiviate this issue by pre-training LLM with multi-token prediction loss.
 
 # Preliminaries
 
