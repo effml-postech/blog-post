@@ -88,9 +88,16 @@ Multi-token prediction assigns weights to training tokens based on their correla
 Next token prediction loss involves $H(X) = H(X | Y) + I(X; Y)$, while multi-token prediction loss involves $H(X) + H(Y) = H(X | Y) + 2I(X; Y) + H(Y | X)$. This indicates that multi-token prediction places twice the emphasis on the mutual information term compared to next token prediction. Essentially, 2-token prediction encourages models to precompute features useful for predicting the next token \( Y \), thereby increasing the importance of the mutual information term in the loss calculation.
 
 ### Compare with similar works
-- 
+- Qi et al. (2020) argue that multi-token prediction encourages planning, improves representations and prevents the overfitting on local patterns that can result from teacher-forced training. However, their technical approach replicates the residual stream n-fold while ours allows for compute-matched comparisons and makes the residual representations participate more directly in the auxiliary loss terms.
 - Stern et al. (2018) and Cai et al. (2024) propose model finetunings with multi-token prediction for faster inference but do not study the effects of such a loss during pretraining.
 
 # Conclusion
+Author propose to use the multi-token prediction loss rather than a next token prediction loss for pretraining language model. Such pretraining scheme demonstrate helpful for various task, notable in code task. 
 
 # Discussion
+- I would like to see more global capturing ability on other experiment setting 
+- Authors demonstrates cases including \( (n=4, n'=1) \), \( (n=4, n'=1) \), and \( (n=1, n'=1) \) on the code task. However, I would like to see the \( n=1, n'=4 \) setting result on the code task. Conducting this experiment would help determine if the \( n=4 \) case still outperforms the \( n=1, n'=4 \) setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
+
+# Reference
+
+
