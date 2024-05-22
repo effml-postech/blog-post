@@ -10,7 +10,7 @@ weight: 1
 - Institution : FAIR at Meta, CERMICS Ecole des Ponts ParisTech and LISN Universite Paris-Saclay
   
 # Motivation 
-Conventional LLM trained with teacher forcing with next-token prediction latches on local patterns and overlooks “hard” decisions. Author wants to alleiviate this issue with pretraining with mutil-token prediction loss.
+Conventional LLM trained with a next-token prediction loss latches on local patterns and overlooks “hard” decisions. Author wants to alleiviate this issue with pre-training with multi-token prediction loss.
 
 # Preliminaries
 
@@ -61,7 +61,7 @@ To show using multi-token prediction loss helps to capture global pattern than u
 
 ### Coding Benchmarks
 
-Pretrained model with multi-token prediction loss maintains an edge on that with next-token prediction loss. At the beginning, they pretrain the 7B parameter models with multi-token prediction loss or next-token prediction loss. (Use the pretrained model on MBPP, HumanEval and APPS) Then, they finetune the models with CodeContests dataset (Li  et al., 2022) with multi-token head or next-token head. 
+Pre-trained model with multi-token prediction loss maintains an edge on that with next-token prediction loss. At the beginning, they pre-train the 7B parameter models with multi-token prediction loss or next-token prediction loss. (Use the pre-trained model on MBPP, HumanEval and APPS) Then, they finetune the models with CodeContests dataset (Li  et al., 2022) with multi-token head or next-token head. 
 
 <p align="center">
     <img src='./CodeContests.png' width="800">
@@ -91,15 +91,15 @@ Next token prediction loss involves $H(X) = H(X | Y) + I(X; Y)$, while multi-tok
 
 ### Compare with similar works
 - Qi et al. (2020) argue that multi-token prediction encourages planning, improves representations and prevents the overfitting on local patterns that can result from teacher-forced training. However, their technical approach replicates the residual stream n-fold while ours allows for compute-matched comparisons and makes the residual representations participate more directly in the auxiliary loss terms.
-- Stern et al. (2018) and Cai et al. (2024) propose model finetunings with multi-token prediction for faster inference but do not study the effects of such a loss during pretraining.
+- Stern et al. (2018) and Cai et al. (2024) propose model finetunings with multi-token prediction for faster inference but do not study the effects of such a loss during pre-training.
 
 # Conclusion
-Author propose using multi-token prediction loss instead of next-token prediction loss for pretraining language models. This pretraining scheme has shown improvements across various tasks, notably in code tasks.
+Author propose using multi-token prediction loss instead of next-token prediction loss for pre-training language models. This pre-training scheme has shown improvements across various tasks, notably in code tasks.
 
 # Discussion
 - For each task and dataset, the optimal number of heads $n$ varies. I would like to see more correlations between dataset characteristics and the optimal $n$.
 - I would like to see more evidence of the global capturing ability of multi-token prediction loss in other experimental settings.
-- Authors demonstrates cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task, where $n$ and $n'$ denote number of pretraining head and that of finetuning head. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pretraining with the multi-task prediction scheme would be further substantiated.
+- Authors demonstrates cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task, where $n$ and $n'$ denote number of pre-training head and that of finetuning head. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pre-training with the multi-task prediction scheme would be further substantiated.
 - I would like to study more about multi-token prediction head experiments on multi-token prediction loss with stride=2,4,8,16 ... (This paper shows only with stride=1 setting, predicting consecutive tokens) or extremely large number of multi-token prediction head setting.
   
 # Reference
