@@ -43,7 +43,7 @@ To address this issue, the authors adapted a hierarchical structure for bGPT, en
 
 #### Components of bGPT
 
-- **Byte encoding**: Each byte is one-hot encoded into a 257-dimensional vector, including all possible byte values and `<eop>` token. Thus, each patch is viewed as a matrix of size {{< katex >}}S \times 257{{< /katex >}}.
+- **Byte encoding**: Each byte is one-hot encoded into a 257-dimensional vector, including all possible byte values and `<eop>` token. Each patch is viewed as a matrix of size {{< katex >}}S \times 257{{< /katex >}}.
 - **Linear Projection Layer** maps the flattened patch into a dense vector of hidden size {{< katex >}}H{{< /katex >}}, enabling more efficient processing of byte sequence.
 - **Patch-Level Decoder** autoregressively predicts the features of the next patch, thereby learning the structural patterns of the entire dataset.
 - **Byte-Level Decoder** takes the predicted patch features and autoregressively reconstruct the bytes within each patch. This process is repeated for all patches to generate the output byte sequence.
