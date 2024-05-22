@@ -69,6 +69,12 @@ $$\hat{\mathbf{W}} = \mathbf{W} + \sum_{i=1}^{N} w_i \cdot \Delta \mathbf{W}_i$$
 
 MoE is an effective method that allows scaling up the number of parameters while maintaining the computational cost of the model.
 
+<p align="center">
+    <img src=./moe.png> 
+    <br>
+    <em>Illustration of a Swith Transformer block.</em>
+</p>
+
 * Experts FFN Layers: MoE layer is composed of N separate feed-forward networks as the experts. This concept involves dividing the FFN layer of traditional transformers into N experts. These experts can be thought of as being responsible for specific tokens.
 
 * Gating functions (Router): A function that determines the weights over the experts outputs. For the hidden representation h of input token, and the trainable embedding e of each a expert, the gate value a is obtained as follow:
@@ -83,25 +89,21 @@ The output is a weighted sum of the outputs from the top-k experts, determined b
 O = h + \sum_{i=0}^{N} \alpha(E_i) \cdot E_i(h)
 {{< /katex >}}
 
-<p align="center">
-    <img src=./moe.png> 
-    <br>
-    <em>Illustration of a Swith Transformer block.</em>
-</p>
-
 ## Mixture of LoRA experts
 
 ### Observations
 1. Direct linear arithmetic composition reduced the generative power of the model, while normalized linear arithmetic composition retained the generative power of the model but lost its LORA character.
+
+
 <p align="center">
     <img src=./motiv1_1.png align="center" height="150">
     <img src=./motiv1_2.png align="center" height="150">
     <br>
     <em>(Left) Result of linear arithmetic composision. (Right) Result of nomalized linear arithmetic composision.</em>
 </p>
-        
+
 <p align="center">
-    <img src=./motiv1_3.png width="700">
+    <img src=./motiv1_3.png width="40%">
     <br>
     <em>Experiment in the NLP domain. NLA denotes normalized linear arithmetic composision </em>
 </p>
@@ -109,20 +111,24 @@ O = h + \sum_{i=0}^{N} \alpha(E_i) \cdot E_i(h)
 In the V&L domain, directly composing multiple trained LoRAs into the original embedding caused significant parameter variations and meaningless output, while normalization compromised their original characteristics.  In the NLP domain, composing four or more LoRAs within the FLAN-T5 model resulted in disordered output, and weight normalization across five datasets decreased the performance, suggesting adverse effects on the intrinsic qualities of the trained LoRAs.
 
 2. Each layer of the trained LoRA represented a unique characteristic, which cumulatively defined the overall properties of the LoRA.
+
+3. 
 <p align="center">
     <img src=./motiv2_1.png align="center" height=150>
     <img src=./motiv2_2.png align="center" height=150">
     <figcaption align="center">
     <br>
-    <em>(Right) Observed that different layers of LoRA encode distinct features, such as dog coat color and facial features.,<br/>
-(Left) When evaluated on a subset of datasets, there were significant differences in performance across the different layers of LoRA.) </em>
+    <em>(Right) Observed that different layers of LoRA encode distinct features, such as dog coat color and facial features. (Left) When evaluated on a subset of datasets, there were significant differences in performance across the different layers of LoRA.) </em>
 </p>
         
 **So, The conjecture is that adjusting the characteristics by varying the layer-specific weights according to the desired domain objective will result in a more effective composition of trained LORAs.**
+
 ### Method
 
 <p align="center">
-    <img src=./Method1.png align="center" width="400">
+    <img src=./Method1.png align="center" width="70%">
+    <br>
+    <em>(Left) Result of linear arithmetic composision. (Right) Result of nomalized linear arithmetic composision.</em>
 </p>
 
 <details>
@@ -326,7 +332,7 @@ MOLE adaptively assigns weights to different LoRA experts across various layers,
 **Limitations**
 1. LoRA scale <br/>
 
-When the number of LoRAs increases to a very large value (e.g., 128), the performance of all LoRA composition methods, including MOLE, tends to decrease despite MOLE's superior performance. This indicates that MOLE still faces challenges with large-scale LoRA composition and emphasizes the need for better approaches to handle it effectively.
+When the number of LoRAs increases to a very large value (e.g., 128), the performance of all LoRA composition methods, including MOLE, tends to decrease despite MOLE's superior performance. This indicates that MOLE still faces challenges with large-scale LoRA composition and emphasizes the need for better approaches to handle it effectively. 
 
 2. Parameter <br/>
 
