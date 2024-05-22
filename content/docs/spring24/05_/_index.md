@@ -153,7 +153,7 @@ Fig. 4 demonstrates the trade-off between the compression rate and the walltime 
 Fig. 5 demonstrates the effect of draft early exiting comparing the optimal threshold {{<katex>}}\eta{{<\katex>}}. {{<katex>}}\eta=0{{<\katex>}} points represent a typical self-speculative scheme with a fixed step strategy, which achieves the maximum compression rate but leads to sub-optimal end-to-end walltime speedup.
 
 <p align="center">
-    <img src='./threshold.png' width="700">
+    <img src='./adapter.png' width="700">
 </p>
 <p align="center">
     Table 2. The architecture of the adapter module for Vicuna-7B.
