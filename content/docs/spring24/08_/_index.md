@@ -345,7 +345,8 @@ The learnable parameter 𝑒 used in MoLE has dimensions of $N^2 \times L \times
 
 **Discussion**
 
-<How to address MoLE's limitations at LoRA scale> <br/>
+_How to address MoLE's limitations at LoRA scale?_
+
 Currently, MoLE's performance decreases when the number of LoRAs exceeds a certain threshold. By reducing the number of LoRAs to below this threshold with minimal loss, performance could be improved. Assuming there is a large number of LoRAs, there will likely be many LoRAs for similar tasks. Given this, we believe that clustering to derive representative LoRAs for similar tasks and using only the representative LoRAs instead of all similar task LoRAs could overcome MoLE's limitations.
 
 
