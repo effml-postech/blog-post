@@ -124,8 +124,8 @@ Despite the enhanced methodology, training process remains slow and unstable. To
   <img src="./progressive.png" alt="." width="500" height="300" > 
 </p>
 
-## Experiments
-### Generation Performance
+## **Experiments**
+### **Generation Performance**
 To demonstrate the performance of the binarized diffusion model, the author conducted experiments on two major categories of diffusion models: unconditional and conditional models. The metrics used to measure performance included FID and sFID for assessing the perceptual quality of images, IS for measuring diversity, and Recall and Precision for evaluating accuracy.
 Additionally, for experiments with baselines, the methods used were LSQ for multi-bit cases and a QAT method similar to STE for single-bit cases.
 Unconditional Generation  
@@ -154,7 +154,7 @@ Table 2 presents the results of experiments conducted with the same sampling str
 
 Finally, Table 3 shows the experimental results for Conditional Generation. The dataset used was ImageNet 256. In this experiment, two unusual trends were observed: 1. The performance gap between the baseline and BinaryDM is very small, and 2. Lower FID scores than FP were observed in all quantization experiments. However, I personally believe that achieving better performance than FP in all situations, despite using 1-2 bit quantization, is not a reasonable result, suggesting that the experiment may have been conducted incorrectly.  
 
-### Ablation Study
+### **Ablation Study**
 Three ablation studies were conducted. The first ablation study focused on the various methods of Binary DM, measuring performance changes with the addition of LMB and LRM. The second study evaluated inference efficiency by measuring the FLOPs required during the inference of the binarized DM. The third study examined training efficiency, comparing the training time of the proposed method to that of another diffusion quantization method, Q-Diffusion.
 
 <p align="center">
@@ -178,5 +178,5 @@ Secondly, when measuring FLOPs, it was found that despite having a lower FID com
 
 Lastly, when comparing the training time cost with Q-Diffusion, it was found that the training cost is approximately 1.2 times lower.
 
-## Conclusion
+## **Conclusion**
 BinaryDM is a paper on binary quantization of diffusion models, which achieves dramatic performance improvements by introducing two methods, LMB and LRM, instead of traditional quantization methods. LMB increases the representation quality of binary quantization by using two scaling factors instead of one baseline factor. LRM minimizes the loss of low-frequency components information in the quantized model by performing feature matching in a low-rank space. Furthermore, the progressive quantization proposed in the paper prevents significant information loss in the early iterations, minimizing performance degradation. Extensive experiments demonstrate the superiority of BinaryDM across various tasks.
