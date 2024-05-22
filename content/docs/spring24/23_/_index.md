@@ -69,7 +69,7 @@ bGPT is further fine-tuned for classification tasks by adding a classification h
 ## Applications
 
 ![datasets](datasets.png) <br>
-*[Figure 3](https://arxiv.org/abs/2402.19155): Overview of datasets for bGPT evaluation, with computational costs benchmarked in NVIDIA V100 GPU hours.*
+*[Table 1](https://arxiv.org/abs/2402.19155): Overview of datasets for bGPT evaluation, with computational costs benchmarked in NVIDIA V100 GPU hours.*
 
 ### Digital Media Processing
 
@@ -91,10 +91,19 @@ Furthermore, to evaluate the model's ability to simulate algorithms and hardware
 
 ## Experiments
 
-### Digital Media Processing (well-studied tasks)
+### Performance Metrics
+
+The performance of bGPT is evaluated using the following metrics:
+
+- **Bits Per Byte (BPB)**: The average number of bits required to encode each byte in the output sequence. Lower BPB values indicate better performance.
+- **Accuracy**: The percentage of correctly classified samples in the classification task. Higher accuracy values indicate better performance.
+
+### Digital Media Processing
 
 **Experiment Overview**
-To assess the flexibility and versatility of the bGPT model, experiments with various types of digital media data were conducted. This involved handling a wide range of file types including text, audio, and image data, with the aim to measure the model's ability to process these types and to see how well bGPT generalizes compared to specialized models. The experiment included both generative modeling and classification tasks.
+To assess the flexibility and versatility of the bGPT model, experiments with various types of digital media data were conducted. This involved handling a wide range of file types including text, audio, and image data. Also, to evaluate the model's generalization capabilities, various settings of mixed modalities and transfer learning were explored.
+
+<!-- with the aim to measure the model's ability to process these types and to see how well bGPT generalizes compared to specialized models. The experiment included both generative modeling and classification tasks. -->
 
 <!-- **Experimental Data**
 The datasets used in the experiment included:
@@ -125,42 +134,54 @@ Each model was fine-tuned for specific types of classification and generative ta
 | bGPTsignal | Image+Speech | ImageNet+LibriSpeech |
 | bGPTmix    | Text+Image+Speech | Wikipedia+ImageNet+LibriSpeech |
 
-**Result and Analysis**
+#### Results and Analysis
 
-- **Text Processing**: bGPTwiki showed high classification accuracy on the AG News dataset, indicating bGPT's strong performance in text-based tasks.
-- **Audio Processing**: bGPTlibri demonstrated excellent performance on the Speech Commands v2 dataset, showcasing its high potential in audio processing.
-- **Image Processing**: bGPTimage recorded high accuracy on the CIFAR-10 dataset but showed somewhat lower performance on ImageNet. This suggests that while bGPT works well with relatively simple images, it may have limitations with more complex images.
-  
-  | Model           | \| AG News (4 classes) \| |           | CIFAR-10 (10 classes) \| |           | Speech Commands v2 (36 classes) \| |
-|-----------------|----------------------------|-----------|----------------------------|-----------|------------------------------------|
-|                 | BPB     | Acc (%)           | BPB       | Acc (%)                    | BPB       | Acc (%)                            |
-|-----------------|---------|-------------------|-----------|----------------------------|-----------|------------------------------------|
-| bGPT_random     | 1.3496  | 84.74             | 3.4928    | 76.73                      | 1.5414    | 92.43                              |
-| bGPT_wiki       | **1.0639**  | **92.49**             | 3.6663    | 77.02                      | 1.5719    | 93.56                              |
-| bGPT_image      | 1.4179  | 83.16             | **3.1234**    | **88.69**                      | 1.5326    | 93.91                              |
-| bGPT_libri      | 1.3993  | 83.59             | 3.3345    | 83.51                      | **1.4818**    | **96.03**                              |
-| bGPT_signal     | 1.4058  | 83.80             | 3.1554    | 87.65                      | 1.4898    | 95.66                              |
-| bGPT_mix        | 1.0935  | 91.75             | 3.2279    | 84.32                      | 1.5086    | 95.09                              |
-| Baselines       | 0.9237  | 94.50             | —         | **98.13**                      | —         | **98.11**                              |
+![performance_media](performance_media.png) <br>
+*[Table 2](https://arxiv.org/abs/2402.19155): Performance comparison of bGPT models pre-trained on different datasets and baseline models in their respective modalities: GPT2-small on text, ViT-B/16 on images, and AST on speech.*
 
+#### Performance on downstream tasks (yellow)
 
-### Algorithm and Hardware Simulation (underexplored tasks)
+- **Text/speech**: *competitive* performance compared to baseline models
+- **Image**: <span style="color:red">Large discrepancy</span> compared to baseline models.
+
+ The sequential nature of byte-level processing made it <span style="color:red">difficult to capture spatial information</span> in images, which is crucial for image tasks.
+
+#### Mixed modality pre-training
+
+- **Trade-off** between versatility and performance
+- It dilutes the depth of domain-specific understanding in each modality
+
+#### Cross-modal fine-tuning
+
+- **Negative transfer** observed in transitioning between <span style="color:red">text</span> and other modalities.
+- Since text is *human-created*, <span style="color:red">byte-level patterns differ</span> significantly from others.
+
+#### Cross-model knowledge transfer efficacy
+
+<p align="center">
+  <img src=performance_transfer.png width="250">
+</p>
+
+- **Downstream task**: Classification on *spectrogram images* with *speech content*
+- **Result**: Accuracy - bGPTlibri > bGPTimage
+- **Interpretation**: <span style="color:red">Content alignment is more important</span> than modality alignment
+
+### Algorithm and Hardware Simulation
 
 **Experiment Overview** 
 One of the unique capabilities of the bGPT model is its ability to simulate the operations of algorithms and hardware. This experimental section assesses how bGPT handles complex data conversion processes and CPU state modeling tasks. These capabilities are particularly significant in the fields of cybersecurity, system diagnostics, and hardware optimization.
-
+<!-- 
 **Experiment Methods** 
 bGPT's performance was evaluated in the following two key areas:
 
 - **Data Conversion**: This experiment evaluates whether bGPT can learn the process of converting ABC music notation into MIDI format. The task tests how bGPT models complex algorithms and their ability to convert actual music files.
-- **CPU State Modeling**: CPU state modeling assesses how bGPT predicts and updates the state of a CPU based on a given set of machine instructions. This is particularly useful for understanding and predicting hardware operations.
+- **CPU State Modeling**: CPU state modeling assesses how bGPT predicts and updates the state of a CPU based on a given set of machine instructions. This is particularly useful for understanding and predicting hardware operations. -->
 
-**Results and Analysis** 
-
+#### Results and Analysis
 
 <p float="center">
-  <img src="dataconversion.JPG" alt="Image 1" width="400" />
-  <img src="cpumodeling.JPG" alt="Image 2" width="400" /> 
+  <img src="dataconversion.JPG" alt="Image 1" width="250" />
+  <img src="cpumodeling.JPG" alt="Image 2" width="250" /> 
 </p>
 
 - **Data Conversion Performance**: bGPT performed the conversion between MIDI and ABC notation with high accuracy. Notably, it also showed high accuracy in converting MIDI back to ABC notation, indicating that bGPT successfully learned the inherent structures and patterns of the data.
@@ -185,3 +206,4 @@ Future research directions for byte models include:
 ## References
 
 [Beyond Language Models: Byte Models are Digital World Simulators (arXiv)](https://arxiv.org/abs/2402.19155) <br>
+[Beyond Language Models: Byte Models are Digital World Simulators (Project Page)](https://byte-gpt.github.io/) <br>
