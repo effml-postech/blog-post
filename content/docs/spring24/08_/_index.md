@@ -51,7 +51,7 @@ The common solution to further improve the performance of LoRA across various ta
 * _**Linear arithmetic composition.**_ It is a method of directly adding multiple LoRAs. This approach is simple and has been effective in the NLP and Vision-Language domain, but it can result in the loss of pre-trained model's generative capabilities or the individual characteristics of each LoRA.
 
 {{< katex display=true >}}
-$$\hat{\mathbf{W}} = \mathbf{W} + \sum_{i=1}^{N} w_i \cdot \Delta \mathbf{W}_i$$
+\hat{\mathbf{W}} = \mathbf{W} + \sum_{i=1}^{N} w_i \cdot \Delta \mathbf{W}_i
 {{< /katex >}}
 
 
