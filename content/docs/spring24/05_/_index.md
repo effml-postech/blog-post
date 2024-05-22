@@ -20,7 +20,7 @@ To address this issue, speculative decoding has been introduced as a promising a
 * LLM inference is predominantly constrained by memory bandwidth rather than arithmetic computations.
 *Speculative decoding* reduces the need for frequent memory operations on their parameters by focusing computational efforts on validating pre-drafted tokens, thus enhancing inference efficiency.
 
-However, existing speculative decoding such as **Medusa** and **Lookahead** still face limitations, such as high inference latency and suboptimal token acceptance rates. 
+However, existing speculative decoding such as **Medusa** [4] and **Lookahead** [3]still face limitations, such as high inference latency and suboptimal token acceptance rates. 
 The paper proposes Kangaroo to address this challenge.
 
 
