@@ -86,7 +86,10 @@ For the following reasons, the authors decided to use expert-choice routing and 
   Top-k strategy can guarantee that the most important token is calculated since the top-{{< katex >}}k{{< /katex >}} tokens are independent of the magnitude of router weights. Since tokens are divided into two sets, one passing through self-attention and MLP, and the other passing through residual connections, a strategy is needed to partition tokens into these two sets.
 
 ## **Routing Metric**
-노테이션 설명
+- {{< katex >}}l{{< /katex >}} is a given layer.
+- {{< katex >}}S{{< /katex >}} is a sequence length.
+- {{< katex >}}\beta=1-C/S{{< /katex >}} is an user-defined capacity per batch element.
+- {{< katex >}}f{{< /katex >}} comprises self-attention and subsequent MLP.
 
 {{< katex display=true >}}
 x^{l+1}_i=\begin{cases}r^{l}_i f_i(\tilde{X}^l)+x^{l}_i, &    \text{if } r^{l}_i >  P_\beta(R^l)\\x^{l}_i, & \text{if }r^{l}_i <  P_\beta(R^l)\end{cases}
