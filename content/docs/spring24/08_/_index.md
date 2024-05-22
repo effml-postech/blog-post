@@ -15,7 +15,7 @@ LoRA is a methodology for effective fine-tuning large-scale pretrained models. L
 So, we can ask following question:
 
 <p align="center">
-_How can multiple trained LoRAs be composed dynamically and efficiently, preserving all their individual characteristics, without the need for retraining?_
+How can multiple trained LoRAs be composed dynamically and efficiently, preserving all their individual characteristics, without the need for retraining?
 </p>
 
 To address this question, Mixture of LoRA Experts (MoLE) presents a new method for achieving the optimal combination of LoRAs for specific tasks. MoLE considers indivisual LoRA as an expert and determines the weights applied to LoRAs at each layer through a gate function.
@@ -256,8 +256,8 @@ When viewing the generated images, it is evident that all specified subjects are
 **Results**
 
 <p align="center">
-    <img src=./result7.png align="center" width="45%">
-    <img src=./result8.png align="center" width="55%">
+    <img src=./result7.png align="center" width="40%">
+    <img src=./result8.png align="center" width="45%">
     <figcaption align="center">
 </p>
         
