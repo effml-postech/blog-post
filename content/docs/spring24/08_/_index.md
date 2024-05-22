@@ -328,12 +328,6 @@ MOLE adaptively assigns weights to different LoRA experts across various layers,
 
 When the number of LoRAs increases to a very large value (e.g., 128), the performance of all LoRA composition methods, including MOLE, tends to decrease despite MOLE's superior performance. This indicates that MOLE still faces challenges with large-scale LoRA composition and emphasizes the need for better approaches to handle it effectively.
 
-<br/>
-    <p align="center">
-        <img src=./limitation1.png width="500">
-    </p>
-<br/>
-
 2. Parameter <br/>
 
 The learnable parameter 𝑒 used in MoLE has dimensions of $N^2 \times L \times D$. As the number of LoRAs increases, the number of parameters grows quadratically, resulting in a substantial increase. Additionally, since e exists for each transformer block, the number of parameters added by 𝑒 is considerable. This can be seen as a drawback of MoLE.
