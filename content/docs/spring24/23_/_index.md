@@ -50,27 +50,21 @@ To address this issue, the authors adapted a hierarchical structure for bGPT, en
 
 ### Training Objectives
 
-#### Generative Modeling
+#### Pre-training: Generative Modeling
 
-This approach requires the model to predict the next byte in a given byte sequence. The model takes the byte sequence {{< katex >}}B = \{b_1, b_2, \ldots, b_T\}{{< /katex >}} as input and utilizes all previous byte information to predict the next byte {{< katex >}}b_{i+1}{{< /katex >}} at each position.
+bGPT is pre-trained using a generative modeling approach, i.e., next-byte prediction. For a byte sequence {{< katex >}}B=\{b_1, b_2, \ldots, b_T\}{{< /katex >}}, the model predicts the next byte {{< katex >}}b_{i+1}{{< /katex >}} at each position. The loss function is the negative log likelihood of the next byte at each step, encouraging the model to maximize the likelihood of the actual occurrence of the next byte.
 
-As a loss function, the negative log likelihood of the next byte at each step is minimized. This encourages the model to maximize the likelihood of the actual occurrence of the next byte.
 {{< katex display=true >}}
   \mathcal{L}_{\text{GEN}}(\theta) = - \sum_{i=1}^{T-1} \log p(b_{i+1} \mid b_1, b_2, \ldots, b_i; \theta)
 {{< /katex >}}
 
-#### Classification
+#### Fine-tuning: Classification
 
-Based on the knowledge acquired through generative modeling, bGPT can also be applied to classification tasks for labeled datasets. In this process, the model takes a byte sequence as input and predicts the category to which that sequence belongs.
-For classification tasks, the loss function used is the cross-entropy loss, which ensures that the model accurately outputs the prediction probabilities for each category.
+bGPT is further fine-tuned for classification tasks by adding a classification head on top of the byte-level decoder. The model takes a byte sequence {{< katex >}}B{{< /katex >}} as input and predicts the category {{< katex >}}y{{< /katex >}} to which that sequence belongs. The loss function used is the cross-entropy loss, ensuring that the model accurately outputs the prediction probabilities for each category.
 
 {{< katex display=true >}}
   \mathcal{L}_{\text{CLF}}(\theta) = - \sum_{k=1}^{K} y_k \log p(y_k \mid B; \theta)
 {{< /katex >}}
-
-These training objectives enable bGPT to understand various byte-based data and accurately mimic digital patterns of the real world. The combination of generative approaches and classification capabilities grants the model the flexibility to tackle a diverse range of problems. Through this, the model can go beyond simple pattern recognition to play a crucial role in predicting and analyzing the operations of complex digital systems.
-
-***
 
 ## Applications
 
