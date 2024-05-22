@@ -111,7 +111,7 @@ LRM loss and total loss can be expressed as follows:
     \mathcal{L}_{total} = \mathcal{L}_{simple} + \lambda\frac{1}{M}\sum_{i=1}^{M}{\mathcal{L}_{LRM}}_{i},
   {{< /katex >}} 
 </p>  
-where {{< katex >}}M{{< /katex >}} denotes the number of timestep embedding modules and {{< katex >}}\lambda{{< /katex >}} is a hyperparmater coefficient to balance loss temrs.
+where {{< katex >}}M{{< /katex >}} denotes the number of timestep embedding modules and {{< katex >}}\lambda{{< /katex >}} is a hyperparmater coefficient to balance loss terms
 
 Since computation of transformation matrix {{< katex >}}E_i{{< /katex >}} is expensive, it is computed with the first batch of input and fixed during entire traning. As shown in the figure below, LRM stabilizes training process, accelerating convergence.  
 <p align="center">
