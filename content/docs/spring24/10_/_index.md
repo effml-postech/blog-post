@@ -31,59 +31,51 @@ Before diving into the main contributions of our work, it's essential to grasp t
 
 At the core of MEGA lies the moving average with damping, which can be expressed by the following equations:
 
-$$
-\begin{aligned}
+{{< katex >}}
 u_t^{(j)} &= \beta_j x_{t,j} \\
 h_t^{(j)} &= \alpha_j \odot u_t^{(j)} + (1 - \alpha_j \odot \delta_j) \odot h_{t-1}^{(j)} \\
 y_{t,j} &= \eta_j^T h_t^{(j)}
-\end{aligned}
-$$
+{{< /katex >}}
 
 This exponential moving average (EMA) serves as the foundation for the subsequent attention mechanism.
 
 ### 2.b Generating Query and Key
 
-The EMA is then fed into the attention mechanism to generate the Query and Key matrices after applying the SiLU activation function. First, we calculate the shared representation $Z$ using the EMA of the input $X$:
+The EMA is then fed into the attention mechanism to generate the Query and Key matrices after applying the SiLU activation function. First, we calculate the shared representation {{< katex >}}Z{{< /katex >}} using the EMA of the input {{< katex >}}X{{< /katex >}}:
 
-$$
-\begin{aligned}
+{{< katex >}}
 X' &= EMA(X) \in \mathbb{R}^{n \times d} \\
 Z &= \phi_{silu}(X'W_z + b_z) \in \mathbb{R}^{n \times z}
-\end{aligned}
-$$
+{{< /katex >}}
 
-Using the shared representation $Z$, we can now compute the queries and keys. It's important to note that the original input $X$ is used to calculate the values:
+Using the shared representation {{< katex >}}Z{{< /katex >}}, we can now compute the queries and keys. It's important to note that the original input {{< katex >}}X{{< /katex >}} is used to calculate the values:
 
-$$
-\begin{aligned}
+{{< katex >}}
 Q &= \kappa_q \odot Z + \mu_q \in \mathbb{R}^{n \times z}\\
 K &= \kappa_k \odot Z + \mu_k \in \mathbb{R}^{n \times z}\\
 V &= \phi_{silu}(XW_v + b_v) \in \mathbb{R}^{n \times v}
-\end{aligned}
-$$
+{{< /katex >}}
 
 ### 2.c Attention Output Calculation
 
 After obtaining the Query, Key, and Value matrices, we can calculate the output of the attention mechanism using the standard formula:
 
-$$
+{{< katex >}}
 O = f\left(\frac{QK^T}{\tau(X)}\right)V \in \mathbb{R}^{n \times v}
-$$
+{{< /katex >}}
 
-Here, $f$ is typically the softmax function, and $\tau$ is a temperature function based on the input $X$.
+Here, {{< katex >}}f{{< /katex >}} is typically the softmax function, and {{< katex >}}\tau{{< /katex >}} is a temperature function based on the input {{< katex >}}X{{< /katex >}}.
 
 ### 2.d Gating Mechanisms
 
-MEGA employs gating mechanisms, similar to the Gated Linear Unit (GLU), to generate the final output $Y$ and the internal activation $\hat{H}$. This is achieved through the following equations:
+MEGA employs gating mechanisms, similar to the Gated Linear Unit (GLU), to generate the final output {{< katex >}}Y{{< /katex >}} and the internal activation {{< katex >}}\hat{H}{{< /katex >}}. This is achieved through the following equations:
 
-$$
-\begin{aligned}
+{{< katex >}}
 \gamma &= \phi_{silu}(X'W_\gamma + b_\gamma) \in \mathbb{R}^{n \times v} \\
 \varphi &= \phi_{sigmoid}(X'W_\varphi + b_\varphi) \in \mathbb{R}^{n \times d} \\ 
 \hat{H} &= \phi_{silu}(X'W_h + (\gamma \odot O)U_h + b_h) \in \mathbb{R}^{n \times d} \\
 Y &= \varphi \odot \hat{H} + (1 - \varphi) \odot X \in \mathbb{R}^{n \times d}
-\end{aligned}
-$$
+{{< /katex >}}
 
 ### 2.e Chunk-wise Attention for Linear Time Complexity
 
@@ -111,22 +103,20 @@ Now, this paper, Megalodon, proposes four different methods that makes a network
 
 To improve EMA (Exponential Moving Average) capability when working over the complex number system, the authors propose CEMA (Complex Exponential Moving Average), which extends the idea of EMA to the complex plane. The key equations for CEMA are:
 
-$$
-\begin{aligned}
+{{< katex >}}
 h_t^{(j)} &= \alpha_j(\cos \theta_j + i \sin \theta_j) \odot u_t^{(j)} + (1 - \alpha_j \odot \delta_j)(\cos \theta_j + i \sin \theta_j) \odot h_{t-1}^{(j)} \\
 y_{t,j} &= \mathcal{Re}(\eta_j^T h_t^{(j)})
-\end{aligned}
-$$
+{{< /katex >}}
 
-Here, $\alpha$ and $\delta$ are real-valued parameters, just like in the original EMA. However, $\eta$ is a complex-valued parameter in CEMA. The $\theta_j$ values are learnable parameters that are used to uniformly distribute the $h$ arguments over the period of $2\pi$. This is achieved by parameterizing $\theta_j$ as:
+Here, {{< katex >}}\alpha{{< /katex >}} and {{< katex >}}\delta{{< /katex >}} are real-valued parameters, just like in the original EMA. However, {{< katex >}}\eta{{< /katex >}} is a complex-valued parameter in CEMA. The {{< katex >}}\theta_j{{< /katex >}} values are learnable parameters that are used to uniformly distribute the {{< katex >}}h{{< /katex >}} arguments over the period of {{< katex >}}2\pi{{< /katex >}}. This is achieved by parameterizing {{< katex >}}\theta_j{{< /katex >}} as:
 
-$$
+{{< katex >}}
 \theta_{j,k} = \frac{2\pi k}{h} \omega_j, \quad \forall k \in {1, 2, \dots, h}
-$$
+{{< /katex >}}
 
-where $\omega$ is a learnable parameter that determines the base angles.
+where {{< katex >}}\omega{{< /katex >}} is a learnable parameter that determines the base angles.
 
-The introduction of complex numbers in CEMA allows it to capture positional features of internal embeddings without changing the magnitude of $h$. Instead, it periodically changes the angle in the complex domain. This makes CEMA a powerful tool for modeling long sequences and improving the capability of EMA in complex-valued systems.
+The introduction of complex numbers in CEMA allows it to capture positional features of internal embeddings without changing the magnitude of {{< katex >}}h{{< /katex >}}. Instead, it periodically changes the angle in the complex domain. This makes CEMA a powerful tool for modeling long sequences and improving the capability of EMA in complex-valued systems.
 
 ### 3.b Timestep Normalization
 
@@ -134,21 +124,19 @@ The introduction of complex numbers in CEMA allows it to capture positional feat
 
 Transformer-based models typically use Layer Normalization (LayerNorm) instead of Batch Normalization (BatchNorm) due to the significant variation in input batch sizes across different timesteps. While this approach has led to great success in large language models, the authors argue that LayerNorm cannot effectively capture and reduce the internal covariance along the temporal domain. To address this issue, they propose using a GroupNorm-like method. However, applying GroupNorm directly is challenging because it cannot access future information during auto-regressive inference.
 
-To overcome this obstacle, the authors introduce Timestep Normalization, a superset of GroupNorm. This technique divides the total timesteps into $k$ groups and applies group normalization to each group independently. By doing so, Timestep Normalization can reduce the covariance shift along the temporal domain while still being compatible with the causal nature of auto-regressive models.
+To overcome this obstacle, the authors introduce Timestep Normalization, a superset of GroupNorm. This technique divides the total timesteps into {{< katex >}}k{{< /katex >}} groups and applies group normalization to each group independently. By doing so, Timestep Normalization can reduce the covariance shift along the temporal domain while still being compatible with the causal nature of auto-regressive models.
 
 ### 3.c Normalized Attention
 
-During the calculation of attentions, the results can have a hugh instability along the temporal domain because the value of CEMA keeps changing. Therfore, the authors propose to use normalizaion on $Z$ before calculating the queries and keys. In this case, we do not have to scale the $QK^{T}$ since the values are already normalized while improving the stability of the attention mechanism.
+During the calculation of attentions, the results can have a hugh instability along the temporal domain because the value of CEMA keeps changing. Therfore, the authors propose to use normalizaion on {{< katex >}}Z{{< /katex >}} before calculating the queries and keys. In this case, we do not have to scale the {{< katex >}}QK^{T}{{< /katex >}} since the values are already normalized while improving the stability of the attention mechanism.
 
-$$
-\begin{aligned}
+{{< katex >}}
 X' &= \mathcal{CEMA}(X) && \in \mathbb{R}^{n \times d} \\
 Z &= X'W_z + b_z, \quad Z' = \frac{Z}{|Z|} && \in \mathbb{R}^{n \times z} \\
 Q &= \kappa_q \odot Z' + \mu_q && \in \mathbb{R}^{n \times z} \\
 K &= \kappa_k \odot Z' + \mu_k && \in \mathbb{R}^{n \times z} \\
 O &= f_{\text{softmax}}\left(QK^T\right)V && \in \mathbb{R}^{n \times v}
-\end{aligned}
-$$
+{{< /katex >}}
 
 ### 3.d 2-hop Residual Connection
 
@@ -158,7 +146,7 @@ Finnally, the last contribution of this paper is the use of the 2-hop residual c
 
 ### 3.e Summary of Methods
 
-The main contribution of this paper lies in the application of CEMA (Complex Exponential Moving Average), which effectively captures the positional information of internal embeddings ($H$) by incorporating a circular system in the complex domain. By using periodic functions like sine and cosine, CEMA can encode the sequential nature of the input data, allowing the model to better understand and utilize the temporal dependencies.
+The main contribution of this paper lies in the application of CEMA (Complex Exponential Moving Average), which effectively captures the positional information of internal embeddings ({{< katex >}}H{{< /katex >}}) by incorporating a circular system in the complex domain. By using periodic functions like sine and cosine, CEMA can encode the sequential nature of the input data, allowing the model to better understand and utilize the temporal dependencies.
 
 However, the introduction of complex numbers in CEMA doubles the dimensionality of the variables, which can potentially lead to significant instability during the training process. To address this issue, the authors propose three additional methods: Timestep Normalization, Normalized Attention, and 2-hop Residual Connection. These techniques work in conjunction with CEMA to stabilize the training process and ensure the model's robustness.
 
