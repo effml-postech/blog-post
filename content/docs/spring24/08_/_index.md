@@ -207,49 +207,40 @@ In NLP, Using a loss in FLAN-T5(Chung et al,2022)
 
 ## Results
 
-**On V&L Domain**
-<br/>
-- Setup)
-  <br/>
-  Base generator: DeamBooth(Ruiz et al., 2023) (built on Stable Diffusion V2.1)
-  <br/>
-  LoRA: combination of three separately trained LoRAs
-  <br/>
-  Image resolution: 512x512
-  <br/>
-  learning rate: 1e-5
-  <br/>
-  DDPM sampler (Ho et al., 2020) with 50 steps in each case
-  <br/>
-  Train 400 iterations for each required composition with batch size 2 and α as 0.5
-  <br/>
-- Metrics)
-  <br/>
-  Image alignment: Evaluate the visual similarity of generated images with individual composed concepts in the CLIP image feature space.
-  <br/>
-  Text alignment: Evaluate the text-image similarity of generated images with given text prompts in the CLIP feature space.
-  <br/>
-  For each composition, calculated the average scores among 200 generated images per prompt using 5 text prompts.
-  <br/>
-- Compared Baselines)
-  <br/>
-  - Normalized linear arithmetic composition
-  - SVDiff (Han et al., 2023)
-- Results)
-  <br/>
+### On V&L Domain
+
+**Setup**
+* Base generator: DeamBooth(Ruiz et al., 2023) (built on Stable Diffusion V2.1)
+* LoRA: combination of three separately trained LoRAs
+* Image resolution: 512x512
+* learning rate: 1e-5
+* DDPM sampler (Ho et al., 2020) with 50 steps in each case
+* Train 400 iterations for each required composition with batch size 2 and α as 0.5
+
+**Metrics**
+* Image alignment: Evaluate the visual similarity of generated images with individual composed concepts in the CLIP image feature space.
+* Text alignment: Evaluate the text-image similarity of generated images with given text prompts in the CLIP feature space.
+* For each composition, calculated the average scores among 200 generated images per prompt using 5 text prompts.
+
+**Compared Baselines**
+* Normalized linear arithmetic composition
+* SVDiff (Han et al., 2023)
+
+**Results**
 <p align="center">
     <img src=./result1.png width="500">
 </p>
-        It demonstrates better performance compared to other models and shows outstanding results in other tasks as well.
+
+It demonstrates better performance compared to other models and shows outstanding results in other tasks as well.
+
 <p align="center">
     <img src=./result2.png align="center" width="32%">
     <img src=./result3.png align="center" width="32%">
     <img src=./result4.png align="center" width="32%">
     <figcaption align="center">
 </p>
-  When viewing the generated images, it is evident that all specified subjects are accurately represented and maintained.
-  <br/>
-   <br/>
+        
+When viewing the generated images, it is evident that all specified subjects are accurately represented and maintained.
         
 **On NLP Domain**
 <br/>
