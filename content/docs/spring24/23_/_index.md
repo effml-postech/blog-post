@@ -50,21 +50,23 @@ To address this issue, the authors adapted a hierarchical structure for bGPT, en
 
 ### Training Objectives
 
-#### 1. Generative Modeling
+#### Generative Modeling
 
 This approach requires the model to predict the next byte in a given byte sequence. The model takes the byte sequence {{< katex >}}B = \{b_1, b_2, \ldots, b_T\}{{< /katex >}} as input and utilizes all previous byte information to predict the next byte {{< katex >}}b_{i+1}{{< /katex >}} at each position.
 
 As a loss function, the negative log likelihood of the next byte at each step is minimized. This encourages the model to maximize the likelihood of the actual occurrence of the next byte.
-{{< katex >}}\mathcal{L}_{\text{GEN}}(\theta) = - \sum_{i=1}^{T-1} \log p(b_{i+1} \mid b_1, b_2, \ldots, b_i; \theta){{< /katex >}}
+{{< katex display=true >}}
+  \mathcal{L}_{\text{GEN}}(\theta) = - \sum_{i=1}^{T-1} \log p(b_{i+1} \mid b_1, b_2, \ldots, b_i; \theta)
+{{< /katex >}}
 
-
-#### 2. Classification
+#### Classification
 
 Based on the knowledge acquired through generative modeling, bGPT can also be applied to classification tasks for labeled datasets. In this process, the model takes a byte sequence as input and predicts the category to which that sequence belongs.
 For classification tasks, the loss function used is the cross-entropy loss, which ensures that the model accurately outputs the prediction probabilities for each category.
 
-{{< katex >}}\mathcal{L}_{\text{CLF}}(\theta) = - \sum_{k=1}^{K} y_k \log p(y_k \mid B; \theta){{< /katex >}}
-
+{{< katex display=true >}}
+  \mathcal{L}_{\text{CLF}}(\theta) = - \sum_{k=1}^{K} y_k \log p(y_k \mid B; \theta)
+{{< /katex >}}
 
 These training objectives enable bGPT to understand various byte-based data and accurately mimic digital patterns of the real world. The combination of generative approaches and classification capabilities grants the model the flexibility to tackle a diverse range of problems. Through this, the model can go beyond simple pattern recognition to play a crucial role in predicting and analyzing the operations of complex digital systems.
 
@@ -72,13 +74,13 @@ These training objectives enable bGPT to understand various byte-based data and 
 
 ## Applications
 
-### 1. Digital Media Processing
+### Digital Media Processing
 
 bGPT is used for processing various types of digital media data such as text, audio, and images. This model performs learning targeted at media files through generative modeling, transforming the data into features and subsequently performing classification tasks based on these features.
 
 For example, audio files are converted to and processed in WAV format, while images are processed at a low resolution in BMP format. By utilizing these standardized datasets, bGPT can develop a generalized understanding of various media types.
 
-### 2. Algorithm and Hardware Simulation
+### Algorithm and Hardware Simulation
 
 bGPT is particularly useful for tasks such as data conversion and CPU state modeling. This means bGPT can learn the digital conversion process and simulate the operation of CPUs to predict the state of the CPU after various commands are executed.
 
@@ -86,7 +88,7 @@ For example, in the task of converting the music data format from ABC notation t
 
 ## Experiments
 
-### 1. Digital Media Processing (well-studied tasks)
+### Digital Media Processing (well-studied tasks)
 
 **Experiment Overview**
 To assess the flexibility and versatility of the bGPT model, experiments with various types of digital media data were conducted. This involved handling a wide range of file types including text, audio, and image data, with the aim to measure the model's ability to process these types and to see how well bGPT generalizes compared to specialized models. The experiment included both generative modeling and classification tasks.
@@ -139,7 +141,7 @@ Each model was fine-tuned for specific types of classification and generative ta
 | Baselines       | 0.9237  | 94.50             | —         | **98.13**                      | —         | **98.11**                              |
 
 
-### 2. Algorithm and Hardware Simulation (underexplored tasks)
+### Algorithm and Hardware Simulation (underexplored tasks)
 
 **Experiment Overview** 
 One of the unique capabilities of the bGPT model is its ability to simulate the operations of algorithms and hardware. This experimental section assesses how bGPT handles complex data conversion processes and CPU state modeling tasks. These capabilities are particularly significant in the fields of cybersecurity, system diagnostics, and hardware optimization.
@@ -179,4 +181,4 @@ Future research directions for byte models include:
 
 ## References
 
-[Beyond Language Models: Byte Models are Digital World Simulators (arXiv)](https://arxiv.org/abs/2402.19155) <br> 
+[Beyond Language Models: Byte Models are Digital World Simulators (arXiv)](https://arxiv.org/abs/2402.19155) <br>
