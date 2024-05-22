@@ -220,7 +220,7 @@ Research could attempt to isolate such basis matrices through statistical analys
 
 One stumbling block of applying VeRA to this hypothesis is that the hypothesis largely discusses representation while VeRA is about modifying the model weights. However, LoReFT (low-rank linear subspace ReFT) [[10]](#ref10) defines a methodology of finetuning a model by modifying its representations/activations, denoted as h. Using the formula:
 
-{{< katex display=true >}} \text{LoREFT}(h) = h + R^{T} (W h + b - R h), where R \in \mathbb{R}^{r \times d} and W \in \mathbb{R}^{r \times d} are low rank matrices. {{< /katex >}}
+{{< katex>}} $\text{LoREFT}(h) = h + R^{T} (W h + b - R h), where R \in \mathbb{R}^{r \times d} and W \in \mathbb{R}^{r \times d}${{< /katex >}} are low rank matrices. 
 
 Considering that LoReFT also uses a low-rank matrix to represent trainable changes, VeRA's methodology of using a randomly generated matrices with small vectors seems applicable. This expands the possibility that the hypothesis could be applicable for a LoREFT + VeRA hybrid as well.
 
