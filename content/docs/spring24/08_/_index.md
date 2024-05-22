@@ -162,7 +162,7 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 
 ### Training
 The training loss function used in MoLE is as follows:
-<p align="centor">
+<p align="center">
     <img src=./training5.png">
 </p>
 
