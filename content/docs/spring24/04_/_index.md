@@ -99,7 +99,7 @@ Author propose using multi-token prediction loss instead of next-token predictio
 # Discussion
 - For each task and dataset, the optimal number of heads $n$ varies. I would like to see more correlations between dataset characteristics and the optimal $n$.
 - I would like to see more evidence of the global capturing ability of multi-token prediction loss in other experimental settings.
-- Authors demonstrates cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task, where $n$ and $n'$ denote number of pre-training head and that of finetuning head. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pre-training with the multi-task prediction scheme would be further substantiated.
+- Authors demonstrate cases including $(n=4, n'=1)$, $(n=4, n'=1)$, and $(n=1, n'=1)$ on the code task, where $n$ and $n'$ denote number of pre-training head and that of finetuning head. However, I would like to see the $(n=1, n'=4)$ setting result on the code task. Conducting this experiment would help determine if the $n=4$ case still outperforms the $(n=1, n'=4)$ setting. If so, the author's argument for pre-training with the multi-task prediction scheme would be further substantiated.
 - I would like to study more about multi-token prediction head experiments on multi-token prediction loss with stride=2,4,8,16 ... (This paper shows only with stride=1 setting, predicting consecutive tokens) or extremely large number of multi-token prediction head setting.
   
 # Reference
