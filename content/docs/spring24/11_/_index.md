@@ -18,7 +18,7 @@ Currently, **Large Language Models (LLM)** are based on **Transformer** architec
 
 The **multi-head scaled dot-product attention** (a.k.a. self-attention or MHA) is the main component in transformer architectures’ block. 
 
-To calculate the attention state {{< katex >}} A_{dot} ∈ \mathbb R^{N×d_{value}}  {{< /katex >}}  of a single head in the MHA module with an input seqeunce  {{< katex >}} $X ∈ \mathbb R^{N×d_{model}}$  {{< /katex >}} , three components, key, query and value are computed as 
+To calculate the attention state {{< katex >}} A_{dot} ∈ \mathbb R^{N×d_{value}}  {{< /katex >}}  of a single head in the MHA module with an input seqeunce  {{< katex >}} X ∈ \mathbb R^{N×d_{model}}  {{< /katex >}} , three components, key, query and value are computed as 
 
 
 <p align="center">
