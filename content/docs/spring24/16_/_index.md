@@ -85,7 +85,7 @@ For the following reasons, the authors decided to use expert-choice routing and 
 - **Clear criteria**
   Top-k strategy can guarantee that the most important token is calculated since the top-{{< katex >}}k{{< /katex >}} tokens are independent of the magnitude of router weights. Since tokens are divided into two sets, one passing through self-attention and MLP, and the other passing through residual connections, a strategy is needed to partition tokens into these two sets.
 
-## **Routing Metric**
+## **Routing Method**
 - {{< katex >}}l{{< /katex >}} is a given layer.
 - {{< katex >}}S{{< /katex >}} is a sequence length.
 - {{< katex >}}\beta=1-C/S{{< /katex >}} is an user-defined capacity per batch element.
@@ -150,21 +150,33 @@ The code operates in the following steps:
 </details>
 
 ## **Results**
+### **Hyperparameter tuning**
 <p align="center">
     <img src=./result2.png>
 </p>
-The figure above shows the results of training all models with the same number of FLOPs (6e18), regardless of the parameter size. The isoFLOP-optimal baseline was compared with MoD models which has different capacities, 12.5%, 50%. In the case of random routing, it does not follow the top-k routing mechanism but randomly chooses whether a token will go to the residual path or the layer. Additionally, in the case of every 2, it means that the MoD method is not applied to all layers, but only to one out of every two layers. Therefore, from the top-left graph, the 12.5% capacity MoE loss value is less than the baseline model's. The two top-middle graphs show the actual training loss graphs for the points plotted in the left graph. Among them, MoD with 12.5% capacity generally results in lower loss values than the baseline. In the right graph, the points #1, #3 and  #2, #4 pairs are MoD models of the same parameter size. Not only does it have a lower loss value, but it also runs approximately 66% faster than the baseline.
+
+The authors first trained the model with a limited FLOPs budget (6e18) to determine the optimal hyperparameters. Through training the MoD Transformer with routing blocks and self-attention blocks arranged alternately, they found the optimal parameters. The two top-middle graphs show the actual training loss graphs for the points plotted in the left graph. Among them, MoD with 12.5% capacity generally results in lower loss values than the baseline.
+
+- **Computation efficiency**: In the right graph, the points #1, #3 and  #2, #4 pairs are MoD models of the same parameter size. Not only does it have a lower loss value, but it also runs approximately 66% faster than the baseline.
+
+### **isoFLOP analysis**
 
 <p align="center">
     <img src=./result1.png>
 </p>
-In this figure, the training FLOPs budget is limited to 6e18, 2e19, and 1e20 comparing isoFLOP baseline and 12.5% capacity MoD. At a glance, the top-left graph shows that the isoFLOP baseline has a slightly better loss when the number of parameters is small (Note that there is a crossing point!). However, when the x-axis is converted from parameters to FLOPs per FFW (Forward Pass) as shown in the top-right graph, it confirms that MoD is better than the baseline in all cases.
+
+In this figure, the training FLOPs budget is limited to 6e18, 2e19, and 1e20 comparing isoFLOP baseline and 12.5% capacity MoD.
+
+- **Total loss**: The graph in the top-left corner shows that the isoFLOP baseline has a slightly better loss when the number of parameters is small (Note that there is a crossing point!).
+- **Normalized loss**: When the x-axis is converted from parameters to FLOPs per FFW (Forward Pass) as shown in the top-right graph, MoD is better than the baseline in all cases.
+
+### **Auto-regressive evaluation**
 
 <p align="center">
     <img src=./result3.png>
 </p>
-The top-left graph shows the performance degradation in autoregressive evaluation using predictions using the MLP layer not the top-k routing mechanism, which is non-causal and can’t be used in this case. The authors argue that the reason for this performance drop in autoregressive case is that the prediction performance through the MLP layer is only about 97%, as shown in the top-right graph, but they stress that only minimal degradation occurs.
 
+- **Predictor accuracy**: Using predictor-based methods is cheaper than top-k but not more accurate. In the left graph, the performance of the predictor strategy is almost indistinguishable from the top-k strategy. Authors attribute this to the ease of learning this prediction problem.
 
 ### **Mixture-of-Depths-and-Experts (MoDE)**
 <p align="center">
