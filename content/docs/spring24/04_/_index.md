@@ -9,7 +9,9 @@ weight: 1
 - Authors: Gloeckle et al. 
 - Institution : FAIR at Meta, CERMICS Ecole des Ponts ParisTech and LISN Universite Paris-Saclay
   
-  
+# Motivation 
+Conventional LLM trained with teacher forcing with next-token prediction latches on local patterns and overlooks “hard” decisions. Author wants to alleiviate this issue with pretraining with mutil-token prediction loss.
+
 # Preliminaries
 
 ### Language Modeling and Next-Token Prediction Task
