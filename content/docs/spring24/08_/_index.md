@@ -115,7 +115,6 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 <p align="center">
     <img src=./motiv2_1.png align="center" height=150>
     <img src=./motiv2_2.png align="center" height=150">
-    <figcaption align="center">
     <br>
     <em>(Right) Observed that different layers of LoRA encode distinct features, such as dog coat color and facial features. (Left) When evaluated on a subset of datasets, there were significant differences in performance across the different layers of LoRA.) </em>
 </p>
