@@ -285,7 +285,18 @@ MoLE not only achieves effective LoRA composition but also retains the character
 MOLE adaptively assigns weights to different LoRA experts across various layers, resulting in finer-grained weight combinations that yield superior results.
    
 ## Discussion and Limitations
+**Limitations**
 
+1. 
+2. Parameter <br/>
+   The learnable parameter 𝑒 used in MoLE has dimensions of $N^2 \times L \times D$ As the number of LoRAs increases, the number of parameters grows quadratically, resulting in a substantial increase. Additionally, since e exists for each transformer block, the number of parameters added by 𝑒 is considerable. This can be seen as a significant drawback of MoLE.
+
+
+
+**Discussion**
+
+<How to address MoLE's limitations at LoRA scale> <br/>
+Currently, MoLE's performance decreases when the number of LoRAs exceeds a certain threshold. By reducing the number of LoRAs to below this threshold with minimal loss, performance could be improved. Assuming there is a large number of LoRAs, there will likely be many LoRAs for similar tasks. Given this, we believe that clustering to derive representative LoRAs for similar tasks and using only the representative LoRAs instead of all similar task LoRAs could overcome MoLE's limitations.
 
 
 
