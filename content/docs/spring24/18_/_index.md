@@ -111,7 +111,7 @@ Adaptive Token Merger (ATM) module is designed to efficiently process and merge 
 
 The detailed process for ATM is as follows:  
 
- First, ATM divides the tokens of shape {{< katex >}}(H\ times W){{< /katex >}} into a grid of size {{< katex >}}G_{th} \times G_{tw}{{< /katex >}}. 
+ First, ATM divides the tokens of shape {{< katex >}}(H \times W){{< /katex >}} into a grid of size {{< katex >}}G_{th} \times G_{tw}{{< /katex >}}. 
  
  For simplicity, we'll use above Figure as an example. 
  In the figure, we can see {{< katex >}}H=4{{< /katex >}}, {{< katex >}}W=4{{< /katex >}}, {{< katex >}}G_{th}=2{{< /katex >}}, and {{< katex >}}G_{tw}=2{{< /katex >}}.(We assume that H is divisible by {{< katex >}}G_{th}=2{{< /katex >}} and W is divisible by {{< katex >}}G_{tw}=2{{< /katex >}}. The number of tokens in each grid would then be {{< katex >}}H/G_{th} × W/G_{tw}{{< /katex >}}, which is 2x2.
@@ -119,20 +119,22 @@ The detailed process for ATM is as follows:
  Within each grid, the module performs a special operation called Grid Attention.
 
  #### GridAttention 
-For a specific grid, we suppose its tokens are denoted as {{< katex >}}{x_{ij}}{{< /katex >}}, where {{< katex >}}0 \geq i < H/G_{th}{{< /katex >}} and {{< katex >}}0 \geq j < W/G_{tw}{{< /katex >}}. 
+For a specific grid, we suppose its tokens are denoted as {{< katex >}}{x_{ij}}{{< /katex >}}, where {{< katex >}}0 \leq i < H/G_{th}{{< /katex >}} and {{< katex >}}0 \leq j < W/G_{tw}{{< /katex >}}. 
 
 - Average Pooling: First, it averages the tokens within a grid to create a mean token.
 - Cross-Attention: Using this mean token as the Query, and all the grid tokens as Key and Value, it applies cross-attention to merge all tokens in the grid into a single token.
 
 {{< katex display=true >}}
 x_{avg} = AvgPool(\{x_{ij}\})
+{{< /katex >}}
 
+{{< katex display=true >}}
 GridAttn(\{x_{ij}\}) = x_{avg} + Attn(x_{avg}, \{x_{ij}\}, \{x_{ij}\})
 {{< /katex >}}
 
  After passing through GridAttention, the fused token is fed into a standard Feed-Forward Network to complete channel fusion, thereby completing one iteration of merging token. GridAttention and FFN undergo multiple iterations and all iterations share the same weights. 
  
-  During these iterations, we gradually decrease the value of {{< katex >}}(G_{th} , G_{tw}){{< /katex >}}, until {{< katex >}}G_{th} = G_{h}{{< /katex >}} and {{< katex >}}G_{tw} = G_{w}{{< /katex >}}. (typically set {{< katex >}}Gh = Gw = 14{{< /katex >}}, in standard ViT)
+  During these iterations, we gradually decrease the value of {{< katex >}}(G_{th} , G_{tw}){{< /katex >}}, until {{< katex >}}G_{th} = G_{h}{{< /katex >}} and {{< katex >}}G_{tw} = G_{w}{{< /katex >}}. (typically set {{< katex >}}G_h = G_w = 14{{< /katex >}}, in standard ViT)
 
  This iteration process effectively reduces the number of tokens even when the resolution of the image is large, and with enough iterations, this size can be reduced effectively. This has the advantage of being computationally efficient because when performing subsequent MHSA calculations, we always use the same size tokens as input, regardless of resolution.
 
