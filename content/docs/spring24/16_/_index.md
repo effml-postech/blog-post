@@ -163,13 +163,15 @@ The figure above shows the results of training all models with the same number o
 <p align="center">
     <img src=./result1.png>
 </p>
-In this figure, the Training FLOPs budget is limited to 6e18, 2e19, and 1e20, compared with the isoFLOP baseline and 12.5% capacity MoD. At a glance, the  top-left graph shows that the isoFLOP baseline has a slightly better loss when the number of parameters is small(There’s a crossing point!) However, when the x-axis is converted from Parameters to FLOPs per FFW (Forward Pass) as shown in the top-right graph, it confirms that MoD is better than the baseline in all cases.
+In this figure, the training FLOPs budget is limited to 6e18, 2e19, and 1e20 comparing isoFLOP baseline and 12.5% capacity MoD. At a glance, the top-left graph shows that the isoFLOP baseline has a slightly better loss when the number of parameters is small (Note that there is a crossing point!). However, when the x-axis is converted from parameters to FLOPs per FFW (Forward Pass) as shown in the top-right graph, it confirms that MoD is better than the baseline in all cases.
 
 <p align="center">
     <img src=./result3.png>
 </p>
-In this figure, the top-left graph shows the performance degradation in auto-regressive evaluation using predictions using the MLP layer not the top-k routing mechanism, which is non-causal and can’t be used in this case. The author argues that the reason for this performance drop in autoregressive case is that the prediction performance through the MLP layer is only about 97%, as shown in the top-right graph, but they stress that only minimal degradation occurs.
+The top-left graph shows the performance degradation in autoregressive evaluation using predictions using the MLP layer not the top-k routing mechanism, which is non-causal and can’t be used in this case. The authors argue that the reason for this performance drop in autoregressive case is that the prediction performance through the MLP layer is only about 97%, as shown in the top-right graph, but they stress that only minimal degradation occurs.
 
+
+###**MoDE**
 <p align="center">
     <img src=./result4.png>
 </p>
