@@ -39,7 +39,7 @@ Quantization is an optimization technique which restricts data(weights, activati
 The quantized values are represented as follows when linear symmetric quantization is applied:
 <p align="center">
   {{< katex >}}
-    q(x) = clamp(\lfloor \frac{x}{\Delta},-2^{b-1}, 2^{b-1}-1) \rceil,\ \ \Delta = \frac{\alpha}{2^{b-1}-1} 
+    q(x) = clamp(\lfloor \frac{x}{\Delta} \rceil, -2^{b-1}, 2^{b-1}-1) ,\ \ \Delta = \frac{\alpha}{2^{b-1}-1} 
   {{< /katex >}} 
 </p>
 x is value to be quantized and {{< katex >}}\alpha{{< /katex >}} denotes trunctaion range. {{< katex >}}b{{< /katex >}} denotes bit-width. {{< katex >}}\Delta{{< /katex >}} is step-size, interval between quantization levels.
