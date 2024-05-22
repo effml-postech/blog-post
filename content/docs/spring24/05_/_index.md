@@ -135,7 +135,7 @@ The author has conducted experiments on Vicuna [2] models with sizes of 7B and 1
 ### Ablation Studies
 
 <p align="center">
-    <img src='./exit_layer.png' width="700">
+    <img src='./exit_layer.png' width="400">
 </p>
 <p align="center">
     Fig. 4. Ablation study for appropriate exit layer.
@@ -144,7 +144,7 @@ The author has conducted experiments on Vicuna [2] models with sizes of 7B and 1
 Fig. 4 demonstrates the trade-off between the compression rate and the walltime speedup varying by the early exit layer {{<katex>}}l{{<\katex>}}. Later exit layer leads to larger sub-network {{<katex>}}\mathcal{M}^b[:l]{{<\katex>}} and smaller remaining layers {{<katex>}}\mathcal{M}^b[l:]{{<\katex>}}, so an adapter network easily imitates remaining LLM layers but the self-draft model {{<katex>}}\mathcal{M}^s{{<\katex>}} becomes heavy. The paper set {{<katex>}}l=2{{<\katex>}} for Vicuna-7B and {{<katex>}}l=3{{<\katex>}} for Vicuna-13B.
 
 <p align="center">
-    <img src='./threshold.png' width="700">
+    <img src='./threshold.png' width="400">
 </p>
 <p align="center">
     Fig. 5. Ablation study for appropriate threshold.
