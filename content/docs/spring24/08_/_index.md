@@ -128,7 +128,7 @@ In the V&L domain, directly composing multiple trained LoRAs into the original e
 <p align="center">
     <img src=./Method1.png align="center" width="70%">
     <br>
-    <em>(Left) Result of linear arithmetic composision. (Right) Result of nomalized linear arithmetic composision.</em>
+    <em>Illustration of proposed MOLE. MOLE employs a learnable gating function that utilizes the outputs of multiple LoRAs at each layer to determine composition weights.</em>
 </p>
 
 <details>
