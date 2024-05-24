@@ -74,12 +74,12 @@ V: Concealed states of encoder cells at all time points
 
 Self-attention means that Q, K, and V are all the same. In the transformer, three attention types are used: Encoder Self-attention, Masked Decoder Self-attention, and Encoder-Decoder Attention. Naturally, both self-attention have the same Q, K, and V of themselves, but in the third Encoder-Decoder Attention, Query is the vector of the decoder and Key and Value are the vectors of the encoder.
 <p align="center">
-    <img src='./selfattention.png' width="650">
+    <img src='./selfattention.png' width="550">
 </p>
 
 To intuitively understand the self-attention of the encoder, it means that the similarity between words in the input sentence is obtained.
 <p align="center">
-    <img src='./word.png' width="650">
+    <img src='./word.png' width="450">
 </p>
 
 **Get Q, K, V vectors**
@@ -87,7 +87,7 @@ As described above, the self-attention operates based on the word vector of the 
 
 The above value of 64 is determined by another hyperparameter of transformer, num_heads. In transformer, the value of num_heads is set to 8, and thus it is necessary to convert the value into a Q vector, K vector, and V vector in 512/8=64 dimensions.
 <p align="center">
-    <img src='./word_example.png' width="650">
+    <img src='./word_example.png' width="450">
 </p>
 
 For example, the 512-dimensional embedding vector of the word "student" is multiplied by a Q weight, K weight, and V weight matrix with 512 X 64 dimensions, respectively, to obtain Q, K, and V vectors. If Q, K, and V vectors are obtained, it is the same as the existing attention mechanism from now on. Each Q vector obtains an attention score for all K vectors, obtains an attention distribution, and then uses it to weight the V vector to obtain an attention value or a context vector. And this is repeated for all Q vectors.
