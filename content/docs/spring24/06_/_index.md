@@ -79,7 +79,7 @@ Self-attention means that Q, K, and V are all the same. In the transformer, thre
 
 To intuitively understand the self-attention of the encoder, it means that the similarity between words in the input sentence is obtained.
 <p align="center">
-    <img src='./word.png' width="450">
+    <img src='./word.png' width="300">
 </p>
 
 **Get Q, K, V vectors**
