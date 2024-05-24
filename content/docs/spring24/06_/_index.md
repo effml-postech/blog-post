@@ -5,7 +5,7 @@ weight: 1
 
 # XC-CACHE: Cross-Attending to Cached Context for Efficient LLM Inference
 Submitted on 23 Apr 2024 by João Monteiro1, Étienne Marcotte1,*, Pierre-André Noël1,*, Valentina Zantedeschi1,*, David Vázquez1, Nicolas Chapados1, 2, Christopher Pal1, 2, Perouz Taslakian11, ServiceNow Research.
-
+Posted by HyunDong Kim, Sangil Han
 ## Background Knowledge
 
 ### In-context Learning(ICL)
@@ -155,3 +155,12 @@ As shown in Table 2, XC-LLAMA variants greatly reduce the caching footprint by s
     <img src='./table_3.png' width="450">
 
 The Pareto set includes ICL models fine-tuned with LORA, which have higher BERTSCORE but require substantial caching space, and encoder models, which slightly sacrifice prediction accuracy but significantly reduce memory footprint. Detailed QA results in Table 3 include the GPT-3.5 TURBO ICL baseline and FiD, fine-tuned on our training dataset. FiD is included for performance reference but is not directly comparable as it does not support caching pre-processed contexts. Their models achieve significant space savings with only a slight reduction in prediction accuracy, advantageous in various practical scenarios.
+
+## Conclusion
+
+They introduced XC-LLAMA, a method to convert a pre-trained decoder-only language model into an encoder-decoder architecture that can generate outputs based on both encoder inputs and decoder queries. This is done by adding cross-attention layers between the self-attention layers of the pre-trained decoder. Two methods for defining the encoder are discussed: using a copy of the decoder or introducing a small, trainable bi-directional encoder. This architecture reduces caching space by over 300 times. In QA settings, XC-LLAMA shows higher prediction accuracy compared to standard In-Context Learning (ICL) methods with LLAMA 2 or GPT-3.5 TURBO. It also achieves accuracy levels nearly on par with caching-intensive fine-tuned prompted models, offering a more practical, caching-efficient alternative.
+
+## Related works
+### Decoders as encoders
+![Untitled (2)](https://github.com/effml-postech/blog-post/assets/87515500/3a0e15fc-9fbf-4fe7-8e86-2aac2ee74f59)
+GRIT converts a pretrained causal decoder into a bi-directional encoder,yielding sentence-level embeddings while maintaining its ability to perform autoregressive generation of text. However, unlike the models they consider, this conversion requires fine-tuning all model parameters instead of additional ones. Parameterefficient approaches to turn decoders into encoders were also proposed.
