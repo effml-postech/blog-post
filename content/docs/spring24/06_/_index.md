@@ -15,7 +15,7 @@ weight: 1
     <img src='./approach.png' width="650">
 </p>
 <p align="center">
-    **Fig. Faster inference in context-conditional language modeling**
+    <b>Fig. Faster inference in context-conditional language modeling
 </p>
 
  These four approaches highlight various strategies for efficient context processing in large language models. 
