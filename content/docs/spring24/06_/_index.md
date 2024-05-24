@@ -7,6 +7,25 @@ weight: 1
 Submitted on 23 Apr 2024 by João Monteiro1, Étienne Marcotte1,*, Pierre-André Noël1,*, Valentina Zantedeschi1,*, David Vázquez1, Nicolas Chapados1, 2, Christopher Pal1, 2, Perouz Taslakian11, ServiceNow Research.
 
 ## Background Knowledge
+### LLM
+LLM(Large language model) is a technology that understands and creates language-like text from vast amounts of data
+For example, Translation, Fixing typos, question-answer, summary, ...
+
+**- Emergent abilities of LLM**
+“the ability that are not present in small but arise in large models”
+- J.Wei et al,, “Emergent abilities of large language models,”
+⇒ **Large Language Models that can be performed on unlearned tasks**
+
+“Emergence is when quantitative changes in a system result in qualitative changes in behavior.”
+- “More is Different” by Nobel prize-winning physicist Phulip Anderson
+
+NLP vs LLM
+NLP (Natural Language Processing)
+- Covers general language analysis
+LLM (Large-Language Model)
+- Subset of NLP
+- Based on "Large" dataset
+
 ### In-context Learning(ICL)
 In-context Learning (ICL) is a technique frequently used with Large Language Models (LLMs), such as GPT-3. This technique leverages the knowledge acquired during the pre-training phase, enabling the model to understand and apply new contextual information effectively. ICL allows the model to perform specific tasks efficiently without requiring additional training or fine-tuning.
 
