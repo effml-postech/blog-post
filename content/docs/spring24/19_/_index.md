@@ -8,14 +8,14 @@ weight: 1
 
 Posted by: Sungbin Shin and Dongyeop Lee
 
-Increadible versatility of large language models (LLM) on wide variaty of tasks has attracted many to leverage its power on performing specific tasks of interest (i.e., downstream task) via a process called fine-tuning, which consists of re-training the whole pretrained network on a new set of data.
-However, its intensive computation and memory cost has led to development of efficient techniques, particularily Parameter-Efficient Fine-Tuning (PEFT) approaches such as adapters, prompt weights, and, arguably one of the most widely used approach, LoRA.
+The incredible versatility of large language models (LLM) on a wide variety of tasks has attracted many to leverage its power to perform specific tasks of interest (i.e., downstream task) via a process called fine-tuning, which consists of re-training the whole pretrained network on a new set of data.
+However, its intensive computation and memory cost have led to the development of efficient techniques, particularly Parameter-Efficient Fine-Tuning (PEFT) approaches such as adapters, prompt weights, and, arguably one of the most widely used approaches, LoRA.
 
 However, LoRA's performance has yet reach the level of full fine-tuning in all settings.
-To overcome this shorcomming, this work investigates into the training statistics of LoRA in each layer to discover that the distribution of layerwise weight norms of LoRA is uncommonly skewed, suggesting varying levels of importance of each layer.
+To overcome this shortcoming, this work investigates into the training statistics of LoRA in each layer to discover that the distribution of layerwise weight norms of LoRA is uncommonly skewed, suggesting varying levels of importance of each layer.
 
-This naturally bring forth their **L**ayerwise **I**mportance **S**ampled **A**dam (**LISA**), which suggest selectively updating only the essential layers of the LLM sampled based on their importance and leaving others untouched.
-This allows for performance of traditional full-parameter fine-tuning with parameter count of LoRA, indicating a large potential of LISA as a promising alternative to LoRA.
+This naturally brings forth their **L**ayerwise **I**mportance **S**ampled **A**dam (**LISA**), which suggests selectively updating only the essential layers of the LLM sampled based on their importance and leaving others untouched.
+This allows for the performance of traditional full-parameter fine-tuning with the parameter count of LoRA, indicating a large potential of LISA as a promising alternative to LoRA.
 
 ## Background
 
