@@ -29,7 +29,8 @@ Common uses of caching are web page caching for faster loading, database query c
 
 ### Transformer
 <p align="center">
-    <img src='./transformer.png' width="650">
+    <img src='./transformer.png' width="550">
+
 In Transformer models, the Attention Mechanism helps the model focus on important parts of the input data. It uses three main components: Key, Value, and Query, which are vectors derived from input tokens. Keys capture token features, Values contain the token content, and Queries represent the current token's features. The attention process calculates match scores between Queries and Keys, normalizes these scores with softmax, and computes a weighted sum of Values based on these probabilities. This allows the model to understand complex relationships within the data, enabling accurate and contextually appropriate responses.
 
 ## Introduction
