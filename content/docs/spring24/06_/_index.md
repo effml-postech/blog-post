@@ -1,8 +1,5 @@
 ---
-title: "XC-CACHE: Cross-Attention Cached Inference"
-date: 2024-05-14
-draft: false
-type: docs
+bookToc: true
 weight: 1
 ---
 
