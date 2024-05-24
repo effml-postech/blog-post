@@ -15,7 +15,7 @@ weight: 1
     <img src='./approach.png' width="650">
 </p>
 <p align="center">
-    Fig. Faster inference in context-conditional language modeling
+    **Fig. Faster inference in context-conditional language modeling
 </p>
 
  These four approaches highlight various strategies for efficient context processing in large language models. 
@@ -34,13 +34,11 @@ weight: 1
 
  KV(Key-Value) Caching ******is to store the (past) key and value states generated while processing context.  As an example, for [***LLAMA 2-7B***](https://arxiv.org/abs/2307.09288) using 16 bits precision shows that the smaller per-token cache teh sizes are more desirable. JIT(Just-In-Time Key-Value Caching)-KV Caching is an alternative approach involves storing the (past) hidden states of the model in the cache. At inference time, once these hidden states are loaded on GPU, we can recover the full keys and values in O(|context|). These two KV and JIT-KV Caching model both entail two types of costs while yielding identical results: the size of the cache and the operations required during inference. So **XC-Caching** is presented as an effective way to improve inference speed while significantly reducing memory usage.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/ecaf2b8d-d654-4cb1-bdb0-0aa6aa6ea46d/4e810569-e761-4ed0-a754-ee658a9fb77e/Untitled.png)
-
 <p align="center">
     <img src='./architectures.png' width="650">
 </p>
 <p align="center">
-    Fig. XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures. Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.
+    **Fig. XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures. Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.
 </p>
 
 (a) The architecture uses a small bidirectional encoder and multiple self-attention and cross-attention layers to process the context and prompt.
