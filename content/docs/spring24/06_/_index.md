@@ -142,3 +142,16 @@ They compare their models to ICL methods for generating context-based answers, n
 They compare their method to existing conditional generation approaches. The main baseline is ICL, using context as part of the prompt, with results for LLAMA 2-CHAT and GPT-3.5-TURBO. FiD, a state-of-the-art T5-based QA model, is also included for comparison.
 
 Results (Table 1) show that cross-attending to contexts (XC-LLAMA or XC-LLAMAENC) significantly improves performance compared to prompting (LLAMA 2-CHAT). This approach is more broadly applicable and practical as it avoids the high variance induced by prompting. Even when using the decoder as an encoder, cross-attention to contexts outperforms ICL, suggesting that trained cross-attention layers compensate for sub-optimal encoder representations.
+
+## Expanded Evaluation of Context Conditioning Methods
+The previous section's results show that adding and fine-tuning dedicated parameters for context-conditioning improves performance over prompting. Based on this, they expand their evaluation to consider alternative approaches using a small number of additional parameters for conditioning generation on reference contexts. They focus on both prediction performance and computational efficiency, assessing how well different models can pre-process and cache context representations.
+
+They fine-tune LORA adapters applied to the same LLAMA 2 decoder used for XC-LLAMA. This fine-tuning significantly improves QA accuracy over ICL baselines but requires storing all KV states throughout every layer, leading to high costs. In contrast, encoder models only need to cache the hidden states of their last layer, reducing space requirements.
+<p align="center">
+    <img src='./table_2.png' width="450">
+
+As shown in Table 2, XC-LLAMA variants greatly reduce the caching footprint by storing only the last hidden states of the encoder. XC-LLAMAENC further reduces space requirements due to the lower dimensional representation of LONGFORMER compared to LLAMA 2. This reduction in cache size is practically significant, especially for large datasets like Wikipedia, as it decreases memory usage and communication costs, enabling longer generation or larger batch sizes during inference.
+<p align="center">
+    <img src='./table_3.png' width="450">
+
+The Pareto set includes ICL models fine-tuned with LORA, which have higher BERTSCORE but require substantial caching space, and encoder models, which slightly sacrifice prediction accuracy but significantly reduce memory footprint. Detailed QA results in Table 3 include the GPT-3.5 TURBO ICL baseline and FiD, fine-tuned on our training dataset. FiD is included for performance reference but is not directly comparable as it does not support caching pre-processed contexts. Their models achieve significant space savings with only a slight reduction in prediction accuracy, advantageous in various practical scenarios.
