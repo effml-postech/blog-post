@@ -15,7 +15,7 @@ weight: 1
     <img src='./approach.png' width="650">
 </p>
 <p align="center">
-    **Fig. Faster inference in context-conditional language modeling
+    **Fig. Faster inference in context-conditional language modeling**
 </p>
 
  These four approaches highlight various strategies for efficient context processing in large language models. 
@@ -38,7 +38,7 @@ weight: 1
     <img src='./architectures.png' width="650">
 </p>
 <p align="center">
-    **Fig. XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures. Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.
+    **Fig. XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures. Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.**
 </p>
 
 (a) The architecture uses a small bidirectional encoder and multiple self-attention and cross-attention layers to process the context and prompt.
