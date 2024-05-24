@@ -11,7 +11,12 @@ weight: 1
 
  This paper addresses these challenges by introducing models that use **cross-attention**, inspired by the encoder-decoder architecture, to condition generation on reference text without a prompt. The approach leverages pre-trained decoder-only models and trains only a small number of added layers. The authors use Question-Answering (QA) as a testbed to evaluate these models' ability to perform conditional generation. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/ecaf2b8d-d654-4cb1-bdb0-0aa6aa6ea46d/aee2a0ac-0dff-4ec3-a990-297af09450ac/Untitled.png)
+<p align="center">
+    <img src='./approach.png' width="650">
+</p>
+<p align="center">
+    Fig. 1. Contrast between autoregressive decoding and speculative decoding.
+</p>
 
  These four approaches highlight various strategies for efficient context processing in large language models. 
 
