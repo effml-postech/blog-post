@@ -7,6 +7,17 @@ weight: 1
 Submitted on 23 Apr 2024 by João Monteiro1, Étienne Marcotte1,*, Pierre-André Noël1,*, Valentina Zantedeschi1,*, David Vázquez1, Nicolas Chapados1, 2, Christopher Pal1, 2, Perouz Taslakian11, ServiceNow Research.
 
 ## Background Knowledge
+
+### In-context Learning(ICL)
+In-context Learning (ICL) is a technique frequently used with Large Language Models (LLMs), such as GPT-3. This technique leverages the knowledge acquired during the pre-training phase, enabling the model to understand and apply new contextual information effectively. ICL allows the model to perform specific tasks efficiently without requiring additional training or fine-tuning.
+
+<p align="center">
+    <img src='./icl.png' width="650">
+
+In ICL, a single prompt is composed of a task description, demonstration, and query. When this prompt is passed through a Large Language Model (LLM), it results in obtaining the desired response. The model understands how to perform a specific task within a given context through examples. This process involves setting the context, providing examples, and then generating appropriate outputs based on the combined information. ICL allows the model to perform specific tasks efficiently without requiring additional training or fine-tuning. typically uses prompting to condition the generation of decoder-only language models based on reference information. 
+
+However, just-in-time processing of context is inefficient due to the quadratic cost of self-attention operations, making caching desirable. Yet, caching transformer states can demand nearly as much space as the model parameters themselves, posing a challenge when the appropriate context is not known in advance.
+
 ### LLM
 LLM(Large language model) is a technology that understands and creates language-like text from vast amounts of data
 For example, Translation, Fixing typos, question-answer, summary, ...
@@ -26,16 +37,6 @@ LLM (Large-Language Model)
 - Subset of NLP
 - Based on "Large" dataset
 
-### In-context Learning(ICL)
-In-context Learning (ICL) is a technique frequently used with Large Language Models (LLMs), such as GPT-3. This technique leverages the knowledge acquired during the pre-training phase, enabling the model to understand and apply new contextual information effectively. ICL allows the model to perform specific tasks efficiently without requiring additional training or fine-tuning.
-
-<p align="center">
-    <img src='./icl.png' width="650">
-
-In ICL, a single prompt is composed of a task description, demonstration, and query. When this prompt is passed through a Large Language Model (LLM), it results in obtaining the desired response. The model understands how to perform a specific task within a given context through examples. This process involves setting the context, providing examples, and then generating appropriate outputs based on the combined information. ICL allows the model to perform specific tasks efficiently without requiring additional training or fine-tuning. typically uses prompting to condition the generation of decoder-only language models based on reference information. 
-
-However, just-in-time processing of context is inefficient due to the quadratic cost of self-attention operations, making caching desirable. Yet, caching transformer states can demand nearly as much space as the model parameters themselves, posing a challenge when the appropriate context is not known in advance.
-
 ### Caching
 <p align="center">
     <img src='./caching.png' width="350">
@@ -51,6 +52,45 @@ Common uses of caching are web page caching for faster loading, database query c
     <img src='./transformer.png' width="550">
 
 In Transformer models, the Attention Mechanism helps the model focus on important parts of the input data. It uses three main components: Key, Value, and Query, which are vectors derived from input tokens. Keys capture token features, Values contain the token content, and Queries represent the current token's features. The attention process calculates match scores between Queries and Keys, normalizes these scores with softmax, and computes a weighted sum of Values based on these probabilities. This allows the model to understand complex relationships within the data, enabling accurate and contextually appropriate responses.
+
+### Self-Attention
+Finding the relationship between a sentence and a sentence.
+In other words, looking at the relationship between words and words within a sentence.
+
+- Attention
+
+The basic idea of attention is to once again refer to the entire input sentence in the encoder at each time step at which the decoder predicts the output word. However, rather than considering all input words in the same proportion, we will focus more on the input word part related to the word to be predicted at that point.
+
+The attention function is usually expressed as follows
+
+Attention(Q, K, V) = Attention Value
+
+The attention function individually calculates the similarity with all keys for a given query and reflects these similarities in each value associated with that key. Then, all of the 'Values' reflecting this similarity are summed and returned.
+
+These results are called Attention Value.
+Q: Concealed states in decoder cells at all time points
+K: Silver states of encoder cells at all time points
+V: Concealed states of encoder cells at all time points
+
+Self-attention means that Q, K, and V are all the same. In the transformer, three attention types are used: Encoder Self-attention, Masked Decoder Self-attention, and Encoder-Decoder Attention. Naturally, both self-attention have the same Q, K, and V of themselves, but in the third Encoder-Decoder Attention, Query is the vector of the decoder and Key and Value are the vectors of the encoder.
+<p align="center">
+    <img src='./selfattention.png' width="650">
+</p>
+
+To intuitively understand the self-attention of the encoder, it means that the similarity between words in the input sentence is obtained.
+<p align="center">
+    <img src='./word.png' width="650">
+</p>
+
+**Get Q, K, V vectors**
+As described above, the self-attention operates based on the word vector of the input sentence. However, in practice, in order to perform the self-attention, a process of obtaining the Q-vector, the K-vector, and the V-vector from the word vectors which are the initial inputs of the encoder is required. In this case, the Q-vector, the K-vector, and the V-vector have a lower dimension, unlike the dimension of the initial input, and in transformer, each 512-dimensional word vector is converted into a 64-dimensional Q-vector, the K-vector, and the V-vector from the initial input.
+
+The above value of 64 is determined by another hyperparameter of transformer, num_heads. In transformer, the value of num_heads is set to 8, and thus it is necessary to convert the value into a Q vector, K vector, and V vector in 512/8=64 dimensions.
+<p align="center">
+    <img src='./word_example.png' width="650">
+</p>
+
+For example, the 512-dimensional embedding vector of the word "student" is multiplied by a Q weight, K weight, and V weight matrix with 512 X 64 dimensions, respectively, to obtain Q, K, and V vectors. If Q, K, and V vectors are obtained, it is the same as the existing attention mechanism from now on. Each Q vector obtains an attention score for all K vectors, obtains an attention distribution, and then uses it to weight the V vector to obtain an attention value or a context vector. And this is repeated for all Q vectors.
 
 ## Introduction
 This paper addresses these challenges by introducing models that use cross-attention, inspired by the encoder-decoder architecture, to condition generation on reference text without a prompt. The approach leverages pre-trained decoder-only models and trains only a small number of added layers. The authors use Question-Answering (QA) as a testbed to evaluate these models' ability to perform conditional generation. 
