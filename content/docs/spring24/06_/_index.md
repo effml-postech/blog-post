@@ -4,9 +4,7 @@ bookToc: True
 weight: 1
 ---
 
-#
-
-XC-CACHE: Cross-Attending to Cached Context for Efficient LLM Inference
+# XC-CACHE: Cross-Attending to Cached Context for Efficient LLM Inference
 
 *Submitted on 23 Apr 2024 by* João Monteiro1, Étienne Marcotte1,*, Pierre-André Noël1,*, Valentina Zantedeschi1,*, David Vázquez1, Nicolas Chapados1, 2, Christopher Pal1, 2, Perouz Taslakian11, ServiceNow Research.
 
