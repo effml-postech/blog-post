@@ -36,6 +36,13 @@ weight: 1
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/ecaf2b8d-d654-4cb1-bdb0-0aa6aa6ea46d/4e810569-e761-4ed0-a754-ee658a9fb77e/Untitled.png)
 
+<p align="center">
+    <img src='./architectures.png' width="650">
+</p>
+<p align="center">
+    Fig. XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures. Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.
+</p>
+
 (a) The architecture uses a small bidirectional encoder and multiple self-attention and cross-attention layers to process the context and prompt.
 (b) The architecture uses only a decoder, mainly training the cross-attention layers to process the context and prompt.
 
