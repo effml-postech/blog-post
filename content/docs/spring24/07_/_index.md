@@ -37,7 +37,7 @@ Let the pre-trained weight matrix be {{< katex >}}W_o \in \mathbb{R}^{d \times k
 The modified weight matrix is given by:
 
 {{< katex >}}W_o + \Delta W = W_o + BA{{< /katex >}}
-where {{< katex >}}B \in \mathbb{R}^{d \times r}{{< /katex >}}, {{< katex >}}A \in \mathbb{R}^{r \times k}{{< /katex >}}, {{< katex >}}\text{rank } r \ll \min(d, k)\{{< /katex >}}, and {{< katex >}}\\Delta W = BA{{< /katex >}}.
+where {{< katex >}}B \in \mathbb{R}^{d \times r}{{< /katex >}}, {{< katex >}}A \in \mathbb{R}^{r \times k}{{< /katex >}}, {{< katex >}}\text{rank } r \ll \min(d, k)\{{< /katex >}}, and {{< katex >}}\Delta W = BA{{< /katex >}}.
 
 The original forward pass is:
 
@@ -69,12 +69,12 @@ VeRA tries to take advantageof random matrices and projection to reduce the numb
 This table taken from [[1]](#ref1) shows the relative storage efficiency of VeRA compared to LoRA, when only applied to the query and key projection layers.
 | Model | Rank | LoRA - # Trainable Parameters | LoRA - Required Bytes | VeRA - # Trainable Parameters | VeRA - Required Bytes |
 |-------|------|-------------------------------|----------------------|-------------------------------|-----------------------|
-| {{< katex >}}\{RoBERTa}_{\text{base}}{{< /katex >}}  | 1    | 36.8K                         | 144KB                | 18.4K                         | 72KB                  |
-| {{< katex >}}\{RoBERTa}_{\text{base}}{{< /katex >}}  | 16   | 589.8K                        | 2MB                  | 18.8K                         | 74KB                  |
-| {{< katex >}}\{RoBERTa}_{\text{base}}{{< /katex >}}  | 256  | 9437.1K                       | 36MB                 | 24.5K                         | 96KB                  |
-| {{< katex >}}\{RoBERTa}_{\text{large}}{{< /katex >}} | 1    | 98.3K                         | 384KB                | 49.2K                         | 192KB                 |
-| {{< katex >}}\{RoBERTa}_{\text{large}}{{< /katex >}} | 16   | 1572.8K                       | 6MB                  | 49.5K                         | 195KB                 |
-| {{< katex >}}\{RoBERTa}_{\text{large}}{{< /katex >}} | 256  | 25165.8K                      | 96MB                 | 61.4K                         | 240KB                 |
+| {{< katex >}}{RoBERTa}_{\text{base}}{{< /katex >}}  | 1    | 36.8K                         | 144KB                | 18.4K                         | 72KB                  |
+| {{< katex >}}{RoBERTa}_{\text{base}}{{< /katex >}}  | 16   | 589.8K                        | 2MB                  | 18.8K                         | 74KB                  |
+| {{< katex >}}{RoBERTa}_{\text{base}}{{< /katex >}}  | 256  | 9437.1K                       | 36MB                 | 24.5K                         | 96KB                  |
+| {{< katex >}}{RoBERTa}_{\text{large}}{{< /katex >}} | 1    | 98.3K                         | 384KB                | 49.2K                         | 192KB                 |
+| {{< katex >}}{RoBERTa}_{\text{large}}{{< /katex >}} | 16   | 1572.8K                       | 6MB                  | 49.5K                         | 195KB                 |
+| {{< katex >}}{RoBERTa}_{\text{large}}{{< /katex >}} | 256  | 25165.8K                      | 96MB                 | 61.4K                         | 240KB                 |
 | GPT-3 | 1    | 4.7M                          | 18MB                 | 2.4M                          | 9.1MB                 |
 | GPT-3 | 16   | 75.5M                         | 288MB                | 2.8M                          | 10.5MB                |
 | GPT-3 | 256  | 1207.9M                       | 4.6GB                | 8.7M                          | 33MB                  |
@@ -86,7 +86,7 @@ Let the pre-trained weight matrix be {{< katex >}}W_o \in \mathbb{R}^{d \times k
 The original LoRA formulation is the following:
 
 {{< katex >}}W_o + \Delta W = W_o + \underline{B A}{{< /katex >}}
-where {{< katex >}}B \in \mathbb{R}^{d \times r}{{< /katex >}}, {{< katex >}}A \in \mathbb{R}^{r \times k}{{< /katex >}}, {{< katex >}}\text{rank } r \ll \min(d, k)\{{< /katex >}}, and {{< katex >}}\\Delta W = BA{{< /katex >}}.
+where {{< katex >}}B \in \mathbb{R}^{d \times r}{{< /katex >}}, {{< katex >}}A \in \mathbb{R}^{r \times k}{{< /katex >}}, {{< katex >}}\text{rank } r \ll \min(d, k){{< /katex >}}, and {{< katex >}}\Delta W = BA{{< /katex >}}.
 
 The original forward pass is:
 
@@ -209,7 +209,7 @@ This relatively wider search space makes VeRA attractive for NAS compared to LoR
 This research could also give us a glimpse into how each type of model responds to PEFT tuning. Whereas the original LoRA dealt in relatively limited domains such as encoder-type LLMs, instruction tuning, or image classification. Today, LoRA family of PEFT has been expanded to continued pretraining of LLMs, finetuning diffusion models, customization of LLMs, et cetera. The relative low-overhead and wider search space of VeRA could be useful as a tool for exploring the optimal configuration of LoRA-type PEFT and how each domains works differently.
 
 ### Better initialization settings
-The initialization scheme used in VeRA is relatively simple. The original VeRA paper does present some exploration and ablation studies of initialization schemes. The authors claim that using both {{< katex >}}d{{< /katex >}} and {{< katex >}}b{{< /katex >}} scaling vectors improve performance, using Kaiming uniform initialization for the performance is better, and initializing {{< katex >}}d{{< /katex >}} vector with {{< katex >}}d_init{{< /katex >}} set to {{< katex >}}10^{-1}{{< /katex >}} or {{< katex >}}10^{-7}{{< /katex >}} tends to outperform 1.0. 
+The initialization scheme used in VeRA is relatively simple. The original VeRA paper does present some exploration and ablation studies of initialization schemes. The authors claim that using both {{< katex >}}d{{< /katex >}} and {{< katex >}}b{{< /katex >}} scaling vectors improve performance, using Kaiming uniform initialization for the performance is better, and initializing {{< katex >}}d{{< /katex >}} vector with {{< katex >}}d_\text{init}{{< /katex >}} set to {{< katex >}}10^{-1}{{< /katex >}} or {{< katex >}}10^{-7}{{< /katex >}} tends to outperform 1.0. 
 
 But, the types of initializations and number of parameters explored are limited and focus on relatively old model (RoBERTa) and coarse GLUE-based benchmarks such as RTE, MRPC, CoLA, and STS-B tasks. Additional experiments on more relevant LLM tasks such as instruction finetuning or continued pretraining could be more insightful as well as more diverse modalities(vision, sound, et cetera). For example, LoRAs have become a popular in diffusion models such as Stable Diffusion [[9]](#ref9) as a way of generating custom images. It would be meaningful to explore the behavior and the best settings for VeRA in these type of applications and tasks. 
 
