@@ -126,16 +126,22 @@ However, this also leads to the increased memory consumption, i.e., there exists
 Second, larger {{< katex >}} K {{< /katex >}} leads to increased performance by more frequently changing the layers to update.
 However, too larger value can lead to inferior performance (see the result when {{< katex >}} K =122{{< /katex >}} ).
 
-## Discussion and future work
 
-Pros
-* Overall, LISA exhibits remarkable performance with reduced memory cost despite its simplicity. 
-* 
+## Conclusion
+This paper propose Layerwise Importance Sampled AdamW (LISA), an optimization algorithm that randomly freezes layers of LLM based on a given probability. 
+Inspired from observations of LoRA’s skewed weight norm distribution, a simple and memory-efficient freezing paradigm is introduced for LLM training, which achieves significant performance improvements over LoRA on downstream fine-tuning tasks with various models, including LLaMA-2-70B. 
+Further experiments on domain-specific training also demonstrate its effectiveness, showing LISA’s huge potential as a promising alternative to LoRA for LLM training.
 
-Cons 
-* The paper compares the method to only one PEFT method, LoRA. It would be nice to compare the method to other PEFT methods including prompt tuning and prefix tuning.
+[comment]: <> (## Discussion and future work)
+
+[comment]: <> (Pros)
+[comment]: <> (* Overall, LISA exhibits remarkable performance with reduced memory cost despite its simplicity. )
+[comment]: <> (* )
+
+[comment]: <> (Cons )
+[comment]: <> (* The paper compares the method to only one PEFT method, LoRA. It would be nice to compare the method to other PEFT methods including prompt tuning and prefix tuning.)
 
 
-Future work
-* Recently, fine-tuning languages models based on zeroth-order optimization ([MeZO](https://arxiv.org/abs/2305.17333)) have shown comparable performance to backpropgation-based methods with significantly reduced memory cost. It would be interesting to see if LISA can be integrated with zeroth-order methods to further reduce the memory cost without much performance degradation.
-* 
+[comment]: <> (Future work)
+[comment]: <> (* Recently, fine-tuning languages models based on zeroth-order optimization [MeZO]https://arxiv.org/abs/2305.17333 have shown comparable performance to backpropgation-based methods with significantly reduced memory cost. It would be interesting to see if LISA can be integrated with zeroth-order methods to further reduce the memory cost without much performance degradation.)
+[comment]: <> (* )
