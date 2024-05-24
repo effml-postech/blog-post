@@ -19,7 +19,8 @@ However, just-in-time processing of context is inefficient due to the quadratic 
 
 ### Caching
 <p align="center">
-    <img src='./caching.png' width="650">
+    <img src='./caching.png' width="350">
+
 Caching involves storing data or computation results in a temporary storage area called a cache. When a request is made, the system first checks the cache. If the data is found (cache hit), it is retrieved from the cache; otherwise (cache miss), it is fetched from the source, processed, and stored in the cache.
 
 Advantages of caching include faster access to frequently used data, efficient resource use by reducing redundant computations, and improved service availability during network issues. However, challenges include maintaining data consistency and the need for additional memory.
