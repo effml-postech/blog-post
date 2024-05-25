@@ -91,6 +91,7 @@ To intuitively understand the self-attention of the encoder, it means that the s
     <br>
     <i>Fig. 5 Self-attention mechanism showing the similarity between words</i>
 </p>
+
 **Get Q, K, V vectors**
 As described above, the self-attention operates based on the word vector of the input sentence. However, in practice, in order to perform the self-attention, a process of obtaining the Q-vector, the K-vector, and the V-vector from the word vectors which are the initial inputs of the encoder is required. In this case, the Q-vector, the K-vector, and the V-vector have a lower dimension, unlike the dimension of the initial input, and in transformer, each 512-dimensional word vector is converted into a 64-dimensional Q-vector, the K-vector, and the V-vector from the initial input.
 
@@ -115,7 +116,7 @@ These four approaches highlight various strategies for efficient context process
 
 (a) depicts a scenario where a user’s query must be interpreted within a given context to generate an answer. In this case, the query and answer are small (light), but the context is large (heavy). This results in a time complexity of O(|context|²) for the LLM.
 
-(b) explains [***In-Context Learning (ICL)***](https://arxiv.org/abs/2005.14165) and [***Retrieval-Augmented Generation (RAG)](https://arxiv.org/abs/2005.11401)***  which use the query to look up the context from a finite corpus, but still remain inefficient with large contexts.
+(b) explains [***In-Context Learning (ICL)***](https://arxiv.org/abs/2005.14165) and [***Retrieval-Augmented Generation (RAG)***](https://arxiv.org/abs/2005.11401)  which use the query to look up the context from a finite corpus, but still remain inefficient with large contexts.
 
 (c) can be preprocessed into a cache, enabling fast inference on a given query. This [***approach***](https://arxiv.org/abs/1706.03762) has a time complexity of O(|context|(|query| + |answer|)).
 
