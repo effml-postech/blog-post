@@ -129,9 +129,9 @@ However, too larger value can lead to inferior performance (see the result when 
 
 ## Discussion and future work
 
-Overall, LISA propose a simple idea of selectively updating only the important layers, which presents remarkable performance with reduced memory cost.
-However, the comparison with other PEFT method is only limited to LoRA, making it hard to identfy how it performs against alternative strategies such as prompt tuning and prefix tuning.
+Overall, LISA proposes a simple idea of selectively updating only the important layers, which presents remarkable performance with reduced memory cost.
+However, the comparison with other PEFT method is only limited to LoRA, making it hard to identify how it performs against alternative strategies such as prompt tuning and prefix tuning.
 
-Nonetheless, we believe this paper can have some promising extentions.
-Especially, the concept of layer-wise importance might be extended to determining the rank of LoRA in a layer-wise manner to conserve richer repensatiation for important layers and save computation for less important ones for either performance improvements or improved efficiency.
-Also recently, fine-tuning languages models based on zeroth-order optimization ([MeZO](https://arxiv.org/abs/2305.17333)) have shown comparable performance to backpropgation-based methods with significantly reduced memory cost. It would be interesting to see if LISA can be integrated with zeroth-order methods to further reduce the memory cost without much performance degradation.
+Nonetheless, we believe this paper can have some promising extensions.
+Especially, the concept of layer-wise importance might be extended to determining the rank of LoRA in a layer-wise manner to conserve richer representation for important layers and save computation for less important ones for either performance improvements or improved efficiency.
+Also recently, fine-tuning language models based on zeroth-order optimization ([MeZO](https://arxiv.org/abs/2305.17333)) have shown comparable performance to backpropgation-based methods with significantly reduced memory cost. It would be interesting to see if LISA can be integrated with zeroth-order methods to further reduce the memory cost without much performance degradation.
