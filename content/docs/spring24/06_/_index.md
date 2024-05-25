@@ -156,7 +156,7 @@ They compare their method to existing conditional generation approaches. The mai
 
 Results (Table 1) show that cross-attending to contexts (XC-LLAMA or XC-LLAMAENC) significantly improves performance compared to prompting (LLAMA 2-CHAT). This approach is more broadly applicable and practical as it avoids the high variance induced by prompting. Even when using the decoder as an encoder, cross-attention to contexts outperforms ICL, suggesting that trained cross-attention layers compensate for sub-optimal encoder representations.
 
-## Expanded Evaluation of Context Conditioning Methods
+### Expanded Evaluation of Context Conditioning Methods
 The previous section's results show that adding and fine-tuning dedicated parameters for context-conditioning improves performance over prompting. Based on this, they expand their evaluation to consider alternative approaches using a small number of additional parameters for conditioning generation on reference contexts. They focus on both prediction performance and computational efficiency, assessing how well different models can pre-process and cache context representations.
 
 They fine-tune LORA adapters applied to the same LLAMA 2 decoder used for XC-LLAMA. This fine-tuning significantly improves QA accuracy over ICL baselines but requires storing all KV states throughout every layer, leading to high costs. In contrast, encoder models only need to cache the hidden states of their last layer, reducing space requirements.
