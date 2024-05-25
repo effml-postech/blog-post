@@ -186,7 +186,7 @@ They introduced XC-LLAMA, a method to convert a pre-trained decoder-only languag
     <br>
     <i>Fig 8. GRITLM architecture and format</i>
 </p>
-[***GRIT***](https://arxiv.org/abs/2402.09906) converts a pretrained causal decoder into a bi-directional encoder,yielding sentence-level embeddings while maintaining its ability to perform autoregressive generation of text. However, unlike the models they consider, this conversion requires fine-tuning all model parameters instead of additional ones. Parameterefficient approaches to turn decoders into encoders were also proposed.
+[GRIT](https://arxiv.org/abs/2402.09906) converts a pretrained causal decoder into a bi-directional encoder,yielding sentence-level embeddings while maintaining its ability to perform autoregressive generation of text. However, unlike the models they consider, this conversion requires fine-tuning all model parameters instead of additional ones. Parameterefficient approaches to turn decoders into encoders were also proposed.
 
 ## **Discussion: Future Research Directions**
 
