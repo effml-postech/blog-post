@@ -40,7 +40,6 @@ LLM (Large-Language Model)
 ### Caching
 <p align="center">
     <img src='./caching.png' width="350">
-    *Fig. 2: How the caching works*
 
 Caching involves storing data or computation results in a temporary storage area called a cache. When a request is made, the system first checks the cache. If the data is found (cache hit), it is retrieved from the cache; otherwise (cache miss), it is fetched from the source, processed, and stored in the cache.
 
@@ -51,7 +50,9 @@ Common uses of caching are web page caching for faster loading, database query c
 ### Transformer
 <p align="center">
     <img src='./transformer.png' width="550">
-
+    <br>
+    <i>Fig. 3 Procedure of learning in Transfrer model</i>
+</p>
 In Transformer models, the Attention Mechanism helps the model focus on important parts of the input data. It uses three main components: Key, Value, and Query, which are vectors derived from input tokens. Keys capture token features, Values contain the token content, and Queries represent the current token's features. The attention process calculates match scores between Queries and Keys, normalizes these scores with softmax, and computes a weighted sum of Values based on these probabilities. This allows the model to understand complex relationships within the data, enabling accurate and contextually appropriate responses.
 
 ### Self-Attention
