@@ -107,9 +107,8 @@ For example, the 512-dimensional embedding vector of the word "student" is multi
 This paper addresses these challenges by introducing models that use cross-attention, inspired by the encoder-decoder architecture, to condition generation on reference text without a prompt. The approach leverages pre-trained decoder-only models and trains only a small number of added layers. The authors use Question-Answering (QA) as a testbed to evaluate these models' ability to perform conditional generation. 
 <p align="center">
     <img src='./approach.png' width="650">
-</p>
-<p align="center">
-    Fig. Faster inference in context-conditional language modeling
+    <br>
+    <i>Fig. 6 Faster inference in context-conditional language modeling</i>
 </p>
 
 These four approaches highlight various strategies for efficient context processing in large language models. 
@@ -129,11 +128,11 @@ These four approaches highlight various strategies for efficient context process
  KV(Key-Value) Caching ******is to store the (past) key and value states generated while processing context.  As an example, for [***LLAMA 2-7B***](https://arxiv.org/abs/2307.09288) using 16 bits precision shows that the smaller per-token cache teh sizes are more desirable. JIT(Just-In-Time Key-Value Caching)-KV Caching is an alternative approach involves storing the (past) hidden states of the model in the cache. At inference time, once these hidden states are loaded on GPU, we can recover the full keys and values in O(|context|). These two KV and JIT-KV Caching model both entail two types of costs while yielding identical results: the size of the cache and the operations required during inference. So **XC-Caching** is presented as an effective way to improve inference speed while significantly reducing memory usage.
 <p align="center">
     <img src='./architectures.png' width="650">
-</p>
-<p align="center">
-    Fig. XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures. Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.
+    <br>
+    <i>Fig. 7 XC-LLAMA’s architectures. A decoder-only model implements encoder-decoder architectures</i>
 </p>
 
+ Finetuning out in a parameter-efficient fashion via training only a small number of cross-attention layers.
 (a) The architecture uses a small bidirectional encoder and multiple self-attention and cross-attention layers to process the context and prompt.
 (b) The architecture uses only a decoder, mainly training the cross-attention layers to process the context and prompt.
 
@@ -149,7 +148,10 @@ They compare their models to ICL methods for generating context-based answers, n
 
 <p align="center">
     <img src='./comparison.png' width="450">
-
+    <br>
+    <i>Table 1. QA performance on three diverse information-seeking tasks</i>
+</p>
+ 
 They compare their method to existing conditional generation approaches. The main baseline is ICL, using context as part of the prompt, with results for LLAMA 2-CHAT and GPT-3.5-TURBO. FiD, a state-of-the-art T5-based QA model, is also included for comparison.
 
 Results (Table 1) show that cross-attending to contexts (XC-LLAMA or XC-LLAMAENC) significantly improves performance compared to prompting (LLAMA 2-CHAT). This approach is more broadly applicable and practical as it avoids the high variance induced by prompting. Even when using the decoder as an encoder, cross-attention to contexts outperforms ICL, suggesting that trained cross-attention layers compensate for sub-optimal encoder representations.
@@ -160,10 +162,16 @@ The previous section's results show that adding and fine-tuning dedicated parame
 They fine-tune LORA adapters applied to the same LLAMA 2 decoder used for XC-LLAMA. This fine-tuning significantly improves QA accuracy over ICL baselines but requires storing all KV states throughout every layer, leading to high costs. In contrast, encoder models only need to cache the hidden states of their last layer, reducing space requirements.
 <p align="center">
     <img src='./table_2.png' width="450">
+    <br>
+    <i>Table 2. Cache memory footprint per context token</i>
+</p>
 
 As shown in Table 2, XC-LLAMA variants greatly reduce the caching footprint by storing only the last hidden states of the encoder. XC-LLAMAENC further reduces space requirements due to the lower dimensional representation of LONGFORMER compared to LLAMA 2. This reduction in cache size is practically significant, especially for large datasets like Wikipedia, as it decreases memory usage and communication costs, enabling longer generation or larger batch sizes during inference.
 <p align="center">
     <img src='./table_3.png' width="450">
+    <br>
+    <i>Table 3. QA performance </i>
+</p>
 
 The Pareto set includes ICL models fine-tuned with LORA, which have higher BERTSCORE but require substantial caching space, and encoder models, which slightly sacrifice prediction accuracy but significantly reduce memory footprint. Detailed QA results in Table 3 include the GPT-3.5 TURBO ICL baseline and FiD, fine-tuned on our training dataset. FiD is included for performance reference but is not directly comparable as it does not support caching pre-processed contexts. Their models achieve significant space savings with only a slight reduction in prediction accuracy, advantageous in various practical scenarios.
 
@@ -173,7 +181,11 @@ They introduced XC-LLAMA, a method to convert a pre-trained decoder-only languag
 
 ## Related works
 ### Decoders as encoders
-![Untitled (2)](https://github.com/effml-postech/blog-post/assets/87515500/3a0e15fc-9fbf-4fe7-8e86-2aac2ee74f59)
+<p align="center">
+    <img src='./22.png' width="450">
+    <br>
+    <i>Fig 8. GRITLM architecture and format</i>
+</p>
 GRIT converts a pretrained causal decoder into a bi-directional encoder,yielding sentence-level embeddings while maintaining its ability to perform autoregressive generation of text. However, unlike the models they consider, this conversion requires fine-tuning all model parameters instead of additional ones. Parameterefficient approaches to turn decoders into encoders were also proposed.
 
 ## **Discussion: Future Research Directions**
