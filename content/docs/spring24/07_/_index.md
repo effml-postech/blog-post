@@ -39,7 +39,7 @@ Let the pre-trained weight matrix be {{< katex >}}W_o \in \mathbb{R}^{d \times k
 The modified weight matrix is given by:
 
 {{< katex >}}W_o + \Delta W = W_o + BA{{< /katex >}}
-where {{< katex >}}B \in \mathbb{R}^{d \times r}{{< /katex >}}, {{< katex >}}A \in \mathbb{R}^{r \times k}{{< /katex >}}, {{< katex >}}\text{rank } r \ll \min(d, k)\{{< /katex >}}, and {{< katex >}}\Delta W = BA{{< /katex >}}.
+where {{< katex >}}B \in \mathbb{R}^{d \times r}{{< /katex >}}, {{< katex >}}A \in \mathbb{R}^{r \times k}{{< /katex >}}, {{< katex >}}\text{rank } r \ll \min(d, k){{< /katex >}}, and {{< katex >}}\Delta W = BA{{< /katex >}}.
 
 The original forward pass is:
 
