@@ -164,3 +164,17 @@ They introduced XC-LLAMA, a method to convert a pre-trained decoder-only languag
 ### Decoders as encoders
 ![Untitled (2)](https://github.com/effml-postech/blog-post/assets/87515500/3a0e15fc-9fbf-4fe7-8e86-2aac2ee74f59)
 GRIT converts a pretrained causal decoder into a bi-directional encoder,yielding sentence-level embeddings while maintaining its ability to perform autoregressive generation of text. However, unlike the models they consider, this conversion requires fine-tuning all model parameters instead of additional ones. Parameterefficient approaches to turn decoders into encoders were also proposed.
+
+## **Discussion: Future Research Directions**
+
+### **Problems and Concerns**
+1) Fake News and Misinformation
+Large language models (LLMs) like GPT-3.5 and LLAMA have shown an ability to generate text that is almost indistinguishable from human-written content. This can be misused to create fake news or misinformation, posing a significant challenge. Research should focus on developing mechanisms to detect and mitigate the spread of misinformation. One potential direction is to enhance the model's ability to verify information against trusted sources before generating responses
+2) Evaluate different datasets and tasks
+While QA tasks are an important area in NLP, there are many other tasks in this field. For example, text classification(IMDb), sentiment analysis(Sentiment140,SST-2), machine translation(WMT), and information(MS MARCO) retrieval are all diverse tasks within NLP. Each task has unique characteristics and requirements, so evaluating the efficiency of XC-CACHE across various tasks is essential.
+
+### Future Directions
+1) Improving Caching Techniques
+The XC-CACHE method has demonstrated significant efficiency gains. Further refinement of caching techniques could lead to even greater reductions in memory usage and computational cost. Exploring alternative caching strategies and optimizing cross-attention mechanisms may yield more efficient models without compromising performance.
+2) Context-Aware Models
+Developing models that can dynamically adjust their context based on the specific query could improve accuracy and relevance. Future work could focus on adaptive models that utilize context more intelligently, potentially incorporating real-time data retrieval and updating caches accordingly.
