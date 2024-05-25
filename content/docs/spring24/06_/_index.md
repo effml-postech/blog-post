@@ -40,6 +40,7 @@ LLM (Large-Language Model)
 ### Caching
 <p align="center">
     <img src='./caching.png' width="350">
+    *Fig. 2: How the caching works*
 
 Caching involves storing data or computation results in a temporary storage area called a cache. When a request is made, the system first checks the cache. If the data is found (cache hit), it is retrieved from the cache; otherwise (cache miss), it is fetched from the source, processed, and stored in the cache.
 
