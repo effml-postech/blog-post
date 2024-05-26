@@ -76,7 +76,7 @@ In EMMET, it shows model editing is possible with batched facts. It is possible 
 </p>
     
 ### How model editing performance is estimated?
-Model performance is estimated with 4 main scores, and these scores are bsed on how model editing works with expressions of new facts in {{< katex >}}(s,r,o^n){{< /katex >}} and old facts in {{< katex >}}(s,r,o^{o}){{< /katex >}}.
+Model performance is estimated with 4 main scores, and these scores are based on how model editing works with expressions of new facts in {{< katex >}}(s,r,o^n){{< /katex >}} and old facts in {{< katex >}}(s,r,o^{o}){{< /katex >}}.
 #### __Efficacy Score (ES)__ 
 
 __ES__ measures if the new fact, which we want to edit, is __successfully edited__ to model. It is measured by percentage where {{< katex >}}\mathbb{P}[o^n] > \mathbb{P}[o^{o}]{{< /katex >}}, which means the portion of correct edition result from predictions.
