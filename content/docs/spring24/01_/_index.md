@@ -49,7 +49,7 @@ Where *W* represents the **weights** of the **feedforward layer** we want to edi
   {{< /katex >}} 
 </p>
 
-For MEMIT model editing. it optimizes same objectives with ROME, but performance memorization using a least-square constraint, which allows for a closed-form solution. It has similar form with ROME method, but it multiplies {{< katex >}}\lambda{{< /katex >}} term, which is hyperparameter, to preservation term. Also, it combines memorization term for minimize target
+For MEMIT model editing. it optimizes same objectives with ROME, but performance memorization using a least-square constraint, which allows for a closed-form solution. It has similar form with ROME method, but it multiplies {{< katex >}}\lambda{{< /katex >}} term, which is hyperparameter, to preservation term. Also, it combines memorization term for minimize target.
 
 <p align="center">
   {{< katex >}}
@@ -76,16 +76,16 @@ In EMMET, it shows model editing is possible with batched facts. It is possible 
 </p>
     
 ### How model editing performance is estimated?
-Model performance is estimated with 4 main scores, and these scores are bsed on how model editing works with expressions of correct facts in {{< katex >}}(s,r,o^{c}){{< /katex >}} and false facts in {{< katex >}}(s,r,o^{*}){{< /katex >}}.
+Model performance is estimated with 4 main scores, and these scores are bsed on how model editing works with expressions of new facts in {{< katex >}}(s,r,o^n){{< /katex >}} and old facts in {{< katex >}}(s,r,o^{o}){{< /katex >}}.
 #### __Efficacy Score (ES)__ 
 
-__ES__ measures if the new fact, which we want to edit, is __successfully edited__ to model. It is measured by percentage where {{< katex >}}\mathbb{P}[o^*] > \mathbb{P}[o^{c}]{{< /katex >}}, which means the portion of correct edition result from predictions.
+__ES__ measures if the new fact, which we want to edit, is __successfully edited__ to model. It is measured by percentage where {{< katex >}}\mathbb{P}[o^n] > \mathbb{P}[o^{o}]{{< /katex >}}, which means the portion of correct edition result from predictions.
 
 #### __Paraphrase Score (PS)__
-__PS__ measures model's ability to __generalize__ following an edit. It is measured by where P(new fact) > P(old fact) under paraphrases of the query prompt.
+__PS__ measures model's ability to __generalize__ following an edit. It is measured by where {{< katex >}}\mathbb{P}[o^n] > \mathbb{P}[o^{o}]{{< /katex >}} under paraphrases of the query prompt.
 
 #### __Neighborhood Score (NS)__
-__NS__ represents the __specificity__ of model editing. To measure __NS__, we collect a set of nearby subjects {{< katex >}}s_n{{< /katex >}} for which {{< katex >}}(s_n,r,o^{c}){{< /katex >}} holds true. Then we test {{< katex >}}\mathbb{P}[o^*] > \mathbb{P}[o^{c}]{{< /katex >}}, reporting the success fraction asn __NS__.
+__NS__ represents the __specificity__ of model editing, which means it measures the impact of an edit on adjacent stored facts within the model. To measure __NS__, we collect a set of nearby subjects {{< katex >}}s_n{{< /katex >}} for which {{< katex >}}(s_n,r,o^{n}){{< /katex >}} holds true. Then we test {{< katex >}}\mathbb{P}[o^o] > \mathbb{P}[o^{n}]{{< /katex >}}.
 
 #### __Composite Score (S)__
 __S__ represents the overall performance. It combines aspect of edit success, generalization, and specificity. It is calculated as the harmonic mean of Edit Success (ES), Paraphrase Score (PS), and Neighborhood Score (NS). It provies overall efficacy of model edits.
