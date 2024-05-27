@@ -72,7 +72,7 @@ Goal: To prompt GPT-4 to generate compressed texts from original texts that meet
 
 <img src="./fig9.png" width="100%" height="100%" style="margin-left: auto; margin-right: auto; display: block;"/>
 
-#### Compared to Instructions of LLMLingua [2] 
+#### Compared to Instructions of LLMLingua [[2]](#reference)
 
 <img src="./fig10.png" width="100%" height="100%" style="margin-left: auto; margin-right: auto; display: block;"/>
 
@@ -101,22 +101,22 @@ LLMLingua-2 addresses challenges of ambiguity, variation, and reordering as:
 Introducing metrics to filter low-quality samples, ensuring high-quality dataset construction.
 
 #### Notations:
-- $\mathbb{S}_{comp}$: the set of words in the compressed text.
-- $\mathbb{S}_{ori}$: the set of words in the original text.
+- {{< katex >}}\mathbb{S}_{comp}{{< /katex >}} : the set of words in the compressed text.
+- {{< katex >}}\mathbb{S}_{ori}{{< /katex >}} : the set of words in the original text.
 - | · |: the cardinality of a set.
-- $l(·)$: the annotation function.
-    - *e.g.*, $l(w) = True$ signifies that word $w \in \mathbb{S}_{ori}$ corresponds to a word in $\mathbb{S}_{comp}$.
+- {{< katex >}}l(·){{< /katex >}} : the annotation function.
+    - *e.g.*, {{< katex >}}l(w) = True{{< /katex >}} signifies that word {{< katex >}}w \in \mathbb{S}_{ori}{{< /katex >}} corresponds to a word in {{< katex >}}\mathbb{S}_{comp}{{< /katex >}} .
 
 #### Variation Rate (VR)
 
 - A metric to evaluate the quality of the compressed texts generated from data distillation.
 
     **Variation Rate (VR)** is defined as:
-    $$
+    {{< katex display=true >}}
     \begin{equation}
         VR = \frac{1}{|\mathbb{S}_{comp}|} \displaystyle\sum_{w \in \mathbb{S}_{comp}} \mathbb{I}(w \notin \mathbb{S}_{ori}).
     \end{equation}
-    $$
+    {{< /katex >}}
 - LLMLingua-2 **excludes** the examples with the <u>top 5% highest variation rates</u>.
 
 
@@ -126,11 +126,11 @@ Introducing metrics to filter low-quality samples, ensuring high-quality dataset
 - A metric to evaluate the quality of the automatically annotated labels.
 
     **Alignment Gap (AG)** is defined as:
-    $$
+    {{< katex display=true >}}
     \begin{equation}
         AG = \frac  {1}{|\mathbb{S}_{ori}|} \displaystyle\sum_{w \in \mathbb{S}_{comp}} \mathbb{I}(w \in \mathbb{S}_{ori}) - \frac{1}{|\mathbb{S}_{ori}|} \displaystyle\sum_{w \in \mathbb{S}_{ori}} \mathbb{I}(l(w) = True).
     \end{equation}
-    $$
+    {{< /katex >}}
 - LLMLingua-2 **discards** examples of <u>the highest 10% alignment gap</u>.
 
 
@@ -141,35 +141,35 @@ They formulate prompt compression as a **binary token classification problem** (
 ### Token Classification Model
 
 #### Architecture
-They utilize a **Transformer encoder** (Devlin et al., 2019) as the feature encoder $f_\theta$ and add a linear classification layer on top.
-Given an original prompt consisting of $N$ words $\boldsymbol{x} = \{x_i\}_{i=1}^{N}$, this can be formulated as:
-$$
+They utilize a **Transformer encoder** [[10]](#reference) as the feature encoder {{< katex >}}f_\theta{{< /katex >}}  and add a linear classification layer on top.
+Given an original prompt consisting of {{< katex >}}N{{< /katex >}}  words {{< katex >}}\boldsymbol{x} = \{x_i\}_{i=1}^{N}{{< /katex >}} , this can be formulated as:
+{{< katex display=true >}}
 \begin{gather}
     \boldsymbol{h} = f_{\theta}(\boldsymbol{x}), \\
     p(x_i,\Theta) = \mathrm{softmax}(Wh_i +b),
 \end{gather}
-$$
-where $\boldsymbol{h}=\{h_i\}_{i=1}^{N}$ denotes feature vectors for all words, $p(x_i, \Theta) \in \mathbb{R}^2$ denotes the probability distribution of labels $\{\mathtt{preserve}, \mathtt{discard}\}$ for the $i$-th word $x_i$, and $\Theta = \{\theta, W, b\}$ represent all the trainable parameters.
+{{< /katex >}}
+where {{< katex >}}\boldsymbol{h}=\{h_i\}_{i=1}^{N}{{< /katex >}}  denotes feature vectors for all words, {{< katex >}}p(x_i, \Theta) \in \mathbb{R}^2{{< /katex >}}  denotes the probability distribution of labels {{< katex >}}\{\mathtt{preserve}, \mathtt{discard}\}{{< /katex >}}  for the {{< katex >}}i{{< /katex >}} -th word {{< katex >}}x_i{{< /katex >}} , and {{< katex >}}\Theta = \{\theta, W, b\}{{< /katex >}}  represent all the trainable parameters.
 
 #### Training
 
-Let $\boldsymbol{y} = \{y_i\}_{i=1}^{N}$ denote the corresponding labels for all words in $\boldsymbol{x}$, then they employ cross entropy loss to train the model. The loss function $\mathcal{L}$ *w.r.t.* $\boldsymbol{x}$ is:
+Let {{< katex >}}\boldsymbol{y} = \{y_i\}_{i=1}^{N}{{< /katex >}}  denote the corresponding labels for all words in {{< katex >}}\boldsymbol{x}{{< /katex >}} , then they employ cross entropy loss to train the model. The loss function {{< katex >}}\mathcal{L}{{< /katex >}}  *w.r.t.* {{< katex >}}\boldsymbol{x}{{< /katex >}}  is:
 
-$$
+{{< katex display=true >}}
 \begin{equation}
     \mathcal{L}(\Theta) = \frac{1}{N} \displaystyle\sum_{i=1}^{N}\mathrm{CrossEntropy}(y_i, p(x_i, \Theta)).
 \end{equation}
-$$
+{{< /katex >}}
 
 ### Compression Strategy
 
-Compressing the original prompt $\boldsymbol{x} = \{x_i\}_{i=1}^N$ with a target compression ratio $1/\tau$, where $\tau$ is defined as the quotient of the number of words in the compressed prompt and the number of words in the original prompt $\boldsymbol{x}$.
+Compressing the original prompt {{< katex >}}\boldsymbol{x} = \{x_i\}_{i=1}^N{{< /katex >}}  with a target compression ratio {{< katex >}}1/\tau{{< /katex >}} , where {{< katex >}}\tau{{< /katex >}}  is defined as the quotient of the number of words in the compressed prompt and the number of words in the original prompt {{< katex >}}\boldsymbol{x}{{< /katex >}} .
 
-1. They derive the target number of tokens to be preserved in the compressed prompt $\tilde {\boldsymbol{x}} : \tilde{N} = \tau N$. 
+1. They derive the target number of tokens to be preserved in the compressed prompt {{< katex >}}\tilde {\boldsymbol{x}} : \tilde{N} = \tau N{{< /katex >}} . 
 
-2. Next, they use the token classification model to predict the probability $p_i$ of each word $x_i$ being labeled as $\mathtt{preserve}$. 
+2. Next, they use the token classification model to predict the probability {{< katex >}}p_i{{< /katex >}}  of each word {{< katex >}}x_i{{< /katex >}}  being labeled as {{< katex >}}\mathtt{preserve}{{< /katex >}} . 
 
-3. Finally, they retain the top $\tilde{N}$ words in the original prompt $\boldsymbol{x}$ with the highest $p_i$ and maintain their original order to form the compressed prompt $\tilde{\boldsymbol{x}}$.
+3. Finally, they retain the top {{< katex >}}\tilde{N}{{< /katex >}}  words in the original prompt {{< katex >}}\boldsymbol{x}{{< /katex >}}  with the highest {{< katex >}}p_i{{< /katex >}}  and maintain their original order to form the compressed prompt {{< katex >}}\tilde{\boldsymbol{x}}{{< /katex >}} .
 
 
 ## 4. Experiments
