@@ -113,9 +113,9 @@ Introducing metrics to filter low-quality samples, ensuring high-quality dataset
 
     **Variation Rate (VR)** is defined as:
     {{< katex display=true >}}
-    \begin{equation}
+    
         VR = \frac{1}{|\mathbb{S}_{comp}|} \displaystyle\sum_{w \in \mathbb{S}_{comp}} \mathbb{I}(w \notin \mathbb{S}_{ori}).
-    \end{equation}
+    
     {{< /katex >}}
 - LLMLingua-2 **excludes** the examples with the <u>top 5% highest variation rates</u>.
 
@@ -127,9 +127,9 @@ Introducing metrics to filter low-quality samples, ensuring high-quality dataset
 
     **Alignment Gap (AG)** is defined as:
     {{< katex display=true >}}
-    \begin{equation}
+    
         AG = \frac  {1}{|\mathbb{S}_{ori}|} \displaystyle\sum_{w \in \mathbb{S}_{comp}} \mathbb{I}(w \in \mathbb{S}_{ori}) - \frac{1}{|\mathbb{S}_{ori}|} \displaystyle\sum_{w \in \mathbb{S}_{ori}} \mathbb{I}(l(w) = True).
-    \end{equation}
+    
     {{< /katex >}}
 - LLMLingua-2 **discards** examples of <u>the highest 10% alignment gap</u>.
 
@@ -144,10 +144,10 @@ They formulate prompt compression as a **binary token classification problem** (
 They utilize a **Transformer encoder** [[10]](#reference) as the feature encoder {{< katex >}}f_\theta{{< /katex >}}  and add a linear classification layer on top.
 Given an original prompt consisting of {{< katex >}}N{{< /katex >}}  words {{< katex >}}\boldsymbol{x} = \{x_i\}_{i=1}^{N}{{< /katex >}} , this can be formulated as:
 {{< katex display=true >}}
-\begin{gather}
+
     \boldsymbol{h} = f_{\theta}(\boldsymbol{x}), \\
     p(x_i,\Theta) = \mathrm{softmax}(Wh_i +b),
-\end{gather}
+
 {{< /katex >}}
 where {{< katex >}}\boldsymbol{h}=\{h_i\}_{i=1}^{N}{{< /katex >}}  denotes feature vectors for all words, {{< katex >}}p(x_i, \Theta) \in \mathbb{R}^2{{< /katex >}}  denotes the probability distribution of labels {{< katex >}}\{\mathtt{preserve}, \mathtt{discard}\}{{< /katex >}}  for the {{< katex >}}i{{< /katex >}} -th word {{< katex >}}x_i{{< /katex >}} , and {{< katex >}}\Theta = \{\theta, W, b\}{{< /katex >}}  represent all the trainable parameters.
 
@@ -156,9 +156,9 @@ where {{< katex >}}\boldsymbol{h}=\{h_i\}_{i=1}^{N}{{< /katex >}}  denotes featu
 Let {{< katex >}}\boldsymbol{y} = \{y_i\}_{i=1}^{N}{{< /katex >}}  denote the corresponding labels for all words in {{< katex >}}\boldsymbol{x}{{< /katex >}} , then they employ cross entropy loss to train the model. The loss function {{< katex >}}\mathcal{L}{{< /katex >}}  *w.r.t.* {{< katex >}}\boldsymbol{x}{{< /katex >}}  is:
 
 {{< katex display=true >}}
-\begin{equation}
+
     \mathcal{L}(\Theta) = \frac{1}{N} \displaystyle\sum_{i=1}^{N}\mathrm{CrossEntropy}(y_i, p(x_i, \Theta)).
-\end{equation}
+
 {{< /katex >}}
 
 ### Compression Strategy
